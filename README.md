@@ -56,6 +56,7 @@ git checkout prisma-developement
 
 - Initialize Prisma Postgres Database, Config, and `.env` File
   - `npx prisma init --db --output ../app/generated/prisma`
+- Add `seed: 'tsx prisma/seed.ts'` to `migrations` in `prisma.config.ts` file
 
 
 ### Modify Prisma ORM Database
@@ -152,6 +153,8 @@ const users = await prisma.user.findMany({
   },
 });
 ```
+
+
 
 
 
