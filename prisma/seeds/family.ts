@@ -11,15 +11,6 @@ const familyData: Prisma.FamilyCreateInput[] = families.map(family => ({
 }));
 
 export async function seedFamilies(prisma: PrismaClient) {
-    // familyData.forEach(async (family, index) => {
-    //     await prisma.family.create({ data: family });
-    //     // for (const sibling of families[index].siblings) {
-    //     //     await prisma.student.update({
-    //     //         where: { id: sibling.studentId },
-    //     //         data: { familyId: index + 1 },
-    //     //     });
-    //     // }
-    // });
     for (const family of familyData) {
         const newFamily = await prisma.family.create({ data: family });
         for (const sibling of families[newFamily.id-1].siblings) {

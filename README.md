@@ -68,7 +68,10 @@ git checkout prisma-developement
 - Resets migrations
   - `npx prisma migrate reset` 
 
-- Generate Prisma Client (Do After Every Migration)
+- Update Database Table without using migrations (Development Only)
+- `npx prisma db push`
+
+- Generate Prisma Client (Do After Every Migration or Push)
   - `npx prisma generate`
 
 - Add Seed data in `prisma/seed.ts`.  Add path to `prisma.config.ts`.
@@ -83,7 +86,7 @@ git checkout prisma-developement
   - `npx prisma db seed`
 
 - Clear Seed Data
-  - `npx prisma db push --force-reset`
+  - `npx prisma db push --force-reset --accept-data-loss`
 
 - View Database
   - `npx prisma studio`
