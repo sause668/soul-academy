@@ -7,10 +7,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import './NavBar.css';
 
-export default function NavBar({ user }: { user: User | Error }) {
-
-    const [error, setError] = useState<Error | null>(null);
+export default function NavBar({ user }: { user: User }) {
     const router = useRouter();
+    const [error, setError] = useState<Error | null>(null);
+
     const handleLogout = async () => {
         const result = await logoutUser();
         if (result instanceof Error) {
@@ -26,23 +26,12 @@ export default function NavBar({ user }: { user: User | Error }) {
                 <Link href='/' className='text-screenWhite'>Logo</Link>
             </div>
             <div id='rightSideConNB' className='flex items-center justify-end gap-2'>
-                {user instanceof Error ? (
-                    <>
-                        <Link id='signupLinkNB' href='/signup'>
-                            <button id='signupBtnNB' className='btn'>Signup</button>
-                        </Link>
-                        <Link id='loginLinkNB' href='/login'>
-                            <button id='loginBtnNB' className='btn'>Login</button>
-                        </Link>
-                    </>
-                ) : (
                     <>
                         {/* <Link href='/profile'><button>Profile</button></Link> */}
                         <p className='text-screenWhite text-lg font-bold font-body'>{user.username}</p>
                         <button id='logoutBtnNB' className='btn' onClick={handleLogout}>Logout</button>
                         {error && <p className="text-error text-sm font-body">{error.message}</p>}
                     </>
-                )}
             </div>
         </div>
     )

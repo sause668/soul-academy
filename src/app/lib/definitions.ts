@@ -11,16 +11,6 @@ export interface ActionResponse {
     message?: string;
 }
 
-// User Definitions
-export interface User {
-    id?: number | undefined;
-    firstName?: string | undefined;
-    lastName?: string | undefined;
-    username?: string | undefined;
-    email?: string | undefined;
-    password?: string | undefined;
-}
-
 //Login Form Definitions
 export const LoginFormSchema = z.object({
     email: z.email({ error: 'Please enter a valid email.' }).trim(),
@@ -77,6 +67,199 @@ export type SignupFormState = {
     } | undefined
 } | undefined
 
+// User Definitions
+export interface User {
+    id?: number | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    username?: string | undefined;
+    email?: string | undefined;
+    password?: string | undefined;
+    role?: string | undefined;
+    createdAt?: Date | undefined;
+    updatedAt?: Date | undefined;
+    teacher?: Teacher | undefined;
+    student?: Student | undefined;
+    admin?: Admin | undefined;
+    announcements?: Announcement[];
+}
+
+// Teacher Definitions
+export interface Teacher {
+    id: number;
+    userId: number;
+    fullName?: string | undefined;
+    lastName?: string | undefined;
+    email?: string | undefined;
+    primaryGrade: string;
+    primarySubject: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    user?: User | undefined;
+    courses?: Course[];
+    appointments?: Appointment[];
+}
+
+//Student Definitions
+export interface Student {
+    id: number;
+    userId: number;
+    familyId?: number | undefined;
+    firstName?: string | undefined;
+    lastName?: string | undefined;
+    email?: string | undefined;
+    currentGrade: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    user?: User | undefined;
+    family?: Family | undefined;
+    courses?: Course[];
+    grades?: Grade[];
+    behaviors?: Behavior[];
+    groups?: Group[];
+    appointments?: Appointment[];
+}
+
+export interface PriorityStudent {
+    id: number;
+    firstName: string;
+    lastName: string;
+    priorityNumber: number;
+    priority: string;
+}
+
+//Family Definitions
+export interface Family {
+    id: number;
+    familyName: string;
+    students?: Student[];
+}
+
+//Admin Definitions
+export interface Admin {
+    id: number;
+    userId: number;
+    title: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    user?: User | undefined;
+}
+
+//Course Definitions
+export interface Course {
+    id: number;
+    teacherId: number;
+    name: string;
+    subject: string;
+    grade: number;
+    room: string;
+    period: number;
+    createdAt?: Date;
+    updatedAt?: Date;
+    teacher?: Teacher | undefined;
+    students?: Student[];
+    assignments?: Assignment[];
+    behaviors?: Behavior[];
+    groups?: Group[];
+    appointments?: Appointment[];
+    announcements?: Announcement[];
+}
+
+//Assignment Definitions
+export interface Assignment {
+    id: number;
+    courseId: number;
+    name: string;
+    type: string;
+    quarter: number;
+    dueDate: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
+    course?: Course | undefined;
+    grades?: Grade[];
+    grade?: number | undefined;
+}
+
+//Grade Definitions
+export interface Grade {
+    assignmentId: number;
+    studentId: number;
+    grade: number;
+    createdAt?: Date;
+    updatedAt?: Date;
+    assignment?: Assignment | undefined;
+    student?: Student | undefined;
+}
+
+export interface GradeData {
+    grade: number;
+    type: string;
+}
+
+export interface Rubric {
+    HW: number;
+    CW: number;
+    Q: number;
+    T: number;
+    P: number;
+}
+
+//Behavior Definitions
+export interface Behavior {
+    id: number;
+    studentId: number;
+    courseId: number;
+    attention: number;
+    learnability: number;
+    cooperation: number;
+    notes?: string | undefined;
+    createdAt?: Date;
+    updatedAt?: Date;
+    student?: Student | undefined;
+    course?: Course | undefined;
+}
+
+//Group Definitions
+export interface Group {
+    id: number;
+    courseId: number;
+    name: string;
+    createdAt?: Date;
+    updatedAt?: Date;
+    course?: Course | undefined;
+    students?: Student[];
+}
+
+//Appointment Definitions
+export interface Appointment {
+    id: number;
+    teacherId: number;
+    studentId?: number | undefined;
+    courseId?: number | undefined;
+    name: string;
+    description?: string | undefined;
+    startTime: Date;
+    endTime: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
+    teacher?: Teacher | undefined;
+    student?: Student | undefined;
+    course?: Course | undefined;
+}
+
+//Announcement Definitions
+export interface Announcement {
+    id: number;
+    userId: number;
+    title: string;
+    content: string;
+    imageUrl?: string | undefined;
+    scope?: string | undefined;
+    createdAt?: Date;
+    updatedAt?: Date;
+    user?: User | undefined;
+    courses?: Course[];
+}
 
 //Deck Definitions
 export interface Deck {

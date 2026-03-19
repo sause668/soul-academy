@@ -5,20 +5,21 @@ import { getSession } from "@/app/(_home)/_actions/user-actions";
 import ErrorPage from "@/app/(_home)/_components/ErrorPage/ErrorPage";
 
 export default async function DeckPage({ params }: { params: Promise<{ deckId: string }>  }) {
-    const { deckId } = await params;
-    const deck = await getDeck(deckId);
-    const session = await getSession();
+    return <div>Deck</div>;
+    // const { deckId } = await params;
+    // const deck = await getDeck(deckId);
+    // const session = await getSession();
 
-    if (deck instanceof Error) {
-        if (deck.message === "Deck not found") notFound();
-        else return <ErrorPage />
-    } 
+    // if (deck instanceof Error) {
+    //     if (deck.message === "Deck not found") notFound();
+    //     else return <ErrorPage />
+    // } 
 
-    const editable = !(session instanceof Error) && parseInt(session.userId as string) === deck.userId;
+    // const editable = !(session instanceof Error) && parseInt(session.userId as string) === deck.userId;
 
-    return (
-        <div>
-            <DeckComponent deck={deck} editable={editable} />
-        </div>
-    );
+    // return (
+    //     <div>
+    //         <DeckComponent deck={deck} editable={editable} />
+    //     </div>
+    // );
 }

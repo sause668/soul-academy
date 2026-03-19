@@ -58,6 +58,10 @@ git checkout prisma-developement
   - `npx prisma init --db --output @/app/generated/prisma`
 - Add `seed: 'tsx prisma/seed.ts'` to `migrations` in `prisma.config.ts` file
 
+-Add Secret Key for Session Management
+  - run `openssl rand -base64 32` terminal
+  - add key to .env as SESSION_SECRET
+
 
 ### Modify Prisma ORM Database
 - Add Models to `schema.prisma`
