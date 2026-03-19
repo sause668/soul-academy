@@ -84,7 +84,7 @@ export async function updateSession() {
       path: '/',
     })
 
-    return {session: session, cookie: cookie}
+    return { session: session, cookie: cookie }
 
   } catch (error) {
     console.error(error);
@@ -98,7 +98,7 @@ export async function deleteSession() {
     cookieStore.delete('session')
 
     return true
-  
+
   } catch (error) {
     return error as Error;
   }

@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Sour_Gummy } from "next/font/google";
 import { ModalProvider, Modal } from "@/app/(_home)/_context/Modal";
 import NavBarShell from "@/app/(_home)/_components/NavBar/NavBarShell";
 import "./globals.css";
+
+const sourGummy = Sour_Gummy({
+  variable: "--font-sour-gummy",
+  subsets: ["latin"],
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +29,7 @@ export default async function RootLayout({ children, }: Readonly<{ children: Rea
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-screenWhite`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${sourGummy.variable} antialiased min-h-screen bg-screenWhite`}>
         <ModalProvider>
           <Suspense fallback={<div>Loading...</div>}>
             <NavBarShell />
