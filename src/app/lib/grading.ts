@@ -1,4 +1,4 @@
-import { Assignment, Grade, GradeData, Rubric, PriorityStudent, Course, Student } from "./definitions";
+import { Assignment, Grade, GradeData, Rubric, PriorityStudent, Course, Student, Behavior } from "./definitions";
 
 const rubric: Rubric = {
     HW: 1,
@@ -60,7 +60,7 @@ const rubric: Rubric = {
             return grade.studentId == studentId
           })
         
-        if (grade) grades.push({
+        if (grade && grade.grade && assignment.type) grades.push({
             grade: grade.grade, 
             type: assignment.type
         })
@@ -87,8 +87,8 @@ export const sortStudents = (student1: Student, student2: Student) => {
 }
 
 export const sortAssignments = (assign1: Assignment, assign2: Assignment) => {
-    const date1 = new Date(assign1.dueDate).toISOString().slice(0, 10);
-    const date2 = new Date(assign2.dueDate).toISOString().slice(0, 10);
+    const date1 = new Date(assign1.dueDate ?? '').toISOString().slice(0, 10);
+    const date2 = new Date(assign2.dueDate ?? '').toISOString().slice(0, 10);
     return date1 > date2 ? 1:-1;
 }
 
@@ -166,18 +166,19 @@ export const convertBehaviorPriorityGradeColor = (grade: string) => {
   }
 }
 
-export const getPriorityStudents = (classes: Course[]) => {
-  if (classes != undefined && classes.length > 0 && classes[0]?.behaviors && classes[0]?.behaviors.length > 0) return { highlightStudents: [], focusStudents: [] };
+export const getPriorityStudents = (behaviors: Behavior[]) => {
+  if (behaviors != undefined && behaviors.length > 0) return { highlightStudents: [], focusStudents: [] };
+
   const highlightStudents: PriorityStudent[] = [];
   const focusStudents: PriorityStudent[] = [];
 
-  classes.map((class_) => class_?.behaviors?.map((behavior) => {
-    const studentPriorityNumber = calcBehaviorGrade(behavior.attention, behavior.learnability, behavior.cooperation);
+  behaviors.map((behavior) => {
+    const studentPriorityNumber = calcBehaviorGrade(behavior.attention ?? 0, behavior.learnability ?? 0, behavior.cooperation ?? 0);
     const studentPriority = convertBehaviorPriorityGrade(studentPriorityNumber);
     let studentIndex = 0;
 
     while (studentIndex < 2) {
-      if (behavior.student && (highlightStudents[studentIndex] === undefined || studentPriorityNumber >= highlightStudents[studentIndex].priorityNumber)) {
+      if (behavior.student && behavior.student.id && (highlightStudents[studentIndex] === undefined || studentPriorityNumber >= highlightStudents[studentIndex].priorityNumber)) {
         highlightStudents.splice(studentIndex, 0, {
           id: behavior.student.id,
           firstName: behavior.student.firstName ?? '',
@@ -187,7 +188,7 @@ export const getPriorityStudents = (classes: Course[]) => {
         });
         if (highlightStudents.length > 3) highlightStudents.pop();
         break;
-      } else if (behavior.student && (focusStudents[studentIndex] === undefined || studentPriorityNumber <= focusStudents[studentIndex].priorityNumber)) {
+      } else if (behavior.student && behavior.student.id && (focusStudents[studentIndex] === undefined || studentPriorityNumber <= focusStudents[studentIndex].priorityNumber)) {
         focusStudents.splice(studentIndex, 0, {
           id: behavior.student.id,
           firstName: behavior.student.firstName ?? '',
@@ -200,7 +201,7 @@ export const getPriorityStudents = (classes: Course[]) => {
       }
       studentIndex++;
     }
-  }));
+  });
 
   return { highlightStudents, focusStudents };
 }
