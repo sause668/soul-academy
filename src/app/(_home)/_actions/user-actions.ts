@@ -77,18 +77,18 @@ export async function getUserByEmail(email: string) {
             where: {
                 email: email,
             },
-            include: {
-                teacher: true,
-                student: true,
-                admin: true,
-            },
-            // select: {
-            //     id: true,
-            //     firstName: true,
-            //     lastName: true,
-            //     username: true,
-            //     email: true,
+            // include: {
+            //     teacher: true,
+            //     student: true,
+            //     admin: true,
             // },
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+                username: true,
+                email: true,
+            },
         });
 
         if (!user) {

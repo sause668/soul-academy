@@ -161,6 +161,10 @@ const users = await prisma.user.findMany({
 });
 ```
 
+## Tailwind CSS Tips
+### Measurements
+- `4` in className is the same as `1rem`. Ex: `gap-4` = `gap-[1rem]`
+
 
 
 
