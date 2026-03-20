@@ -167,7 +167,7 @@ export const convertBehaviorPriorityGradeColor = (grade: string) => {
 }
 
 export const getPriorityStudents = (behaviors: Behavior[]) => {
-  if (behaviors != undefined && behaviors.length > 0) return { highlightStudents: [], focusStudents: [] };
+  if (behaviors == undefined || behaviors.length == 0) return { highlightStudents: [], focusStudents: [] };
 
   const highlightStudents: PriorityStudent[] = [];
   const focusStudents: PriorityStudent[] = [];

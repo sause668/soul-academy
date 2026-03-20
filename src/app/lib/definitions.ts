@@ -4,6 +4,8 @@ import * as z from 'zod'
 // Session Definitions
 export interface SessionPayload extends JWTPayload {
     userId: string;
+    userRole: string;
+    userRoleId: string;
     expiresAt: Date;
 }
 
@@ -128,6 +130,14 @@ export interface Student {
     appointments?: Appointment[];
 }
 
+export interface StudentDashboardData {
+    student: Student;
+    appointments: Appointment[];
+    behaviors: Behavior[];
+    courses: Course[];
+    announcements: Announcement[];
+}
+
 export interface PriorityStudent {
     id: number;
     firstName: string;
@@ -172,6 +182,7 @@ export interface Course {
     groups?: Group[];
     appointments?: Appointment[];
     announcements?: Announcement[];
+    finalGrade?: number | string;
 }
 
 //Assignment Definitions
@@ -221,11 +232,12 @@ export interface Behavior {
     attention?: number;
     learnability?: number;
     cooperation?: number;
-    notes?: string | undefined;
+    notes?: string;
     createdAt?: Date;
     updatedAt?: Date;
-    student?: Student | undefined;
-    course?: Course | undefined;
+    student?: Student;
+    course?: Course;
+    courseName?: string;
 }
 
 //Group Definitions

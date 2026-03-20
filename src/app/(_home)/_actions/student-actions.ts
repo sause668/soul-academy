@@ -2,9 +2,12 @@
 
 import { cacheTag } from "next/cache";
 import prisma from "@/lib/prisma";
-import { Appointment, Behavior, Course, Teacher, TeacherDashboardData, Student, Announcement } from "@/app/lib/definitions";
+import { Announcement, Appointment, Behavior, Course, Student, StudentDashboardData, Teacher } from "@/app/lib/definitions";
+import { SessionPayload } from "@/app/lib/definitions";
+import { calcFinalGradeStudent } from "@/app/lib/grading";
 
-export async function getTeacherDashboardData(userId: string) {
+export async function getStudentDashboardData(session: SessionPayload) {
+    const { userId, userRoleId } = session;
     try {
         const userData = await prisma.user.findUnique({
             where: { id: parseInt(userId) },
@@ -14,9 +17,10 @@ export async function getTeacherDashboardData(userId: string) {
                 updatedAt: true,
             },
             include: {
-                teacher: {
+                student: {
                     omit: {
                         userId: true,
+                        familyId: true,
                         createdAt: true,
                         updatedAt: true,
                     },
@@ -28,58 +32,74 @@ export async function getTeacherDashboardData(userId: string) {
                                 updatedAt: true,
                             },
                             include: {
-                                _count: {
-                                    select: { students: true },
+                                teacher: {
+                                    omit: {
+                                        userId: true,
+                                        createdAt: true,
+                                        updatedAt: true,
+                                    },
+                                },
+                                assignments: {
+                                    omit: {
+                                        courseId: true,
+                                        quarter: true,
+                                        dueDate: true,
+                                        type: true,
+                                        name: true,
+                                        createdAt: true,
+                                        updatedAt: true,
+                                    },
+                                    include: {
+                                        grades: {
+                                            where: {
+                                                studentId: parseInt(userRoleId),
+                                            },
+                                            omit: {
+                                                assignmentId: true,
+                                                studentId: true,
+                                                createdAt: true,
+                                                updatedAt: true,
+                                            },
+                                        },
+                                    },
                                 },
                                 behaviors: {
+                                    where: {
+                                        studentId: parseInt(userRoleId),
+                                    },
                                     omit: {
+                                        studentId: true,
                                         courseId: true,
                                         notes: true,
                                         createdAt: true,
                                         updatedAt: true,
                                     },
-                                    include: {
-                                        student: {
-                                            omit: {
-                                                userId: true,
-                                                familyId: true,
-                                                createdAt: true,
-                                                updatedAt: true,
-                                                currentGrade: true,
-                                            },
-                                            include: {
-                                                user: {
-                                                    select: {
-                                                        firstName: true,
-                                                        lastName: true,
-                                                    },
-                                                },
-                                            },
-                                        },
-                                    },
                                 },
                             },
                         },
                         appointments: {
+                            omit: {
+                                studentId: true,
+                                courseId: true,
+                                createdAt: true,
+                                updatedAt: true,
+                            },
                             include: {
-                                student: {
+                                teacher: {
+                                    omit: {
+                                        userId: true,
+                                        primaryGrade: true,
+                                        primarySubject: true,
+                                        createdAt: true,
+                                        updatedAt: true,
+                                    },
                                     include: {
                                         user: {
                                             select: {
                                                 firstName: true,
                                                 lastName: true,
-                                                role: true,
                                             },
                                         },
-                                    },
-                                },
-                                course: {
-                                    omit: {
-                                        teacherId: true,
-                                        room: true,
-                                        period: true,
-                                        createdAt: true,
-                                        updatedAt: true,
                                     },
                                 },
                             },
@@ -88,10 +108,6 @@ export async function getTeacherDashboardData(userId: string) {
                 },
             },
         });
-
-        if (!userData) {
-            throw new Error("User not found");
-        }
 
         const announcementsData = await prisma.announcement.findMany({
             where: {
@@ -120,78 +136,58 @@ export async function getTeacherDashboardData(userId: string) {
             // take: 5,
         });
 
-        const safeTeacher: Teacher = {
-            id: userData.teacher?.id,
-            userId: userData.id,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-            email: userData.email,
-            primaryGrade: userData.teacher?.primaryGrade,
-            primarySubject: userData.teacher?.primarySubject
+        const safeStudent: Student = {
+            id: userData?.student?.id,
+            firstName: userData?.firstName,
+            lastName: userData?.lastName,
+            email: userData?.email,
+            currentGrade: userData?.student?.currentGrade,
         };
 
         const safeAppointments: Appointment[] = [];
-        if (userData.teacher?.appointments) {
-            for (const appointment of userData.teacher.appointments) {
-                const safeStudent: Student = {
-                    id: appointment.student?.id,
-                    firstName: appointment.student?.user?.firstName,
-                    lastName: appointment.student?.user?.lastName,
+        if (userData?.student?.appointments) {
+            for (const appointment of userData?.student?.appointments) {
+                const safeTeacher: Teacher = {
+                    id: appointment.teacher?.id,
+                    firstName: appointment.teacher?.user?.firstName,
+                    lastName: appointment.teacher?.user?.lastName
                 };
-                const safeCourse: Course = {
-                    id: appointment.course?.id,
-                    name: appointment.course?.name,
-                    subject: appointment.course?.subject,
-                    grade: appointment.course?.grade,
-                };
+                // const safeCourse: Course = {
+                //     id: appointment.course?.id,
+                //     name: appointment.course?.name,
+                //     subject: appointment.course?.subject,
+                //     grade: appointment.course?.grade,
+                // };
                 safeAppointments.push({
                     id: appointment.id,
-                    studentId: appointment.student?.id,
-                    courseId: appointment.course?.id,
+                    teacherId: appointment.teacherId,
+                    // courseId: appointment.course?.id,
                     name: appointment.name,
                     description: appointment.description || undefined,
                     startTime: appointment.startTime,
                     endTime: appointment.endTime,
-                    teacherId: appointment.teacherId,
-                    student: safeStudent,
-                    course: safeCourse,
+                    teacher: safeTeacher,
+                    // course: safeCourse,
                 });
             }
         }
 
         const safeBehaviors: Behavior[] = [];
-        if (userData.teacher?.courses) {
-            for (const course of userData.teacher.courses) {
-                for (const behavior of course.behaviors) {
-                    const safeStudent: Student = {
-                        id: behavior.student?.id,
-                        firstName: behavior.student?.user?.firstName,
-                        lastName: behavior.student?.user?.lastName,
-                    };
-                    safeBehaviors.push({
-                        id: behavior.id,
-                        studentId: behavior.studentId,
-                        attention: behavior.attention,
-                        learnability: behavior.learnability,
-                        cooperation: behavior.cooperation,
-                        student: safeStudent,
-                    });
-                }
-            }
-        }
-
         const safeCourses: Course[] = [];
-        if (userData.teacher?.courses) {
-            for (const course of userData.teacher.courses) {
+        if (userData?.student?.courses) {
+            for (const course of userData.student.courses) {
                 safeCourses.push({
-                    id: course.id,
-                    teacherId: userData.teacher?.id,
                     name: course.name,
-                    subject: course.subject,
-                    grade: course.grade,
                     room: course.room,
                     period: course.period,
-                    studentCount: course._count.students,
+                    finalGrade: calcFinalGradeStudent(course.assignments),
+                });
+
+                safeBehaviors.push({
+                    courseName: course.name,
+                    attention: course.behaviors[0].attention,
+                    learnability: course.behaviors[0].learnability,
+                    cooperation: course.behaviors[0].cooperation,
                 });
             }
         }
@@ -214,16 +210,17 @@ export async function getTeacherDashboardData(userId: string) {
             }
         }
 
-        const teacherDashboardData: TeacherDashboardData = {
-            teacher: safeTeacher,
+        const studentDashboardData: StudentDashboardData = {
+            student: safeStudent,
             appointments: safeAppointments,
             behaviors: safeBehaviors,
             courses: safeCourses,
             announcements: safeAnnouncements,
         };
 
-        return teacherDashboardData;
+        return studentDashboardData;
 
+        
     } catch (error) {
         return error as Error;
     }

@@ -174,19 +174,39 @@ export async function loginUser(email: string, password: string) {
         
         const userData = await prisma.user.findUnique({
             where: { email: validatedFields.data.email },
+            omit: {
+                firstName: true,
+                lastName: true,
+                email: true,
+                username: true,
+                createdAt: true,
+                updatedAt: true,
+            },
+            include: {
+                teacher: { select: { id: true } },
+                student: { select: { id: true } },
+                admin: { select: { id: true } },
+            },
         });
         
         if (!userData) {
             throw new Error("User not found");
         }
-
-
         
         if (!bcrypt.compareSync(validatedFields.data.password, userData.hashedPassword)) {
             throw new Error("Invalid password");
         }
 
-        await createSession(userData.id.toString());
+        let userRoleId = 0;
+        if (userData.role === 'teacher') {
+            userRoleId = userData.teacher?.id as number;
+        } else if (userData.role === 'student') {
+            userRoleId = userData.student?.id as number;
+        } else if (userData.role === 'admin') {
+            userRoleId = userData.admin?.id as number;
+        }
+
+        await createSession(userData.id.toString(), userData.role, userRoleId.toString());
         
         return { message: "Login successful"} as ActionResponse;
     }
@@ -195,15 +215,15 @@ export async function loginUser(email: string, password: string) {
     }
 }
 
-export async function sessionUser(userId: string) {
+// export async function sessionUser(userId: string) {
 
-    try {
-        await createSession(userId);
-    }
-    catch (error) {
-        return error as Error;
-    }
-}
+//     try {
+//         await createSession(userId, userRoleId);
+//     }
+//     catch (error) {
+//         return error as Error;
+//     }
+// }
 
 export async function logoutUser() {
 

@@ -162,6 +162,115 @@
   }
 }
 
+@layer utilities {
+  .A {
+      background-color: #00e67761;
+  }
+
+  .B {
+      background-color: #c8ff005f;
+  }
+
+  .C {
+      background-color: #ffea0068;
+  }
+
+  .D {
+      background-color: #ff91005f;
+  }
+
+  .F {
+      background-color: #ff17455a;
+  }
+
+  .fA {
+      background-color: #00e67779;
+  }
+
+  .fB {
+      background-color: #c8ff0079;
+  }
+
+  .fC {
+      background-color: #ffea0079;
+  }
+
+  .fD {
+      background-color: #ff910079;
+  }
+
+  .fF {
+      background-color: #ff174579;
+  }
+
+  .noGrade {
+      background-color: #0000004b;
+  }
+
+  .HW {
+      background-color: #00aeff4a;   
+  }
+
+  .CW {
+      background-color: #00aeff4a;
+  }
+
+  .Q {
+      background-color: #d400f954;
+  }
+
+  .T {
+      background-color: #f500564e;
+  }
+
+  .P {
+      background-color: #f500564e;
+      }
+
+  .atRisk {
+      background-color: #f321984e;
+  }
+
+  .struggling {
+      background-color: #bb21f34e;
+  }
+
+  .onPar {
+      background-color: #218af34e;
+  }
+
+  .doingWell {
+      background-color: #21f0f34e;
+  }
+
+  .accelerate {
+      background-color: #21f37c4e;
+  }
+
+  .Poor {
+      background-color: #f3219839;
+  }
+
+  .Lacking {
+      background-color: #bb21f339;
+  }
+
+  .Average {
+      background-color: #218af339;
+  }
+
+  .Good {
+      background-color: #21f0f339;
+  }
+
+  .Excellent {
+      background-color: #21f37c39;
+  }
+
+
+
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
