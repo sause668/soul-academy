@@ -1,3 +1,4 @@
+'use client'
 import { PriorityStudent } from "@/app/lib/definitions";
 import { FiUser } from "react-icons/fi";
 import { convertBehaviorPriorityGradeColor } from "@/app/lib/grading";

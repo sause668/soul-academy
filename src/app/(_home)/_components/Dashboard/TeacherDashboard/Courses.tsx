@@ -27,11 +27,14 @@ export default function Courses({ courses }: { courses: Course[] }) {
           header: 'Students',
           key: 'num_students',
         },
-        {
-          header: 'Actions',
-          key: 'actions',
-        },
       ]
+    const classBodyKeys = [
+      'grade',
+      'name',
+      'period',
+      'room',
+      'studentCount',
+    ]
     return (
         <div id="classesConDB" className="whiteBox flex flex-col justify-flex-start items-flex-start ">
               <div id="classTitleConDB" className="flex justify-between items-center p-2 bg-blue-500 text-white rounded-t-lg">
@@ -58,18 +61,20 @@ export default function Courses({ courses }: { courses: Course[] }) {
                       className={`${index < courses.length - 1 ? 'border-b border-gray-300' : ''} hover:bg-blue-100 transition-colors duration-300 cursor-pointer`}
                       onClick={()=>router.push(`/courses/${course.id}`)}
                       >
-                        <td id="classTableCellDB">{course.grade}th Grade</td>
-                        <td id="classTableCellDB">{course.name}</td>
+                        {classBodyKeys.map((key, index) => (
+                          <td className={`classTableCellDB text-center`} key={`classTableCellT${index}`}>{course[key as keyof Course] as string}{key === 'grade' && 'th Grade'}</td>
+                        ))}
+                        {/* <td id="classTableCellDB">{course.name}</td>
                         <td id="classTableCellDB">{course.period}</td>
                         <td id="classTableCellDB">{course.room}</td>
-                        <td id="classTableCellDB">{course.studentCount}</td>
-                        <td id="classTableCellDB">
-                          {/* <OpenModalButton
+                        <td id="classTableCellDB">{course.studentCount}</td> */}
+                        {/* <td id="classTableCellDB">
+                          <OpenModalButton
                             buttonText={<FiEdit />}
                             modalComponent={<EditClassModal classEdit={class_} />}
                             cssClasses={'classButtonDB editDB text-2xl m-0 p-1 bg-blue-500 text-white rounded-full'}
-                          /> */}
-                        </td>
+                          />
+                        </td> */}
                       </tr>
                     ))}
                   </tbody>

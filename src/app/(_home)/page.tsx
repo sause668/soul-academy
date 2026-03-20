@@ -1,9 +1,11 @@
 import { verifySession } from "@/app/lib/session";
-import ErrorPage from "@/app/(_home)/_components/ErrorPage/ErrorPage";
-import Landing from "@/app/(_home)/_components/Landing/Landing";
-import TeacherDashboard from "@/app/(_home)/_components/Dashboard/TeacherDashboard/TeacherDashboard";
-import { getSession, getUserById } from "@/app/(_home)/_actions/user-actions";
+import ErrorPage from "./_components/ErrorPage/ErrorPage";
+import Landing from "./_components/Landing/Landing";
+import TeacherDashboard from "./_components/Dashboard/TeacherDashboard/TeacherDashboard";
+import { getSession, getUserById } from "./_actions/user-actions";
 import { getTeacherDashboardData } from "./_actions/teacher-actions";
+import { getStudentDashboardData } from "./_actions/student-actions";
+import StudentDashboard from "./_components/Dashboard/StudentDashboard/StudentDashboard";
 
 
 export default async function HomePage() {
@@ -15,9 +17,18 @@ export default async function HomePage() {
       return <ErrorPage />
     }
   }
-  const teacherDashboardData = await getTeacherDashboardData(user.userId as string);
+  if (user.userRole === 'teacher') {
+    const teacherDashboardData = await getTeacherDashboardData(user.userId as string);
 
-  if (teacherDashboardData instanceof Error) return <ErrorPage />
+    if (teacherDashboardData instanceof Error) return <ErrorPage />
 
-  return <TeacherDashboard teacherDashboardData={teacherDashboardData} />
+    return <TeacherDashboard teacherDashboardData={teacherDashboardData} />
+
+  } else if (user.userRole === 'student') {
+    const studentDashboardData = await getStudentDashboardData(user);
+
+    if (studentDashboardData instanceof Error) return <ErrorPage />
+
+    return <StudentDashboard studentDashboardData={studentDashboardData} />
+  }
 }
