@@ -2,7 +2,7 @@
 
 import { cacheTag } from "next/cache";
 import prisma from "@/lib/prisma";
-import { Announcement, Appointment, Behavior, Course, Student, StudentDashboardData, Teacher } from "@/app/lib/definitions";
+import { Announcement, Appointment, Assignment, Behavior, Course, Grade, Student, StudentDashboardData, Teacher } from "@/app/lib/definitions";
 import { SessionPayload } from "@/app/lib/definitions";
 import { calcFinalGradeStudent } from "@/app/lib/grading";
 
@@ -38,13 +38,22 @@ export async function getStudentDashboardData(session: SessionPayload) {
                                         createdAt: true,
                                         updatedAt: true,
                                     },
+                                    include: {
+                                        user: {
+                                            select: {
+                                                firstName: true,
+                                                lastName: true,
+                                            },
+                                        },
+                                    },
                                 },
                                 assignments: {
+                                    where: {
+                                        quarter: 1,
+                                    },
                                     omit: {
-                                        courseId: true,
-                                        quarter: true,
+                                        // courseId: true,
                                         dueDate: true,
-                                        type: true,
                                         name: true,
                                         createdAt: true,
                                         updatedAt: true,
@@ -174,14 +183,43 @@ export async function getStudentDashboardData(session: SessionPayload) {
 
         const safeBehaviors: Behavior[] = [];
         const safeCourses: Course[] = [];
+
         if (userData?.student?.courses) {
             for (const course of userData.student.courses) {
+                const safeTeacher: Teacher = {
+                    id: course.teacher?.id,
+                    firstName: course.teacher?.user?.firstName,
+                    lastName: course.teacher?.user?.lastName
+                };
+
+                console.log('bah');
+
+                console.log('Course', course);
+                // console.log('Course. Assignments', course.assignments[0]);
+                console.log('lah');
+
+                const safeAssignments: Assignment[] = [];
+                for (const assignment of course.assignments) {
+                    console.log('Assignment', {id: assignment.id, courseId: assignment.courseId, type: assignment.type});
+                    safeAssignments.push({
+                        id: assignment.id,
+                        courseId: course.period,
+                        type: assignment.type || undefined,
+                        // grade: assignment.grades[0]?.grade,
+                    });
+                }
+
+                // console.log('safeAssignments', safeAssignments);
+
+                
+
                 safeCourses.push({
                     name: course.name,
                     room: course.room,
                     period: course.period,
-                    finalGrade: calcFinalGradeStudent(course.assignments),
-                });
+                    teacher: safeTeacher,
+                    finalGrade: calcFinalGradeStudent(safeAssignments),
+                    });
 
                 safeBehaviors.push({
                     courseName: course.name,

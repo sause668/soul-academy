@@ -197,7 +197,7 @@ export interface Assignment {
     updatedAt?: Date;
     course?: Course;
     grades?: Grade[];
-    grade?: number | undefined;
+    grade?: number;
 }
 
 //Grade Definitions
