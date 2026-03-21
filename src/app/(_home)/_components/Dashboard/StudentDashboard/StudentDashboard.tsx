@@ -10,7 +10,7 @@ export default function StudentDashboard({ studentDashboardData }: { studentDash
     const { student, appointments, behaviors, courses, announcements } = studentDashboardData;
 
     return (
-        <div id="dashboardConCon" className="flex justify-center py-5">
+        <div id="dashboardConCon" className="flex justify-center py-5 bg-zinc-100">
             <div id="dashboardCon" className=" flex justify-center gap-4 w-[70%] ">
                 <div id='profileSideDB' className="w-[30%] flex flex-col justify-flex-start items-center gap-2">
                     <Profile student={student} />
