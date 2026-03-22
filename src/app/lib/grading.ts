@@ -69,7 +69,8 @@ const rubric: Rubric = {
     return calcFinalGrade(grades)
   }
 
-export const calcLetterGrade = (grade: number) => {
+export const calcLetterGrade = (grade: number | 'N/A') => {
+    if (grade == 'N/A') return 'N/A';
     if (grade >= 92) return 'A';
     if (grade >= 83) return 'B';
     if (grade >= 72) return 'C';
@@ -92,7 +93,8 @@ export const sortAssignments = (assign1: Assignment, assign2: Assignment) => {
     return date1 > date2 ? 1:-1;
 }
 
-export const calcBehaviorGrade = (att: number, learn: number, coop: number) => {
+export const calcBehaviorGrade = (att: number | undefined, learn: number | undefined, coop: number | undefined) => {
+  if (att == undefined || learn == undefined || coop == undefined) return 'N/A';
   const total = att + learn * 1.5 + coop / 2
   return total / 3
 }
@@ -114,7 +116,8 @@ export const convertBehaviorGrade = (grade: number) => {
   }
 }
 
-export const convertBehaviorPriorityGrade = (grade: number) => {
+export const convertBehaviorPriorityGrade = (grade: number | 'N/A') => {
+  if (grade === 'N/A') return 'N/A';
   const roundedGrade = Math.round(grade);
   switch (roundedGrade) {
     case 1:
@@ -162,7 +165,7 @@ export const convertBehaviorPriorityGradeColor = (grade: string) => {
     case 'Accelerate':
       return 'accelerate';
     default:
-      return 'N/A';
+      return 'noGrade';
   }
 }
 
@@ -172,8 +175,9 @@ export const getPriorityStudents = (behaviors: Behavior[]) => {
   const highlightStudents: PriorityStudent[] = [];
   const focusStudents: PriorityStudent[] = [];
 
-  behaviors.map((behavior) => {
+  for (const behavior of behaviors) {
     const studentPriorityNumber = calcBehaviorGrade(behavior.attention ?? 0, behavior.learnability ?? 0, behavior.cooperation ?? 0);
+    if (studentPriorityNumber === 'N/A') return;
     const studentPriority = convertBehaviorPriorityGrade(studentPriorityNumber);
     let studentIndex = 0;
 
@@ -201,7 +205,7 @@ export const getPriorityStudents = (behaviors: Behavior[]) => {
       }
       studentIndex++;
     }
-  });
+  };
 
   return { highlightStudents, focusStudents };
 }

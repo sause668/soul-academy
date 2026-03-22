@@ -167,6 +167,7 @@ export interface Admin {
 export interface Course {
     id?: number;
     teacherId?: number;
+    isTeacher?: boolean;
     name?: string;
     subject?: string;
     grade?: number;
@@ -183,6 +184,23 @@ export interface Course {
     appointments?: Appointment[];
     announcements?: Announcement[];
     finalGrade?: number | string;
+}
+
+export interface CourseData {
+    course: Course;
+    students: Student[];
+    assignments: Assignment[];
+    behaviors: Behavior[];
+    groups: Group[];
+    announcements: Announcement[];
+}
+
+export interface CourseStudentData {
+    course: Course;
+    assignments: Assignment[];
+    behavior: Behavior;
+    group: Group;
+    announcements: Announcement[];
 }
 
 //Assignment Definitions

@@ -192,28 +192,18 @@ export async function getStudentDashboardData(session: SessionPayload) {
                     lastName: course.teacher?.user?.lastName
                 };
 
-                console.log('bah');
-
-                console.log('Course', course);
-                // console.log('Course. Assignments', course.assignments[0]);
-                console.log('lah');
-
                 const safeAssignments: Assignment[] = [];
                 for (const assignment of course.assignments) {
-                    console.log('Assignment', {id: assignment.id, courseId: assignment.courseId, type: assignment.type});
                     safeAssignments.push({
                         id: assignment.id,
                         courseId: course.period,
                         type: assignment.type || undefined,
-                        // grade: assignment.grades[0]?.grade,
+                        grade: assignment.grades[0]?.grade,
                     });
                 }
 
-                // console.log('safeAssignments', safeAssignments);
-
-                
-
                 safeCourses.push({
+                    id: course.id,
                     name: course.name,
                     room: course.room,
                     period: course.period,

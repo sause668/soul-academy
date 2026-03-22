@@ -56,3 +56,8 @@ export const formatDate = (dateString: string) => {
   const date = new Date(dateString);
   return date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
 };
+
+export const formatDateShort = (date: Date | undefined) => {
+  if (!date) return '';
+  return date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+};

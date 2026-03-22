@@ -9,7 +9,7 @@ for (const subject of courses8thGrade.subjects) {
     for (const course of subject.courses) {
         // for (const quarter of subject.quarters) {
         const assignmentData = [];
-        
+
         for (const quarter of subject.quarters) {
             for (const assignment of quarter.assignments) {
                 assignmentData.push({
