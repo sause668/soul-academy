@@ -17,6 +17,9 @@ const prisma = new PrismaClient({
     adapter,
 });
 
+
+
+
 async function main() {
     await seedUsers(prisma);
     await seedFamilies(prisma);

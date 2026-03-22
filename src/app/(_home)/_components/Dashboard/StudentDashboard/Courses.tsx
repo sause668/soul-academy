@@ -49,7 +49,7 @@ export default function Courses({ courses }: { courses: Course[] }) {
                                 <tr
                                     key={`classRowT${index}`}
                                     className={`${course.finalGrade != 'N/A' ? finalLetterGrade : 'noGrade'} ${index < courses.length - 1 ? 'border-b border-gray-300' : ''} hover:opacity-80 transition-opacity duration-300 cursor-pointer`}
-                                    onClick={() => router.push(`/grades/${course.id}`)}
+                                    onClick={() => router.push(`/courses/${course.id}`)}
                                 >
                                     <td id="classTableCellDB">{course.period}</td>
                                     <td id="classTableCellDB">{course.room}</td>
