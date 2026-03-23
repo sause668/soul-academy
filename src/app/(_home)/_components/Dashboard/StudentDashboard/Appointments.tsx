@@ -24,8 +24,8 @@ export default function Appointments({ appointments }: { appointments: Appointme
                             <div className="appsPicConDB shrink-0 grow-0">
                                 <FiUser className="appsPicDB text-2xl bg-white rounded-full" />
                             </div>
-                            <h3 className="appsDateDB text-sm font-bold shrink grow">{formatAppointmentDate(appointment.startTime?.toISOString() ?? '')}</h3>
-                            <h3 className="appsTimeDB text-sm shrink grow">{formatAppointmentTime(appointment.startTime?.toTimeString() ?? '')}</h3>
+                            <h3 className="appsDateDB text-sm font-bold shrink grow">{formatAppointmentDate(appointment.startTime)}</h3>
+                            <h3 className="appsTimeDB text-sm shrink grow">{formatAppointmentTime(appointment.startTime)}</h3>
                             <h4 className="appsNameDB text-sm shrink grow">{nameToString(appointment.teacher?.firstName ?? '', appointment.teacher?.lastName ?? '')}</h4>
                         </div>
                     ))

@@ -203,6 +203,14 @@ export interface CourseStudentData {
     announcements: Announcement[];
 }
 
+export interface GradebookData {
+    course: Course;
+    assignments: Assignment[];
+    students: Student[];
+    behaviors: Behavior[];
+    groups: Group[];
+}
+
 //Assignment Definitions
 export interface Assignment {
     id?: number;
@@ -285,6 +293,29 @@ export interface Appointment {
     student?: Student;
     course?: Course;
 }
+
+export const AssignmentFormSchema = z.object({
+    name: z
+        .string()
+        .min(1, { error: 'Assignment Name is required' })
+        .trim(),
+    type: z
+        .string()
+        .refine((type) => ['CW', 'HW', 'Q', 'T', 'P'].includes(type), { message: 'Invalid Assignment Type' })
+        .trim(),
+    dueDate: z
+        .date()
+        // .min(new Date(), { error: 'Due Date must be in the future' })
+})
+
+export type AssignmentFormState = {
+    errors: string[],
+    properties?: {
+        name?: { errors: string[] } | undefined;
+        type?: { errors: string[] } | undefined;
+        dueDate?: { errors: string[] } | undefined;
+    } | undefined
+} | undefined
 
 //Announcement Definitions
 export interface Announcement {
