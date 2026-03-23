@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { Announcement, Assignment, Behavior, Course, CourseData, CourseStudentData, Grade, Group, SessionPayload, Student, Teacher } from "@/app/lib/definitions";
+import { Announcement, Assignment, Behavior, Course, CourseData, CourseStudentData, Grade, Group, GradebookData, SessionPayload, Student, Teacher } from "@/app/lib/definitions";
 
 export async function getCourseData(courseId: string, session: SessionPayload) {
     const { userId, userRoleId } = session;
@@ -461,3 +461,199 @@ export async function getCourseStudentData(courseId: string, session: SessionPay
     }
 }
 
+
+export async function getGradebookData(courseId: string, session: SessionPayload) 
+: Promise<GradebookData | Error> {
+    const { userId, userRoleId } = session;
+    try {
+        const courseData = await prisma.course.findUnique({
+            where: { id: parseInt(courseId) },
+            omit: {
+                createdAt: true,
+                updatedAt: true,
+            },
+            include: {
+                teacher: {
+                    omit: {
+                        id: true,
+                        primaryGrade: true,
+                        primarySubject: true,
+                        userId: true,
+                        createdAt: true,
+                        updatedAt: true,
+                    },
+                    include: {
+                        user: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                            },
+                        },
+                    },
+                },
+                students: {
+                    omit: {
+                        userId: true,
+                        familyId: true,
+                        createdAt: true,
+                        updatedAt: true,
+                    },
+                    include: {
+                        user: {
+                            select: {
+                                firstName: true,
+                                lastName: true,
+                            },
+                        },
+                    },
+                },
+                assignments: {
+                    omit: {
+                        createdAt: true,
+                        updatedAt: true,
+                    },
+                    include: {
+                        grades: {
+                            omit: {
+                                assignmentId: true,
+                                createdAt: true,
+                                updatedAt: true,
+                            },
+                        },
+                    },
+                },
+                behaviors: {
+                    omit: {
+                        courseId: true,
+                        notes: true,
+                        createdAt: true,
+                        updatedAt: true,
+                    },
+                },
+                groups: {
+                    omit: {
+                        courseId: true,
+                        createdAt: true,
+                        updatedAt: true,
+                    },
+                    include: {
+                        students: {
+                            omit: {
+                                userId: true,
+                                familyId: true,
+                            },
+                            include: {
+                                user: {
+                                    select: {
+                                        firstName: true,
+                                        lastName: true,
+                                    },
+                                },
+                            },
+                        },
+                    },  
+                },
+            },
+        });
+
+        const safeCourse: Course = {
+            id: courseData?.id,
+            name: courseData?.name,
+            subject: courseData?.subject,
+            grade: courseData?.grade,
+            room: courseData?.room,
+            period: courseData?.period,
+            teacher: {
+                firstName: courseData?.teacher?.user?.firstName,
+                lastName: courseData?.teacher?.user?.lastName,
+            } as Teacher,
+        };
+
+        const safeStudents: Student[] = [];
+
+        if (courseData?.students) {
+            for (const student of courseData.students) {
+                safeStudents.push({
+                    id: student.id,
+                    firstName: student.user?.firstName,
+                    lastName: student.user?.lastName,
+                });
+            }
+        }
+
+        const safeAssignments: Assignment[] = [];
+        if (courseData?.assignments) {
+            for (const assignment of courseData.assignments) {
+                const safeGrades: Grade[] = [];
+
+                if (assignment.grades) {
+                    for (const grade of assignment.grades) {
+                        safeGrades.push({
+                            studentId: grade.studentId,
+                            grade: grade.grade,
+                        });
+                    }
+                }
+
+                safeAssignments.push({
+                    id: assignment.id,
+                    name: assignment.name,
+                    type: assignment.type,
+                    quarter: assignment.quarter,
+                    dueDate: assignment.dueDate,
+                    grades: safeGrades,
+                });
+            }
+        }
+
+        const safeBehaviors: Behavior[] = [];
+
+        if (courseData?.behaviors) {
+            for (const behavior of courseData.behaviors) {
+                safeBehaviors.push({
+                    id: behavior.id,
+                    studentId: behavior.studentId,
+                    attention: behavior.attention,
+                    learnability: behavior.learnability,
+                    cooperation: behavior.cooperation,
+                });
+            }
+        }
+
+        const safeGroups: Group[] = [];
+        
+        if (courseData?.groups) {
+            for (const group of courseData.groups) {
+                const safeStudents: Student[] = [];
+                if (group.students) {
+                    for (const student of group.students) {
+                        safeStudents.push({
+                            id: student.id,
+                            firstName: student.user?.firstName,
+                            lastName: student.user?.lastName,
+                        });
+                    }
+                }
+
+                safeGroups.push({
+                    id: group.id,
+                    name: group.name,
+                    students: safeStudents,
+                });
+            }
+        }
+
+        const gradebookData: GradebookData = {
+            course: safeCourse,
+            assignments: safeAssignments,
+            students: safeStudents,
+            behaviors: safeBehaviors,
+            groups: safeGroups,
+        };
+
+        return gradebookData;
+
+    } catch (error) {
+        return error as Error;
+    }
+}

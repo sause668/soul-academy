@@ -54,7 +54,7 @@ export default function Announcements({ announcements, userId }: { announcements
                             </div>
                           </div>
                           <div className="announcementProfileOptionsConDB">
-                            <h4 className="announcementProfileOptionsDB text-sm m-0 p-0 text-zinc-500">{formatDate(announcement.createdAt?.toISOString() ?? '')}</h4>
+                            <h4 className="announcementProfileOptionsDB text-sm m-0 p-0 text-zinc-500">{formatDate(announcement.createdAt)}</h4>
                           </div>
                         </div>
                         <div id="announcementContentConDB" className="flex flex-col justify-flex-start items-flex-start gap-1">
