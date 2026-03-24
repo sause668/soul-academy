@@ -237,6 +237,20 @@ export interface Grade {
     student?: Student;
 }
 
+export const GradeFormSchema = z.object({
+    grade: z
+        .number()
+        .min(0, { error: 'Grade must be between 0 and 100' })
+        .max(100, { error: 'Grade must be between 0 and 100' })
+})
+
+export type GradeFormState = {
+    errors: string[],
+    properties?: {
+        grade?: { errors: string[] } | undefined;
+    } | undefined
+} | undefined
+
 export interface GradeData {
     grade: number;
     type: string;
@@ -266,6 +280,30 @@ export interface Behavior {
     courseName?: string;
 }
 
+export const BehaviorFormSchema = z.object({
+    attention: z
+        .number()
+        .min(0, { error: 'Attention must be between 0 and 5' })
+        .max(5, { error: 'Attention must be between 0 and 5' }),
+    learnability: z
+        .number()
+        .min(0, { error: 'Learnability must be between 0 and 5' })
+        .max(5, { error: 'Learnability must be between 0 and 5' }),
+    cooperation: z
+        .number()
+        .min(0, { error: 'Cooperation must be between 0 and 5' })
+        .max(5, { error: 'Cooperation must be between 0 and 5' }),
+})
+
+export type BehaviorFormState = {
+    errors: string[],
+    properties?: {
+        attention?: { errors: string[] } | undefined;
+        learnability?: { errors: string[] } | undefined;
+        cooperation?: { errors: string[] } | undefined;
+    } | undefined
+} | undefined
+
 //Group Definitions
 export interface Group {
     id?: number;
@@ -276,6 +314,20 @@ export interface Group {
     course?: Course;
     students?: Student[];
 }
+
+export const GroupFormSchema = z.object({
+    name: z
+        .string()
+        .min(1, { error: 'Group Name is required' })
+        .trim(),
+})
+
+export type GroupFormState = {
+    errors: string[],
+    properties?: {
+        name?: { errors: string[] } | undefined;
+    } | undefined
+} | undefined
 
 //Appointment Definitions
 export interface Appointment {

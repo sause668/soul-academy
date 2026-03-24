@@ -121,7 +121,7 @@ model Behavior {
   id           Int      @id @default(autoincrement())
   studentId    Int
   courseId     Int
-  attention    Int? //Start Here
+  attention    Int? 
   learnability Int?
   cooperation  Int?
   notes        String?

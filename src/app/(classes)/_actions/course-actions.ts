@@ -203,9 +203,9 @@ export async function getCourseData(courseId: string, session: SessionPayload) {
                 safeBehaviors.push({
                     id: behavior.id,
                     studentId: behavior.studentId,
-                    attention: behavior.attention,
-                    learnability: behavior.learnability,
-                    cooperation: behavior.cooperation,
+                    attention: behavior.attention ?? undefined,
+                    learnability: behavior.learnability ?? undefined,
+                    cooperation: behavior.cooperation ?? undefined,
                 });
             }
         }
@@ -414,9 +414,9 @@ export async function getCourseStudentData(courseId: string, session: SessionPay
         }
 
         const safeBehavior: Behavior = {
-            attention: courseData?.behaviors[0]?.attention,
-            learnability: courseData?.behaviors[0]?.learnability,
-            cooperation: courseData?.behaviors[0]?.cooperation,
+            attention: courseData?.behaviors[0]?.attention ?? undefined,
+            learnability: courseData?.behaviors[0]?.learnability ?? undefined,
+            cooperation: courseData?.behaviors[0]?.cooperation ?? undefined,
         };
 
         const safeGroup: Group = {
@@ -515,7 +515,6 @@ export async function getGradebookData(courseId: string, session: SessionPayload
                     include: {
                         grades: {
                             omit: {
-                                assignmentId: true,
                                 createdAt: true,
                                 updatedAt: true,
                             },
@@ -545,6 +544,7 @@ export async function getGradebookData(courseId: string, session: SessionPayload
                             include: {
                                 user: {
                                     select: {
+                                        id: true,
                                         firstName: true,
                                         lastName: true,
                                     },
@@ -613,15 +613,15 @@ export async function getGradebookData(courseId: string, session: SessionPayload
                 safeBehaviors.push({
                     id: behavior.id,
                     studentId: behavior.studentId,
-                    attention: behavior.attention,
-                    learnability: behavior.learnability,
-                    cooperation: behavior.cooperation,
+                    attention: behavior.attention ?? undefined,
+                    learnability: behavior.learnability ?? undefined,
+                    cooperation: behavior.cooperation ?? undefined,
                 });
             }
         }
 
         const safeGroups: Group[] = [];
-        
+
         if (courseData?.groups) {
             for (const group of courseData.groups) {
                 const safeStudents: Student[] = [];

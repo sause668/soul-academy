@@ -1,5 +1,7 @@
 import OpenModalTableCell from "@/app/(_home)/_components/OpenModalComponents/OpenModalTableCell";
 import AssignmentInfo from "./Modals/AssignmentInfoModal";
+import CreateGradeModal from "./Modals/CreateGradeModal";
+import EditGradeModal from "./Modals/EditGradeModal";
 import { Assignment, Student } from "@/app/lib/definitions";
 import { calcFinalGradeTeacher, calcLetterGrade, sortAssignments, sortStudents } from "@/app/lib/grading";
 import './Gradebook.css';
@@ -68,18 +70,14 @@ export default function Grades({ assignments, students, quarter, courseId }: { a
                                                             cellText={`${grade.grade} (${letterGrade})`}
                                                             key={`grade${iStudent}${iAssignment}`}
                                                             cssClasses={`tableCellGB tableBodyCellGB gradeBodyCellBG ${letterGrade} hover:opacity-80 transition-opacity duration-300`}
-                                                            modalComponent={'<EditGradeModal grade={grade} />'}
+                                                            modalComponent={<EditGradeModal assignmentId={assignment.id ?? 0} studentId={student.id ?? 0} grade={grade.grade ?? 0} courseId={courseId} />}
                                                         />
                                                     }
                                                     return <OpenModalTableCell
                                                         cellText={''}
                                                         key={`grade${iStudent}${iAssignment}`}
                                                         cssClasses={'tableCellGB tableBodyCellGB gradeBodyCellBG noGrade'}
-                                                        modalComponent={''}
-                                                        // modalComponent={<CreateGradeModal
-                                                        //     assignmentId={assignment.id}
-                                                        //     studentId={student.id}
-                                                        // />}
+                                                        modalComponent={<CreateGradeModal assignmentId={assignment.id ?? 0} studentId={student.id ?? 0} courseId={courseId} />}
                                                     />
                                                 })}
                                             {finalGrade != 'N/A' ?

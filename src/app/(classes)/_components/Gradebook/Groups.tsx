@@ -1,12 +1,16 @@
 import { useState } from "react";
 import OpenModalButton from "@/app/(_home)/_components/OpenModalComponents/OpenModalButton";
 import OpenModalTableCell from "@/app/(_home)/_components/OpenModalComponents/OpenModalTableCell";
-import { Group, Student } from "@/app/lib/definitions";
+import CreateGroupModal from "./Modals/CreateGroupModal";
+import EditGroupModal from "./Modals/EditGroupModal";
+import { addGroupStudent, removeGroupStudent, editGroupStudent } from "@/app/(classes)/_actions/group-actions";
+import { Group, GroupFormState, Student } from "@/app/lib/definitions";
 import { FaPlus } from "react-icons/fa";
 import './Gradebook.css';
 
-export default function Groups({ groups, students }: { groups: Group[], students: Student[] }) {
+export default function Groups({ groups, students, courseId }: { groups: Group[], students: Student[], courseId: number }) {
     const [groupStudent, setGroupStudent] = useState<{ studentId: number, groupIdRemove: number | null } | null>(null);
+    const [errors, setErrors] = useState<GroupFormState>(undefined);
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, studentId: number, groupIdRemove: number | null) => {
         setGroupStudent({ studentId, groupIdRemove });
@@ -30,7 +34,7 @@ export default function Groups({ groups, students }: { groups: Group[], students
         }
     }
 
-    const handleDrop = (e: React.DragEvent<HTMLDivElement>, groupIdAdd: number | null) => {
+    const handleDrop = async (e: React.DragEvent<HTMLDivElement>, groupIdAdd: number | null) => {
         e.preventDefault();
         const target = e.target as HTMLElement;
         let classList = target.classList;
@@ -50,12 +54,19 @@ export default function Groups({ groups, students }: { groups: Group[], students
 
         const { studentId, groupIdRemove } = groupStudent ?? { studentId: 0, groupIdRemove: null };
 
-        if (!groupIdRemove) {
-            // dispatch(addGroupStudent({ classId, studentId, groupIdAdd }));
-        } else if (!groupIdAdd) {
-            // dispatch(removeGroupStudent({ classId, studentId, groupIdRemove }));
-        } else {
-            // dispatch(editGroupStudent({ classId, studentId, groupIdRemove, groupIdAdd }));
+        let result = null;
+        if (!groupIdRemove) result = await addGroupStudent(groupIdAdd ?? 0, studentId, courseId);
+        else if (!groupIdAdd) result = await removeGroupStudent(groupIdRemove, studentId, courseId);
+        else result = await editGroupStudent(groupIdRemove, groupIdAdd, studentId, courseId);
+
+        if (result instanceof Error) setErrors({ errors: ['Failed to add/remove/edit group student. Please try again.'] } as GroupFormState);
+        else if (result && "errors" in result) setErrors(result as GroupFormState);
+        
+    }
+    for (const group of groups) {
+        console.log('Group: ', group.id ?? 0, group.name);
+        for (const student of group.students ?? []) {
+            console.log('Student: ', student.id ?? 0, student.firstName ?? '', student.lastName ?? '');
         }
     }
     return (
@@ -68,7 +79,7 @@ export default function Groups({ groups, students }: { groups: Group[], students
                                 <h3 className="groupNameGB text-lg font-bold">Groups</h3>
                                 <OpenModalButton
                                     buttonText={<FaPlus className="text-lg" />}
-                                    modalComponent={'<CreateGroupModal classId={classId}/>'}
+                                    modalComponent={<CreateGroupModal courseId={courseId} />}
                                     cssClasses={'rounded-full p-1 bg-blue-500 border border-blue-500 text-white hover:bg-white hover:text-blue-500 transition-all duration-300 cursor-pointer'}
                                 />
                             </div>
@@ -83,7 +94,7 @@ export default function Groups({ groups, students }: { groups: Group[], students
                         <tr className="tableBodyRowGB" key={`groupName${gIndex}`}>
                             <OpenModalTableCell
                                 cellText={group.name}
-                                modalComponent={'<EditGroupModal group={group} />'}
+                                modalComponent={<EditGroupModal groupId={group.id ?? 0} name={group.name ?? ''} courseId={courseId} />}
                                 cssClasses={`tableCellGroupHeadGB text-center cursor-pointer hover:opacity-80 transition-opacity duration-300 ${gIndex % 2 == 0 ? 'bg-blue-200' : 'bg-blue-100'}`}
                             />
                             <td className="tableCellGroupGB groupCellGB">
@@ -118,7 +129,9 @@ export default function Groups({ groups, students }: { groups: Group[], students
                             >
                                 {students
                                     .filter(student => {
-                                        return !groups?.some(group => group.students?.some(s => s.id ?? 0 === student.id ?? 0))
+                                        return !groups?.some(group => group.students?.some(groupStudent => groupStudent.id === student.id))
+                                        // return !groups?.some(group => group.students?.some(groupStudent => (groupStudent.firstName ?? '' === student.firstName ?? '' ) && (groupStudent.lastName ?? '' === student.lastName ?? '')))
+                                        // return student.id === 1;})
                                     })
                                     .map((student, index) => (
                                         <div
@@ -135,6 +148,7 @@ export default function Groups({ groups, students }: { groups: Group[], students
                     </tr>
                 </tbody>
             </table>
+            {errors?.errors && <p className='labelTitle error'>{errors.errors.join(', ')}</p>}
         </div>
     )
 }

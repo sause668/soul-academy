@@ -99,7 +99,7 @@ export const calcBehaviorGrade = (att: number | undefined, learn: number | undef
   return total / 3
 }
 
-export const convertBehaviorGrade = (grade: number) => {
+export const convertBehaviorGrade = (grade: number | undefined) => {
   switch (grade) {
     case 1:
       return 'Poor';
@@ -148,7 +148,7 @@ export const convertBehaviorGradeColor = (grade: string) => {
     case 'Excellent':
       return 'Excellent';
     default:
-      return 'N/A';
+      return 'noGrade';
   }
 }
 
