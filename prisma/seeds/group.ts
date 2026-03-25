@@ -14,6 +14,7 @@ for (const course of [...algebraGroup8thGrade, ...creativeWritingGroup8thGrade, 
 }
 
 export async function seedGroups(prisma: PrismaClient) {
+    console.log('Seeding groups...');
     for (const group of groupData) {
         await prisma.group.create({ data: group });
     }

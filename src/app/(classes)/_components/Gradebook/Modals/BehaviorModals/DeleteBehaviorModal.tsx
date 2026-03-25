@@ -2,7 +2,7 @@ import { useModal } from "@/app/(_home)/_context/Modal";
 import { deleteBehavior } from "@/app/(classes)/_actions/behavior-actions";
 import { Behavior, BehaviorFormState } from "@/app/lib/definitions";
 import { useState, useTransition } from "react";
-import "../Gradebook.css";
+import "../../Gradebook.css";
 
 export default function DeleteBehaviorModal({behavior, courseId}: {behavior: Behavior, courseId: number}) {
     const {closeModal} = useModal();

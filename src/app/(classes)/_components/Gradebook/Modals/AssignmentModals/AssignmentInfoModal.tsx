@@ -3,7 +3,7 @@ import UpdateAssignmentModal from "./UpdateAssignmentModal";
 import DeleteAssignmentModal from "./DeleteAssignmentModal";
 import { formatDateShort, typeToString } from "@/app/lib/typeConvertion";
 import { Assignment } from "@/app/lib/definitions";
-import "../Gradebook.css";
+import "../../Gradebook.css";
 
 export default function AssignmentInfoModal({assignment, quarter, courseId}: {assignment: Assignment, quarter: number, courseId: number} ) {
   return (

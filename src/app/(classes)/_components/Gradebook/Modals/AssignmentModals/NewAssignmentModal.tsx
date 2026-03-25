@@ -1,37 +1,39 @@
-import { startTransition, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useModal } from "@/app/(_home)/_context/Modal";
-import { updateAssignment } from "@/app/(classes)/_actions/assignment-actions";
-import { Assignment, AssignmentFormState } from "@/app/lib/definitions";
-import { stringToType, typeToString } from "@/app/lib/typeConvertion";
-import "../Gradebook.css";
+import { createAssignment } from "@/app/(classes)/_actions/assignment-actions";
+import { stringToType } from "@/app/lib/typeConvertion";
+import { AssignmentFormState } from "@/app/lib/definitions";
+import "../../Gradebook.css";
 
-export default function UpdateAssignmentModal({ assignment, quarter, courseId }: { assignment: Assignment, quarter: number, courseId: number }) {
+function NewAssignmentModal({courseId, quarter}: {courseId: number, quarter: number}) {
   const [pending, startTransition] = useTransition();
-  const [assignName, setAssignName] = useState(assignment.name ?? '');
-  const [type, setType] = useState(typeToString(assignment.type ?? 'Classwork'));
-  const [dueDate, setDueDate] = useState(assignment.dueDate?.toISOString().slice(0, 10) ?? '');
+  const [assignName, setAssignName] = useState('');
+  const [type, setType] = useState('Classwork');
+  const [dueDate, setDueDate] = useState('');
   const [errors, setErrors] = useState<AssignmentFormState>(undefined);
   const { closeModal } = useModal();
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     startTransition(async () => {
-      const result = await updateAssignment(assignment.id ?? 0, courseId, assignName, stringToType(type), quarter, dueDate);
+        const result = await createAssignment(courseId, assignName, stringToType(type), quarter, dueDate);
 
-      if (result instanceof Error) setErrors({ errors: ['Failed to update assignment. Please try again.'] } as AssignmentFormState);
-      else if (result && "errors" in result) setErrors(result);
-      else closeModal();
+        if (result instanceof Error) setErrors({ errors: ['Failed to create assignment. Please try again.'] } as AssignmentFormState);
+        else if (result && "errors" in result) setErrors(result);
+        else closeModal();
     });
   };
 
 
+
   return (
+    
     <div className='formCon'>
-      <h1 className='inputTitle'>Edit Assignment</h1>
-      <form onSubmit={handleSubmit}>
+        <h1 className='inputTitle'>New Assignment</h1>
+        <form onSubmit={handleSubmit}>
         {/* Name */}
         <div className='inputCon'>
-          <label htmlFor='assignName'>
+          <label className='labelCon' htmlFor='assignName'>
             <p className='labelTitle'>
               Assignment Name
             </p>
@@ -48,16 +50,16 @@ export default function UpdateAssignmentModal({ assignment, quarter, courseId }:
         </div>
         {/* Type */}
         <div className='inputCon'>
-          <label htmlFor='type'>
+          <label className='labelCon' htmlFor='type'>
             <p className='labelTitle'>
               Type
             </p>
           </label>
-          <select
-            name="type"
-            id="type"
-            className="selectGB"
-            value={type}
+          <select 
+            name="type" 
+            id="type" 
+            className="typeSelectGB"
+            value={type} 
             onChange={(e) => setType(e.target.value)}
           >
             <option value='Classwork'>Classwork</option>
@@ -70,7 +72,7 @@ export default function UpdateAssignmentModal({ assignment, quarter, courseId }:
         </div>
         {/* Due Date */}
         <div className='inputCon'>
-          <label htmlFor='dueDate'>
+          <label className='labelCon' htmlFor='dueDate'>
             <p className='labelTitle'>
               Due Date
             </p>
@@ -86,21 +88,21 @@ export default function UpdateAssignmentModal({ assignment, quarter, courseId }:
           {errors?.properties?.dueDate && <p className='labelTitle error'>{errors.properties.dueDate.errors.join(', ')}</p>}
         </div>
         <div className="submitCon">
-          <button
-            className='submitButton'
-            type="submit"
-            disabled={
-              !assignName.length ||
-              !type.length ||
-              !dueDate.length ||
-              pending
-            }
-          >{pending ? 'Updating assignment...' : 'Submit'}</button>
+            <button 
+                className='btn submitBtn'
+                type="submit"
+                disabled={
+                  !assignName.length ||
+                  !type.length ||
+                  !dueDate.length || 
+                  pending
+                }
+            >{pending ? 'Creating assignment...' : 'Submit'}</button>
         </div>
         {errors?.errors && <p className='labelTitle error'>{errors.errors.join(', ')}</p>}
-      </form>
-
+        </form>
     </div>
   );
 }
 
+export default NewAssignmentModal;

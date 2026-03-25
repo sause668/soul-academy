@@ -38,6 +38,7 @@ for (const subject of courses8thGrade.subjects) {
 }
 
 export async function seedCourses(prisma: PrismaClient) {
+    console.log('Seeding courses...');
     for (const course of courseData) {
         await prisma.course.create({ data: course });
     }

@@ -48,6 +48,7 @@ const studentData: Prisma.UserCreateInput[] = students8thGrade.students.map(stud
 }));
 
 export async function seedUsers(prisma: PrismaClient) {
+    console.log('Seeding users...');
     for (const teacher of teacherData) {
         await prisma.user.create({ data: teacher });
     }

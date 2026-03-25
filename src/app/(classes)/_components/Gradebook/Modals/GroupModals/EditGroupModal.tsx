@@ -4,7 +4,7 @@ import OpenModalButton from "@/app/(_home)/_components/OpenModalComponents/OpenM
 import { updateGroup } from "@/app/(classes)/_actions/group-actions";
 import { GroupFormState } from "@/app/lib/definitions";
 import DeleteGroupModal from "./DeleteGroupModal";
-import "../Gradebook.css";
+import "../../Gradebook.css";
 
 export default function EditGroupModal({ groupId, name, courseId }: { groupId: number, name: string, courseId: number }) {
   const [pending, startTransition] = useTransition();

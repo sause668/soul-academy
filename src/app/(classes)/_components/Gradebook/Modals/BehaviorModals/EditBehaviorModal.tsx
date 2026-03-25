@@ -4,7 +4,7 @@ import { updateBehavior } from "@/app/(classes)/_actions/behavior-actions";
 import DeleteBehaviorModal from "./DeleteBehaviorModal";
 import OpenModalButton from "@/app/(_home)/_components/OpenModalComponents/OpenModalButton";
 import { Behavior, BehaviorFormState } from "@/app/lib/definitions";
-import "../Gradebook.css";
+import "../../Gradebook.css";
 
 export default function EditBehaviorModal({behavior, courseId}: {behavior: Behavior, courseId: number}) {
   const [pending, startTransition] = useTransition();

@@ -16,6 +16,7 @@ for (const course of [...algebraBehavior8thGrade, ...creativeWritingBehavior8thG
 }
 
 export async function seedBehaviors(prisma: PrismaClient) {
+    console.log('Seeding behaviors...');
     for (const behavior of behaviorData) {
         await prisma.behavior.create({ data: behavior });
     }

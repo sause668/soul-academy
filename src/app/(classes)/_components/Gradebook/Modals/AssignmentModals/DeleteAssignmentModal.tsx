@@ -3,7 +3,7 @@ import { useModal } from "@/app/(_home)/_context/Modal";
 import { deleteAssignment } from "@/app/(classes)/_actions/assignment-actions";
 import { Assignment } from "@/app/lib/definitions";
 import { useState } from "react";
-import "../Gradebook.css";
+import "../../Gradebook.css";
 
 
 export default function DeleteAssignmentModal({ assignment, quarter, courseId }: { assignment: Assignment, quarter: number, courseId: number }) {

@@ -1,4 +1,4 @@
-import NewAssignmentModal from './Modals/NewAssignmentModal';
+import NewAssignmentModal from './Modals/AssignmentModals/NewAssignmentModal';
 import OpenModalButton from '@/app/(_home)/_components/OpenModalComponents/OpenModalButton';
 import './Gradebook.css';
 

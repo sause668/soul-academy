@@ -3,7 +3,7 @@ import { useModal } from "@/app/(_home)/_context/Modal";
 import { GroupFormState } from "@/app/lib/definitions";
 import { deleteGroup } from "@/app/(classes)/_actions/group-actions";
 import { useState, useTransition } from "react";
-import "../Gradebook.css";
+import "../../Gradebook.css";
 
 
 export default function DeleteGroupModal({groupId, courseId}: {groupId: number, courseId: number}) {

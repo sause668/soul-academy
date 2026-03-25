@@ -1,7 +1,7 @@
 import OpenModalTableCell from "@/app/(_home)/_components/OpenModalComponents/OpenModalTableCell";
-import AssignmentInfo from "./Modals/AssignmentInfoModal";
-import CreateGradeModal from "./Modals/CreateGradeModal";
-import EditGradeModal from "./Modals/EditGradeModal";
+import AssignmentInfo from "./Modals/AssignmentModals/AssignmentInfoModal";
+import CreateGradeModal from "./Modals/GradeModals/CreateGradeModal";
+import EditGradeModal from "./Modals/GradeModals/EditGradeModal";
 import { Assignment, Student } from "@/app/lib/definitions";
 import { calcFinalGradeTeacher, calcLetterGrade, sortAssignments, sortStudents } from "@/app/lib/grading";
 import './Gradebook.css';

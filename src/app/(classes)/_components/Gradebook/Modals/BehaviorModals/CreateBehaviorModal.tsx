@@ -2,7 +2,7 @@ import { useState, useTransition } from "react";
 import { useModal } from "@/app/(_home)/_context/Modal";
 import { createBehavior } from "@/app/(classes)/_actions/behavior-actions";
 import { BehaviorFormState, Student } from "@/app/lib/definitions";
-import "../Gradebook.css";
+import "../../Gradebook.css";
 
 export default function CreateBehaviorModal({courseId, student}: {courseId: number, student: Student}) {
   const [pending, startTransition] = useTransition();

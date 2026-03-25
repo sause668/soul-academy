@@ -14,6 +14,7 @@ for (const announcement of announcements) {
 }
 
 export async function seedAnnouncements(prisma: PrismaClient) {
+    console.log('Seeding announcements...');
     for (const announcement of announcementData) {
         await prisma.announcement.create({ data: announcement });
     }

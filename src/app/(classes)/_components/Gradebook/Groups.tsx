@@ -1,8 +1,8 @@
 import { useState } from "react";
 import OpenModalButton from "@/app/(_home)/_components/OpenModalComponents/OpenModalButton";
 import OpenModalTableCell from "@/app/(_home)/_components/OpenModalComponents/OpenModalTableCell";
-import CreateGroupModal from "./Modals/CreateGroupModal";
-import EditGroupModal from "./Modals/EditGroupModal";
+import CreateGroupModal from "./Modals/GroupModals/CreateGroupModal";
+import EditGroupModal from "./Modals/GroupModals/EditGroupModal";
 import { addGroupStudent, removeGroupStudent, editGroupStudent } from "@/app/(classes)/_actions/group-actions";
 import { Group, GroupFormState, Student } from "@/app/lib/definitions";
 import { FaPlus } from "react-icons/fa";
@@ -63,12 +63,7 @@ export default function Groups({ groups, students, courseId }: { groups: Group[]
         else if (result && "errors" in result) setErrors(result as GroupFormState);
         
     }
-    for (const group of groups) {
-        console.log('Group: ', group.id ?? 0, group.name);
-        for (const student of group.students ?? []) {
-            console.log('Student: ', student.id ?? 0, student.firstName ?? '', student.lastName ?? '');
-        }
-    }
+
     return (
         <div id="groupsConGB" className="whiteBox p-5 w-fit max-w-[55%]">
             <table id="tableGBS">
