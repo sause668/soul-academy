@@ -2,7 +2,7 @@ import { useState, useTransition } from "react";
 import { useModal } from "@/app/(_home)/_context/Modal";
 import { deleteGrade } from "@/app/(classes)/_actions/grade-actions";
 import { GradeFormState } from "@/app/lib/definitions";
-import "../Gradebook.css";
+import "../../Gradebook.css";
 
 
 const DeleteGradeModal = ({studentId, assignmentId, courseId}: {studentId: number, assignmentId: number, courseId: number}) => {

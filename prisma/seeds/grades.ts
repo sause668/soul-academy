@@ -24,6 +24,7 @@ for (const course of [...algebraGrades8thGrade, ...creativeWritingGrades8thGrade
 }
 
 export async function seedGrades(prisma: PrismaClient) {
+    console.log('Seeding grades...');
     for (const grade of gradesData) {
         await prisma.grade.create({ data: grade });
     }

@@ -2,7 +2,7 @@ import { useState, useTransition } from "react";
 import { useModal } from "@/app/(_home)/_context/Modal";
 import { createGrade } from "@/app/(classes)/_actions/grade-actions";
 import { GradeFormState } from "@/app/lib/definitions";
-import "../Gradebook.css";
+import "../../Gradebook.css";
 
 function CreateGradeModal({assignmentId, studentId, courseId}: {assignmentId: number, studentId: number, courseId: number}) {
   const [pending, startTransition] = useTransition();

@@ -16,6 +16,7 @@ for (const appointment of appointments) {
 }
 
 export async function seedAppointments(prisma: PrismaClient) {
+    console.log('Seeding appointments...');
     for (const appointment of appointmentData) {
         await prisma.appointment.create({ data: appointment });
     }

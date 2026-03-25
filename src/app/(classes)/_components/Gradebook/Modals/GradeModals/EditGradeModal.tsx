@@ -4,7 +4,7 @@ import { updateGrade } from "@/app/(classes)/_actions/grade-actions";
 import OpenModalButton from "@/app/(_home)/_components/OpenModalComponents/OpenModalButton";
 import DeleteGradeModal from "./DeleteGradeModal";
 import { Grade, GradeFormState } from "@/app/lib/definitions";
-import "../Gradebook.css";
+import "../../Gradebook.css";
 
 export default function EditGradeModal({assignmentId, studentId, grade, courseId}: {assignmentId: number, studentId: number, grade: number, courseId: number}) {
   const [pending, startTransition] = useTransition();

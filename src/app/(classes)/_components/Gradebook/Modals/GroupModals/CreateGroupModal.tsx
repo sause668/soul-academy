@@ -2,7 +2,7 @@ import { useState, useTransition } from "react";
 import { useModal } from "@/app/(_home)/_context/Modal";
 import { createGroup } from "@/app/(classes)/_actions/group-actions";
 import { GroupFormState } from "@/app/lib/definitions";
-import "../Gradebook.css";
+import "../../Gradebook.css";
 
 function CreateGroupModal({courseId}: {courseId: number}) {
   const [pending, startTransition] = useTransition();

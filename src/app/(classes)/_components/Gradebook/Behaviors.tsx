@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import OpenModalTableCell from "@/app/(_home)/_components/OpenModalComponents/OpenModalTableCell";
-import EditBehaviorModal from "./Modals/EditBehaviorModal";
-import CreateBehaviorModal from "./Modals/CreateBehaviorModal";
+import EditBehaviorModal from "./Modals/BehaviorModals/EditBehaviorModal";
+import CreateBehaviorModal from "./Modals/BehaviorModals/CreateBehaviorModal";
 import { convertBehaviorGrade, sortStudents, calcBehaviorGrade, convertBehaviorPriorityGrade, convertBehaviorPriorityGradeColor, convertBehaviorGradeColor } from "@/app/lib/grading";
 import { Behavior, Student } from "@/app/lib/definitions";
 import './Gradebook.css';

@@ -128,6 +128,7 @@ export interface Student {
     behaviors?: Behavior[];
     groups?: Group[];
     appointments?: Appointment[];
+    siblings?: Student[];
 }
 
 export interface StudentDashboardData {
@@ -144,6 +145,12 @@ export interface PriorityStudent {
     lastName: string;
     priorityNumber: number;
     priority: string;
+}
+
+export interface StudentData {
+    student: Student;
+    behaviors: Behavior[];
+    courses: Course[];
 }
 
 //Family Definitions
