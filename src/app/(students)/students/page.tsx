@@ -1,11 +1,11 @@
 import ErrorPage from "@/app/(_home)/_components/ErrorPage/ErrorPage";
 import Landing from "@/app/(_home)/_components/Landing/Landing";
 import { getSession } from "@/app/(_home)/_actions/user-actions";
-import { getStudentPageData } from "@/app/(students)/_actions/student-actions";
+import { getStudentPageData, getStudentsData } from "@/app/(students)/_actions/student-actions";
 import { notFound, redirect } from "next/navigation";
-import StudentInfo from "../../_components/StudentInfo/StudentInfo";
+import StudentsInfo from "../_components/StudentsInfo/StudentsInfo";
 
-export default async function StudentPage({ params }: { params: Promise<{ studentId: string }> }) {
+export default async function StudentsSearchPage({ params }: { params: Promise<{ studentId: string }> }) {
     const { studentId } = await params;
     const session = await getSession();
     if (session instanceof Error) {
@@ -14,13 +14,11 @@ export default async function StudentPage({ params }: { params: Promise<{ studen
     }
 
     if (session.userRole === 'student') redirect(`/`);
+
     else {
-        const studentData = await getStudentPageData(studentId);
-        if (studentData instanceof Error) {
-            if (session.message === 'Student not found') return notFound();
-            else return <ErrorPage />;
-        }
-        
-        return <StudentInfo studentData={studentData}/>
+        const studentsData = await getStudentsData();
+        // if (studentData instanceof Error) return <ErrorPage />
+        if (studentsData instanceof Error) return <ErrorPage />;
+        return <StudentsInfo studentsData={studentsData}/>
     }
 }

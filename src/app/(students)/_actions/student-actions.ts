@@ -1,8 +1,82 @@
 'use server';
 
-import { getSession } from "@/app/(_home)/_actions/user-actions";
 import { Assignment, Behavior, Course, CourseData, Grade, Student, StudentData, Teacher } from "@/app/lib/definitions";
+import { verifySession } from "@/app/lib/session";
 import prisma from "@/lib/prisma";
+
+export async function getStudentsData() {
+    try {
+        const studentsData = await prisma.student.findMany({
+            include: {
+                user: {
+                    select: {
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                    },
+                },
+            },
+        });
+
+        const safeStudentsData: Student[] = [];
+        for (const student of studentsData) {
+            safeStudentsData.push({
+                id: student.id,
+                firstName: student.user.firstName,
+                lastName: student.user.lastName,
+                email: student.user.email,
+                currentGrade: student.currentGrade,
+            });
+        }
+
+        return safeStudentsData;
+    } catch (error) {
+        return error as Error;
+    }
+}
+
+export async function getStudentsSearchData(search: string) {
+    try {
+        const session = await verifySession();
+
+        if (session instanceof Error) throw session;
+
+        if (session.userRole === 'student') throw new Error('Unauthorized');
+
+        const studentsData = await prisma.student.findMany({
+            where: {
+                user: {
+                    firstName: { contains: search },
+                    lastName: { contains: search },
+                },
+            },
+            include: {
+                user: {
+                    select: {
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                    },
+                },
+            },
+        });
+
+        const safeStudentsData: Student[] = [];
+        for (const student of studentsData) {
+            safeStudentsData.push({
+                id: student.id,
+                firstName: student.user.firstName,
+                lastName: student.user.lastName,
+                email: student.user.email,
+                currentGrade: student.currentGrade,
+            });
+        }
+
+        return safeStudentsData;
+    } catch (error) {
+        return error as Error;
+    }
+}
 
 export async function getStudentPageData(studentId: string) {
     try {

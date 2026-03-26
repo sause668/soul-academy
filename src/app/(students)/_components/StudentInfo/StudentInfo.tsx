@@ -11,15 +11,6 @@ export default function StudentInfo({ studentData }: { studentData: StudentData 
     const { student, behaviors, courses } = studentData;
     const [quarter, setQuarter] = useState(1);
 
-    // const handleNavStudent = (studentId) => {
-    //     navigate(`/students/${studentId}`);
-    //     navigate(0);
-    // }
-
-    // const handleGrades = (classId) => {
-    //     navigate(`/students/${studentId}/classes/${classId}`)
-    // }
-
     return (
         <div className="flex justify-center items-center pt-5 pb-5">
             <div id="studentPageConSP " className="flex justify-center items-flex-start w-[70%] gap-2">
