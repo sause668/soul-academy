@@ -7,7 +7,7 @@ import Landing from "../Landing/Landing";
 export default async function NavBarShell() {
     const user = await getUser();
     if (user instanceof Error) {
-        if (user.message === 'No session found') return <Landing />
+        if (user.message === 'No session found') return 
         else return <ErrorPage />
     } else return <NavBar user={user} />
 }

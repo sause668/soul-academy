@@ -1,4 +1,4 @@
-import './StudentsInfo.css';
+import './StudentSearch.css';
 
 export default function Header() {
     return (

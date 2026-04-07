@@ -3,7 +3,7 @@ import Landing from "@/app/(_home)/_components/Landing/Landing";
 import { getSession } from "@/app/(_home)/_actions/user-actions";
 import { getStudentPageData, getStudentsData } from "@/app/(students)/_actions/student-actions";
 import { notFound, redirect } from "next/navigation";
-import StudentsInfo from "../_components/StudentsInfo/StudentsInfo";
+import StudentSearch from "../_components/StudentsSearch/StudentSearch";
 
 export default async function StudentsSearchPage({ params }: { params: Promise<{ studentId: string }> }) {
     const { studentId } = await params;
@@ -19,6 +19,6 @@ export default async function StudentsSearchPage({ params }: { params: Promise<{
         const studentsData = await getStudentsData();
         // if (studentData instanceof Error) return <ErrorPage />
         if (studentsData instanceof Error) return <ErrorPage />;
-        return <StudentsInfo studentsData={studentsData}/>
+        return <StudentSearch studentsData={studentsData}/>
     }
 }
