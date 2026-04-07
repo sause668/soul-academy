@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  /* --breakpoint-2xl: 1536px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-lg: 1024px; */
+  /* --breakpoint-*: initial; */
+  --breakpoint-xs: 30rem;
+}
+
+/* @custom-variant xs (@media (max-width: 560px)); */
+
 :root {
   color-scheme: light dark;
   --background: #fdfdfd;
@@ -14,6 +24,8 @@
   --error: #ff1744;
 }
 
+
+
 @theme inline {
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
@@ -25,29 +37,27 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-title: var(--font-sour-gummy);
-  --font-subtitle: var(--font-geist-sans);
-  --font-body: var(--font-geist-sans);
-  --font-button: var(--font-geist-sans);
-  --font-input: var(--font-geist-sans);
-  --font-error: var(--font-geist-sans);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-subtitle: var(--font-balsamiq-sans);
+  --font-body: var(--font-roboto-flex);
+  --font-button: var(--font-delius);
+  --font-input: var(--font-roboto-flex);
+  --font-error: var(--font-roboto-flex);
 }
 
 @layer base {}
 
 @layer components {
+  
   .whiteBox {
     background-color: white;
     /* border: 1px solid #007AFF; */
     border: 1px solid var(--color-primary);
     border-radius: 10px;
     /* padding: 1rem; */
-
   }
 
   .btn {
-    font-family: var(--font-button);
+    font-family: var(--font-delius);
     border: 1px solid var(--primary);
     background-color: var(--primary);
     color: var(--screenWhite);
@@ -61,7 +71,6 @@
   .btn:hover {
     /* background-color: light-dark(var(--screenWhite), var(--screenBlack)); */
     background-color: var(--screenWhite);
-
     color: var(--primary);
     transition: all 0.2s ease-in;
   }
@@ -94,7 +103,7 @@
 
   .inputTitle {
     margin-bottom: .8rem;
-    font-family: var(--font-title);
+    font-family: var(--font-sour-gummy);
     font-weight: 600;
     font-size: 1.2rem;
   }
@@ -266,9 +275,6 @@
   .Excellent {
       background-color: #21f37c39;
   }
-
-
-
 }
 
 @media (prefers-color-scheme: dark) {

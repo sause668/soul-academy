@@ -44,7 +44,7 @@
     border-collapse: collapse;
     height: max-content;
     border-top: 1.5px solid black;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
 }
 
 .tableCellSS {
@@ -52,7 +52,7 @@
     text-align: center;
     min-width: 7rem;
     border-top: 1px solid #00000076;
-    border-bottom: 1px solid #00000076;
+    /* border-bottom: 1px solid #00000076; */
     transition: background-color .2s;
     
 }

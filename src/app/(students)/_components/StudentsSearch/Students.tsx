@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Student } from "@/app/lib/definitions";
 import { sortStudents } from "@/app/lib/grading";
 import { useRouter } from "next/navigation";
-import "./StudentsSearch.css";
+import "./StudentSearch.css";
 
 export default function Students({ students }: { students: Student[] }) {
     const [rowHighlight, setRowHighlight] = useState(-1);
@@ -20,6 +20,7 @@ export default function Students({ students }: { students: Student[] }) {
                 <tbody id="tableBodySS">
                     {students.sort((s1, s2) => sortStudents(s1, s2)).map((student, index) => {
                         const studentInfo = [student.lastName, student.firstName, student.currentGrade]
+                        const isLastRow = index === students.length - 1;
                         return (
                             <tr
                                 className="tableBodyRowCC"
@@ -29,7 +30,7 @@ export default function Students({ students }: { students: Student[] }) {
                                 {studentInfo.map((info, index2) => (
                                     <td
                                         key={`studentInfo${index}-${index2}`}
-                                        className={`tableCellSS tableBodyCellSS ${index === rowHighlight && 'cellHighlightSS'}`}
+                                        className={`tableCellSS tableBodyCellSS ${index === rowHighlight && 'cellHighlightSS'} ${isLastRow ?? 'border-b'}`}
                                         onMouseOver={() => setRowHighlight(index)}
                                         onMouseLeave={() => setRowHighlight(-1)}
                                     >{info}</td>
