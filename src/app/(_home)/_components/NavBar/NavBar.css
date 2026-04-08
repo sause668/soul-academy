@@ -1,5 +1,18 @@
-@import "tailwindcss";
+/* @import "tailwindcss"; */
 
+.navLink {
+  padding: .5rem 1rem;
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  color: var(--color-screenWhite);
+  cursor: pointer;
+  transition: color .2s;
+}
+
+.navLink:hover {
+    color: var(--color-hoverNavLink);
+    transition: color .2s;
+}
 
 
 /* .profile-dropdown {
