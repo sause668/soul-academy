@@ -8,11 +8,10 @@ import { useRouter } from "next/navigation";
 import NavLeft from "./NavLeft/NavLeft";
 import NavRight from "./NavRight/NavRight";
 import './NavBar.css';
+import { useMenu } from "@/app/lib/utils";
+import { navLinks } from "@/app/lib/site-data";
 
 export default function NavBar({ user }: { user: User }) {
-    const router = useRouter();
-  
-
     return (
         <div id='mainConNB' className='flex items-center justify-between bg-primary p-3 z-50 shadow-sm'>
             <NavLeft />

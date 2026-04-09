@@ -3,8 +3,10 @@ import { useRouter } from "next/navigation";
 import { IoSearch } from "react-icons/io5";
 import { User, Student } from "@/app/lib/definitions";
 import { getStudentsSearchData } from "@/app/(students)/_actions/student-actions";
+import { useModal } from "@/app/(_home)/_context/Modal";
 
 export default function NavSearch({ user }: { user: User }) {
+  const { closeModal } = useModal();
   const router = useRouter();
   const [students, setStudents] = useState<Student[]>([]);
   const [search, setSearch] = useState('');
@@ -43,6 +45,7 @@ export default function NavSearch({ user }: { user: User }) {
     router.push(`/students/${studentId}`);
     setSearch('');
     setShowResults(false);
+    closeModal();
   };
 
   const handleFocus = () => {

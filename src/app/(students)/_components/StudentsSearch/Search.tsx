@@ -25,6 +25,7 @@ export default function Search({ setStudents }: { setStudents: (students: Studen
                 type="text"
                 name="studentSearch"
                 id="searchInputSS"
+                className="formInput border-none hover:border-none focus:border-none focus:outline-none"
                 placeholder="Search"
                 value={search}
                 onChange={handleSearch}

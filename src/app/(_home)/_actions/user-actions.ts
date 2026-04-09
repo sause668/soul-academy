@@ -215,16 +215,6 @@ export async function loginUser(email: string, password: string) {
     }
 }
 
-// export async function sessionUser(userId: string) {
-
-//     try {
-//         await createSession(userId, userRoleId);
-//     }
-//     catch (error) {
-//         return error as Error;
-//     }
-// }
-
 export async function logoutUser() {
 
     try {
