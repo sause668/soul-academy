@@ -7,14 +7,14 @@ import '../NavBar.css';
 
 export default function NavRight({ user }: { user: User }) {
     const isClient = useIsClient();
-    const MediaXS = useMediaQuery({ query: '(max-width: 560px)' });
+    const MediaMD = useMediaQuery({ query: '(max-width: 48rem)' });
 
     if (!isClient) return null;
     
     return (
         <div id='rightSideConNB' className='flex items-center justify-end gap-4'>
-            <NavSearchBtn user={user} mediaXS={MediaXS} />
-            <NavMenuBtn user={user} mediaXS={MediaXS} />
+            <NavSearchBtn user={user} mediaQuery={MediaMD} />
+            <NavMenuBtn user={user} mediaQuery={MediaMD} />
         </div>
     )
 }

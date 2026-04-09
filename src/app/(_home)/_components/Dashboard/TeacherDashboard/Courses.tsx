@@ -38,7 +38,7 @@ export default function Courses({ courses }: { courses: Course[] }) {
     return (
         <div id="classesConDB" className="whiteBox flex flex-col justify-flex-start items-flex-start ">
               <div id="classTitleConDB" className="flex justify-between items-center p-2 bg-blue-500 text-white rounded-t-lg">
-                <h3 id="classTitleDB" className="text-xl font-bold">Current Classes</h3>
+                <h3 id="classTitleDB" className="text-xl font-subtitle font-bold">Current Classes</h3>
                 {/* <OpenModalButton
                   buttonText={<FiPlus className="text-2xl" />}
                   modalComponent={<CreateClassModal />}
@@ -46,11 +46,11 @@ export default function Courses({ courses }: { courses: Course[] }) {
                 /> */}
               </div>
               <div id="classTableConDB" className="w-full">
-                <table id="classTableDB" className="w-full">
+                <table id="classTableDB font-body" className="w-full">
                   <thead>
                     <tr className="bg-gray-200 text-black border-b border-gray-300">
                       {classHeaders.map((header, index) => (
-                        <th className={`classTableHeaderDB${index} `} key={`classTableHeaderT${index}`}>{header.header}</th>
+                        <th className={`classTableHeaderDB${index} py-1`} key={`classTableHeaderT${index}`}>{header.header}</th>
                       ))}
                     </tr>
                   </thead>
@@ -62,7 +62,7 @@ export default function Courses({ courses }: { courses: Course[] }) {
                       onClick={()=>router.push(`/courses/${course.id}`)}
                       >
                         {classBodyKeys.map((key, index) => (
-                          <td className={`classTableCellDB text-center`} key={`classTableCellT${index}`}>{course[key as keyof Course] as string}{key === 'grade' && 'th Grade'}</td>
+                          <td className={`classTableCellDB text-center py-2`} key={`classTableCellT${index}`}>{course[key as keyof Course] as string}{key === 'grade' && 'th'}</td>
                         ))}
                         {/* <td id="classTableCellDB">{course.name}</td>
                         <td id="classTableCellDB">{course.period}</td>

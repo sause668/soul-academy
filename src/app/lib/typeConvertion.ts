@@ -43,18 +43,12 @@ export const formatAppointmentDate = (date: Date | undefined) => {
 
 export const formatAppointmentTime = (time: Date | undefined) => {
   if (!time) return '';
-  const [hours, minutes] = time.getHours().toString().padStart(2, '0') + ':' + time.getMinutes().toString().padStart(2, '0');
+  const hours = time.getHours().toString().padStart(2, '0');
+  const minutes = time.getMinutes().toString().padStart(2, '0');
   const ampm = parseInt(hours) >= 12 ? 'PM' : 'AM';
   const displayHour = parseInt(hours) % 12 || 12;
-  return `${displayHour}:${minutes} ${ampm}`;
+  return `${displayHour}:${minutes} ${ampm}`; 
 };
-//   if (!timeString) return '';
-//   const [hours, minutes] = timeString.split(':');
-//   const hour = parseInt(hours);
-//   const ampm = hour >= 12 ? 'PM' : 'AM';
-//   const displayHour = hour % 12 || 12;
-//   return `${displayHour}:${minutes} ${ampm}`;
-// };
 
 export const formatDate = (date: Date | undefined) => {
   if (!date) return '';

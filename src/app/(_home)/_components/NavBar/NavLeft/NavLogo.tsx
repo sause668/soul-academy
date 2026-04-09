@@ -16,7 +16,7 @@ export default function NavLogo() {
                 <IoChevronBack id="backButtonIcon" className="text-screenWhite cursor-pointer hover:text-hoverNavLink transition-colors duration-300" onClick={() => router.back()} />
                 // </button>
             )}
-            <Link href='/' className='font-title text-xl md:text-3xl lg:text-3xl font-bold text-screenWhite '>Soul Academy</Link>
+            <Link href='/' className='font-title text-3xl font-bold text-screenWhite '>Soul Academy</Link>
         </div>
     )
 }

@@ -207,5 +207,16 @@ export const getPriorityStudents = (behaviors: Behavior[]) => {
     }
   };
 
-  return { highlightStudents, focusStudents };
+  const priorityStudents = {
+    highlightStudents: {
+      title: 'Highlight Students',
+      students: highlightStudents,
+    },
+    focusStudents: {
+      title: 'Focus Students',
+      students: focusStudents,
+    },
+  };
+
+  return priorityStudents;
 }

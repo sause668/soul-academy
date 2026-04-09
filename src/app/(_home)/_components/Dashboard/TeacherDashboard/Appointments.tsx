@@ -10,16 +10,16 @@ export default function Appointments({ appointments }: { appointments: Appointme
     const router = useRouter();
     return (
         <div id="appsConDB" className="whiteBox w-full">
-              <h2 id="appsTitleDB" className="text-xl text-center font-bold bg-blue-500 text-white p-2 rounded-t-lg">Appointments</h2>
+              <h2 id="appsTitleDB" className="text-xl text-center font-bold bg-blue-500 text-white p-2 rounded-t-lg font-subtitle">Appointments</h2>
               <div id="appsListDB" className="flex flex-col justify-flex-start items-flex-start">
                 {appointments.length === 0 ? (
                   <div className="text-center text-gray-500 py-4 px-2 w-full">
-                    <p className="text-sm">No appointments scheduled</p>
+                    <p className="text-sm font-body">No appointments scheduled</p>
                   </div>
                 ) : (
                   appointments.slice(0, 5).map((appointment, index) => (
                     <div 
-                      className="appsItemDB flex justify-between items-center gap-2 px-2 py-1.5 hover:bg-blue-100 transition-colors duration-300 cursor-pointer w-full" 
+                      className="appsItemDB flex justify-between items-center gap-2 px-2 py-1.5 font-body hover:bg-blue-100 transition-colors duration-300 cursor-pointer w-full" 
                       key={`appsItemT${appointment.id}`}
                       onClick={() => router.push(`/appointments/${appointment.id}`)}
                     >
