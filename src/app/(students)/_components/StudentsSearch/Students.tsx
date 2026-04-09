@@ -11,7 +11,7 @@ export default function Students({ students }: { students: Student[] }) {
         <div id="tableConSS" className="whiteBox overflow-hidden">
             <table id="tableSS">
                 <thead id="tableHeadSS">
-                    <tr className="tableHeadRowCC">
+                    <tr className="tableHeadRowCC font-subtitle text-lg font-bold">
                         <td className="tableCellSS tableHeadCellSS">Last Name</td>
                         <td className="tableCellSS tableHeadCellSS">First Name</td>
                         <td className="tableCellSS tableHeadCellSS">Grade</td>
@@ -30,7 +30,7 @@ export default function Students({ students }: { students: Student[] }) {
                                 {studentInfo.map((info, index2) => (
                                     <td
                                         key={`studentInfo${index}-${index2}`}
-                                        className={`tableCellSS tableBodyCellSS ${index === rowHighlight && 'cellHighlightSS'} ${isLastRow ?? 'border-b'}`}
+                                        className={`tableCellSS tableBodyCellSS font-body text-md ${index === rowHighlight && 'cellHighlightSS'} ${isLastRow ?? 'border-b'}`}
                                         onMouseOver={() => setRowHighlight(index)}
                                         onMouseLeave={() => setRowHighlight(-1)}
                                     >{info}</td>

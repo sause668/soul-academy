@@ -43,7 +43,7 @@
     table-layout: fixed;
     border-collapse: collapse;
     height: max-content;
-    border-top: 1.5px solid black;
+    /* border-top: 1.5px solid black; */
     /* border-bottom: 1px solid black; */
 }
 
@@ -59,6 +59,7 @@
 
 #tableHeadSS {
 
+    border-top: none;
 }
 
 .tableHeadRowSS {
@@ -67,8 +68,9 @@
 
 
 .tableHeadCellSS {
+    border-top: none;
     border-bottom: 1.5px solid #000000;
-    font-family: 'BalsamiqSans';
+    /* font-family: 'BalsamiqSans'; */
     font-weight: bold;
 }
 
