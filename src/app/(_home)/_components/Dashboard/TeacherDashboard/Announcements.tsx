@@ -12,14 +12,14 @@ export default function Announcements({ announcements, userId }: { announcements
     return (
         <div id="announcementsConDB" className="whiteBox">
               <div id="announcementsTitleConDB" className="flex justify-between items-center p-2 bg-blue-500 text-white rounded-t-lg">
-                <h3 id="announcementsTitleDB" className="text-xl font-bold">Announcements</h3>
+                <h3 id="announcementsTitleDB" className="text-xl font-subtitle font-bold">Announcements</h3>
                 <OpenModalButton
                   buttonText={<FiPlus className="text-2xl" />}
                   modalComponent={`<CreateAnnouncementModal />`}
                   cssClasses={'newClassButtonDB text-2xl m-0 p-1 bg-blue-500 text-white rounded-full border-2 border-blue-500 hover:bg-white hover:text-blue-500 transition-colors duration-300'}
                 />
               </div>
-              <div id="announcementsListConDB" className="flex flex-col justify-flex-start items-flex-start gap-5 p-2">
+              <div id="announcementsListConDB" className="flex flex-col justify-flex-start items-flex-start gap-5 p-2 font-body">
                 {announcements.length === 0 ? (
                   <div className="text-center text-gray-500 py-4">No announcements yet</div>
                 ) : (

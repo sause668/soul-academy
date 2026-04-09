@@ -7,7 +7,7 @@ import NavMenu from "./NavMenu";
 import '../../NavBar.css';
 import { logoutUser } from "@/app/(_home)/_actions/user-actions";
 
-export default function NavMenuBtn({ user, mediaXS }: { user: User, mediaXS: boolean }) {
+export default function NavMenuBtn({ user, mediaQuery }: { user: User, mediaQuery: boolean }) {
     const router = useRouter();
     const [error, setError] = useState<Error | null>(null);
 
@@ -20,7 +20,7 @@ export default function NavMenuBtn({ user, mediaXS }: { user: User, mediaXS: boo
         }
     }
 
-    return mediaXS ? (
+    return mediaQuery ? (
         <OpenModalButton
             buttonText={<IoMenu className="size-6 text-3xl font-bold text-screenWhite hover:text-hoverNavLink transition-colors duration-300" />}
             modalComponent={<NavMenu user={user} handleLogout={handleLogout} />}

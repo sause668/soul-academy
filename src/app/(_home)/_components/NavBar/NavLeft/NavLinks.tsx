@@ -6,7 +6,7 @@ export default function NavLinks() {
     
 
     return (
-        <div id='linksConNB' className='flex items-center justify-start gap-2 max-2xs:hidden'>
+        <div id='linksConNB' className='flex items-center justify-start gap-2 max-md:hidden'>
             {navLinks.map((link) => (
                 <Link 
                 className='navLink'
