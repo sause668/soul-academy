@@ -21,8 +21,8 @@ export default function DeleteBehaviorModal({behavior, courseId}: {behavior: Beh
         <div className="formCon">
             <h3 className="confirmText">{`Are you sure you want to delete ${behavior.student?.firstName ?? ''} ${behavior.student?.lastName ?? ''} behaviors?`}</h3>
             <div className="confirmButtonCon">
-                <button onClick={handleDelete} className="submitButton yes" disabled={isPending}>{isPending ? 'Deleting...' : 'Yes'}</button>
-                <button onClick={closeModal} className="submitButton no">No</button>
+                <button onClick={handleDelete} className="btn" disabled={isPending}>{isPending ? 'Deleting...' : 'Yes'}</button>
+                <button onClick={closeModal} className="btn cancelBtn">No</button>
             </div>
             {errors?.errors && <p className='labelTitle error'>{errors.errors.join(', ')}</p>}
         </div>

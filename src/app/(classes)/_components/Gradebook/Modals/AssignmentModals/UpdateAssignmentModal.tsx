@@ -87,7 +87,7 @@ export default function UpdateAssignmentModal({ assignment, quarter, courseId }:
         </div>
         <div className="submitCon">
           <button
-            className='submitButton'
+            className='btn submitBtn'
             type="submit"
             disabled={
               !assignName.length ||

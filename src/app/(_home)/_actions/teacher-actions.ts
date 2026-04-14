@@ -171,9 +171,9 @@ export async function getTeacherDashboardData(userId: string) {
                     safeBehaviors.push({
                         id: behavior.id,
                         studentId: behavior.studentId,
-                        attention: behavior.attention,
-                        learnability: behavior.learnability,
-                        cooperation: behavior.cooperation,
+                        attention: behavior.attention ?? 0,
+                        learnability: behavior.learnability ?? 0,
+                        cooperation: behavior.cooperation ?? 0,
                         student: safeStudent,
                     });
                 }
@@ -202,6 +202,7 @@ export async function getTeacherDashboardData(userId: string) {
                 const userTitle = announcement.user?.role === 'admin' ? announcement.user?.admin?.title : announcement.user?.role;
                 safeAnnouncements.push({
                     id: announcement.id,
+                    userId: announcement.userId,
                     title: announcement.title,
                     content: announcement.content,
                     imageUrl: announcement.imageUrl || undefined,

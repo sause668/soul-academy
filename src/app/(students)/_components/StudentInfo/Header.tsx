@@ -6,13 +6,13 @@ import { useRouter } from "next/navigation";
 export default function Header({ student }: { student: Student }) {
     const router = useRouter();
     return (
-        <div id="profileConSP" className="whiteBox p-2">
+        <div id="profileConSP" className="whiteBox p-2 max-md:text-center">
             <div id="profilePicConSP">
                 <FiUser id='profilePicSP' className="text-[10rem] bg-white rounded-full" />
             </div>
             <div id="profileInfoConSP">
-                <h2 className="profileInfoSP text-2xl font-bold">{student.firstName} {student.lastName}</h2>
-                <h4 className="profileInfoSP text-lg">Student</h4>
+                <h2 className="profileInfoSP font-subtitle text-2xl font-bold">{student.firstName} {student.lastName}</h2>
+                <h4 className="profileInfoSP font-subtitle text-lg">Student</h4>
                 <h4 className="profileInfoSP text-zinc-500">Grade: {student.currentGrade}th</h4>
                 {student.siblings && (<>
                     <h3 className="text-md pt-2 font-bold">Siblings:</h3>

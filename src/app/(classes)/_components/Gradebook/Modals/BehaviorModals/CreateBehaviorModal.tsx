@@ -38,7 +38,7 @@ export default function CreateBehaviorModal({courseId, student}: {courseId: numb
           <select 
             name="attention" 
             id="attention" 
-            className="selectGB"
+            className="formSelectInput"
             value={attention} 
             onChange={(e) => setAttention(parseInt(e.target.value))}
           >
@@ -60,7 +60,7 @@ export default function CreateBehaviorModal({courseId, student}: {courseId: numb
           <select 
             name="learnability" 
             id="learnability" 
-            className="selectGB"
+            className="formSelectInput"
             value={learnability} 
             onChange={(e) => setLearnability(parseInt(e.target.value))}
           >
@@ -82,7 +82,7 @@ export default function CreateBehaviorModal({courseId, student}: {courseId: numb
           <select 
             name="cooperation" 
             id="cooperation" 
-            className="selectGB"
+            className="formSelectInput"
             value={cooperation} 
             onChange={(e) => setCooperation(parseInt(e.target.value))}
           >
@@ -96,7 +96,7 @@ export default function CreateBehaviorModal({courseId, student}: {courseId: numb
         </div>
         <div className="submitCon">
           <button 
-              className='submitButton'
+              className='btn submitBtn'
               type="submit"
               disabled={pending}
             >{pending ? 'Submitting...' : 'Submit'}</button>

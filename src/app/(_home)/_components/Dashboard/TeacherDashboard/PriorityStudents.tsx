@@ -21,9 +21,9 @@ export default function PriorityStudents({ priorityStudents }: { priorityStudent
                   >
                     <div className="highlightStudentsInfoConDB flex flex-row justify-flex-start items-flex-start gap-4">
                       <FiUser className="highlightStudentsPicDB text-2xl bg-white rounded-full"/>
-                      <h3 className="highlightStudentsNameDB text-sm font-bold">{nameToString(student.firstName, student.lastName)}</h3>
+                      <h3 className="highlightStudentsNameDB font-subtitle text-sm font-bold">{nameToString(student.firstName, student.lastName)}</h3>
                     </div>
-                    <h3 className="highlightStudentsPNDB text-sm">Priority: <b>{student.priority}</b></h3>
+                    <h3 className="highlightStudentsPNDB font-subtitle text-sm">Priority: <b>{student.priority}</b></h3>
                   </div>
                 ))}
               </div>

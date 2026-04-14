@@ -4,11 +4,9 @@ import { FiPlus, FiUser } from "react-icons/fi";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { formatDate } from "@/app/lib/typeConvertion";
 import { nameToString } from "@/app/lib/typeConvertion";
-import { useRouter } from "next/navigation";
 import "@/app/(_home)/_components/Dashboard/Dashboard.css";
 
 export default function Announcements({ announcements, userId }: { announcements: Announcement[], userId: number }) {
-    const router = useRouter();
     return (
         <div id="announcementsConDB" className="whiteBox">
               <div id="announcementsTitleConDB" className="flex justify-between items-center p-2 bg-blue-500 text-white rounded-t-lg">
@@ -34,9 +32,9 @@ export default function Announcements({ announcements, userId }: { announcements
                             </div>
                             <div className="announcementProfileDisConDB gap-0.1">
                               <div className="flex items-center gap-2">
-                                <h3 className="announcementProfileNameDB text-sm m-0 p-0">{nameToString(announcement.userFirstName ?? '', announcement.userLastName ?? '')}</h3>
+                                <h3 className="announcementProfileNameDB font-subtitle text-sm m-0 p-0">{nameToString(announcement.userFirstName ?? '', announcement.userLastName ?? '')}</h3>
                                 {isOwner && (
-                                  <div className="flex items-center gap-1">
+                                  <div className="flex items-center gap-1 pl-2">
                                     <OpenModalButton
                                       buttonText={<MdEdit className="text-sm" />}
                                       modalComponent={'<EditAnnouncementModal announcement={announcement} />'}
@@ -54,12 +52,12 @@ export default function Announcements({ announcements, userId }: { announcements
                             </div>
                           </div>
                           <div className="announcementProfileOptionsConDB">
-                            <h4 className="announcementProfileOptionsDB text-sm m-0 p-0 text-zinc-500">{formatDate(announcement.createdAt)}</h4>
+                            <h4 className="announcementProfileOptionsDB font-subtitle text-md m-0 p-0 text-zinc-500">{formatDate(announcement.createdAt)}</h4>
                           </div>
                         </div>
-                        <div id="announcementContentConDB" className="flex flex-col justify-flex-start items-flex-start gap-1">
-                          <h3 id="announcementContentTitleDB">{announcement.title}</h3>
-                          <p id="announcementContentTextDB">{announcement.content}</p>
+                        <div className="announcementContentConDB flex flex-col justify-flex-start items-flex-start gap-1">
+                          <h3 className="announcementContentTitleDB font-subtitle text-lg font-bold">{announcement.title}</h3>
+                          <p className="announcementContentTextDB font-body text-md">{announcement.content}</p>
                           {announcement.imageUrl && (
                             <div id="announcementContentPicConDB">
                               <img id="announcementContentPicDB" src={announcement.imageUrl} alt="Announcement picture" />

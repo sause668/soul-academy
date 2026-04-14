@@ -4,7 +4,7 @@ import './Gradebook.css';
 
 export default function Options({ quarter, setQuarter, courseId }: { quarter: number, setQuarter: (quarter: number) => void, courseId: number }) {
     return (
-        <div id="optionsConGB" className="whiteBox p-2 flex justify-between items-center gap-2">
+        <div id="optionsConGB" className="whiteBox p-2 flex justify-between items-center gap-4">
             <OpenModalButton
                 buttonText={'New Assignment'}
                 // modalComponent={'<NewAssignmentModal classId={classId} quarter={quarter} />'}
@@ -12,18 +12,18 @@ export default function Options({ quarter, setQuarter, courseId }: { quarter: nu
                     courseId={courseId}
                     quarter={quarter}
                 />}
-                cssClasses={'gradeBookButtonGB newAssignmentGB'}
+                cssClasses={'btn'}
             />
             <div className='quarterSelectConGB flex justify-between items-center gap-1 text-lg'>
                 <label htmlFor='quarter'>
-                    <p className=''>
+                    <p className='quarterSelectLabel'>
                         Quarter
                     </p>
                 </label>
                 <select
                     name="quarter"
                     id="quarter"
-                    className="quarterSelectGB"
+                    className="quarterSelect"
                     value={quarter}
                     onChange={(e) => setQuarter(parseInt(e.target.value))}
                 >

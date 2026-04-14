@@ -20,8 +20,6 @@ function CreateGradeModal({assignmentId, studentId, courseId}: {assignmentId: nu
     });
   };
 
-
-
   return (
     <div className='formCon'>
         <h1 className='inputTitle'>New Grade</h1>
@@ -44,7 +42,7 @@ function CreateGradeModal({assignmentId, studentId, courseId}: {assignmentId: nu
           </div>
           <div className="submitCon">
             <button 
-              className='submitButton'
+              className='btn submitButton'
               type="submit"
             >Submit</button>
           </div>

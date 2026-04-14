@@ -42,7 +42,7 @@ function CreateGroupModal({courseId}: {courseId: number}) {
           </div>
           <div className="submitCon">
             <button 
-              className='submitButton'
+              className='btn submitBtn'
               type="submit"
               disabled={pending || !name.length}
             >{pending ? 'Submitting...' : 'Submit'}</button>

@@ -46,7 +46,7 @@ export default function EditGradeModal({assignmentId, studentId, grade, courseId
           </div>
           <div className="submitCon">
             <button 
-              className='submitButton'
+              className='btn submitBtn'
               type="submit"
             >Submit</button>
             <OpenModalButton
@@ -56,7 +56,7 @@ export default function EditGradeModal({assignmentId, studentId, grade, courseId
                 studentId={studentId}
                 courseId={courseId}
               />}
-              cssClasses={''}
+              cssClasses={'btn cancelBtn'}
             />
           </div>
           {errors?.errors && <p className='labelTitle error'>{errors.errors.join(', ')}</p>}

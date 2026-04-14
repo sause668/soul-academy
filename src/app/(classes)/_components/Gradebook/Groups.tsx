@@ -65,22 +65,22 @@ export default function Groups({ groups, students, courseId }: { groups: Group[]
     }
 
     return (
-        <div id="groupsConGB" className="whiteBox p-5 w-fit max-w-[55%]">
+        <div id="groupsConGB" className="whiteBox p-2 md:p-5 w-fit md:max-w-[55%]">
             <table id="tableGBS">
                 <thead id="tableHeadGB">
                     <tr id="tableHeadRowGB" className="bg-blue-500 text-white">
                         <td className="tableCellGroupHeadGB text-lg font-bold gap-2">
                             <div className="flex justify-center items-center gap-2 px-2 py-4">
-                                <h3 className="groupNameGB text-lg font-bold">Groups</h3>
+                                <h3 className="groupNameGB font-subtitle text-2xl font-bold underline">Groups</h3>
                                 <OpenModalButton
                                     buttonText={<FaPlus className="text-lg" />}
                                     modalComponent={<CreateGroupModal courseId={courseId} />}
-                                    cssClasses={'rounded-full p-1 bg-blue-500 border border-blue-500 text-white hover:bg-white hover:text-blue-500 transition-all duration-300 cursor-pointer'}
+                                    cssClasses={'rounded-full p-2 bg-blue-500 border border-blue-500 text-white hover:bg-white hover:text-blue-500 transition-all duration-300 cursor-pointer'}
                                 />
                             </div>
                         </td>
                         <td className="tableCellGroupHeadGB text-center ">
-                            <h3 className="groupNameGB text-lg font-bold">Students</h3>
+                            <h3 className="groupNameGB font-subtitle text-2xl font-bold">Students</h3>
                         </td>
                     </tr>
                 </thead>
@@ -90,7 +90,7 @@ export default function Groups({ groups, students, courseId }: { groups: Group[]
                             <OpenModalTableCell
                                 cellText={group.name}
                                 modalComponent={<EditGroupModal groupId={group.id ?? 0} name={group.name ?? ''} courseId={courseId} />}
-                                cssClasses={`tableCellGroupHeadGB text-center cursor-pointer hover:opacity-80 transition-opacity duration-300 ${gIndex % 2 == 0 ? 'bg-blue-200' : 'bg-blue-100'}`}
+                                cssClasses={`tableCellGroupHeadGB font-subtitle text-center text-lg cursor-pointer hover:opacity-80 transition-opacity duration-300 ${gIndex % 2 == 0 ? 'bg-blue-200' : 'bg-blue-100'}`}
                             />
                             <td className="tableCellGroupGB groupCellGB">
                                 <div
@@ -101,7 +101,7 @@ export default function Groups({ groups, students, courseId }: { groups: Group[]
                                 >
                                     {group.students?.map((student, sIndex) => (
                                         <div
-                                            className="studentConGB text-center p-2 rounded-lg bg-blue-300 cursor-pointer hover:opacity-80 transition-opacity duration-300" key={`groupStudent${gIndex}-${sIndex}`}
+                                            className="studentConGB font-subtitle text-md text-center p-2 rounded-lg bg-blue-300 cursor-pointer hover:opacity-80 transition-opacity duration-300" key={`groupStudent${gIndex}-${sIndex}`}
                                             draggable="true"
                                             onDragStart={(e) => handleDragStart(e, student.id ?? 0, group.id ?? null)}
                                         >
@@ -114,7 +114,7 @@ export default function Groups({ groups, students, courseId }: { groups: Group[]
                     ))}
                     <tr className="tableBodyRowGB" >
 
-                        <td className="tableCellGB bg-slate-200" >No Group</td>
+                        <td className="tableCellGB bg-slate-200 font-subtitle text-lg" >No Group</td>
                         <td className={`tableCellGroupGB groupCellGB bg-slate-100`}>
                             <div
                                 className="groupCellGB flex flex-wrap justify-start items-center gap-2 p-2"
@@ -130,7 +130,7 @@ export default function Groups({ groups, students, courseId }: { groups: Group[]
                                     })
                                     .map((student, index) => (
                                         <div
-                                            className="studentConGB p-2 rounded-lg text-center bg-slate-300 cursor-pointer hover:opacity-80 transition-opacity duration-300"
+                                            className="studentConGB font-subtitle text-md p-2 rounded-lg text-center bg-slate-300 cursor-pointer hover:opacity-80 transition-opacity duration-300"
                                             key={`studentConGB${index}`}
                                             draggable="true"
                                             onDragStart={(e) => handleDragStart(e, student.id ?? 0, null)}

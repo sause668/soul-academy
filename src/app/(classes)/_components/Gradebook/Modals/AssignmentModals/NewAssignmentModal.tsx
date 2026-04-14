@@ -58,7 +58,7 @@ function NewAssignmentModal({courseId, quarter}: {courseId: number, quarter: num
           <select 
             name="type" 
             id="type" 
-            className="typeSelectGB"
+            className="formSelectInput"
             value={type} 
             onChange={(e) => setType(e.target.value)}
           >

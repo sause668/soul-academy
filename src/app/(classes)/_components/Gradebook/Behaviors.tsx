@@ -14,19 +14,19 @@ export default function Behaviors({ behaviors, students, courseId }: { behaviors
         { id: 'cooperation', name: 'Cooperation', type: 'behavior', quarter: 1 }
     ];
     return (
-        <div id="tableConGB" className="whiteBox p-2">
-            <div id="tableFormatConGB">
-                <div id="tableStudentsConGB" className="">
+        <div id="tableConGB" className="whiteBox md:p-2">
+            <div id="tableFormatConGB" className="grid grid-cols-[auto_auto] grid-rows-[auto] bg-screenWhite max-w-full m-2">
+                <div id="tableStudentsConGB" className="flex flex-col justify-end w-[160px]">
                     <table id="tableGBS">
                         <thead id="tableHeadGB">
                             <tr id="tableHeadRowGB">
-                                <td className="font-bold text-center cursor-default text-xl">Behaviors</td>
+                                <td className="pb-4 cursor-default font-subtitle font-bold text-center text-2xl underline">Behaviors</td>
                             </tr>
                         </thead>
                         <tbody id="tableBodyGB">
                             {students.sort((s1, s2) => sortStudents(s1, s2)).map((student, iStudent) => (
                                 <tr className="tableBodyRowGB" key={`studentName${iStudent}`}>
-                                    <td className="tableCellGB tableBodyCellGB studentBodyCellGB"
+                                    <td className="tableCellGB tableBodyCellGB font-subtitle bg-[#78909c10] cursor-pointer"
                                         onClick={() => router.push(`/students/${student.id}`)}
                                     >{student.lastName}, {student.firstName}</td>
                                 </tr>
@@ -34,14 +34,14 @@ export default function Behaviors({ behaviors, students, courseId }: { behaviors
                         </tbody>
                     </table>
                 </div>
-                <div id="tableGradesConGB">
+                <div id="tableGradesConGB" className="overflow-y-scroll">
                     <table id="tableGB">
                         <thead id="tableHeadGB">
                             <tr id="tableHeadRowBB">
                                 {behaviorAssignments.map((assignment, index) => (
-                                    <td className="tableCellGB tableCellBB tableHeadCellGB bg-gray-200 font-bold cursor-default" key={`assignHead${index}`}>{assignment.name}</td>
+                                    <td className="tableCellGB tableCellBB tableHeadCellGB bg-gray-200 font-subtitle font-bold cursor-default" key={`assignHead${index}`}>{assignment.name}</td>
                                 ))}
-                                <td className="tableCellGB tableCellBB tableHeadCellGB finalHeadCellGB bg-slate-300 text-lg font-bold">Priority Level</td>
+                                <td className="tableCellGB tableCellBB tableHeadCellGB finalHeadCellGB bg-slate-300 text-lg font-subtitle font-bold">Priority Level</td>
                             </tr>
                         </thead>
                         <tbody id="tableBodyGB">
@@ -65,14 +65,14 @@ export default function Behaviors({ behaviors, students, courseId }: { behaviors
                                                     modalComponent={behavior == 'N/A' ? 
                                                         <CreateBehaviorModal courseId={courseId} student={student} />
                                                     : <EditBehaviorModal behavior={studentBehavior ?? {}} courseId={courseId} /> }
-                                                    cssClasses={`tableCellGB tableCellBB tableBodyCellGB gradeBodyCellGB ${behavior ? convertBehaviorGradeColor(behavior) : 'noGrade'}`}
+                                                    cssClasses={`tableCellGB tableCellBB tableBodyCellGB gradeBodyCellGB font-body ${behavior ? convertBehaviorGradeColor(behavior) : 'noGrade'}`}
                                                     key={`behaviorGB${iStudent}${index}`}
                                                 />
                                             ))}
                                             {behaviorGrade != 'N/A' ?
-                                                <td className={`tableCellGB tableCellBB tableBodyCellGB finalBodyCellGB font-bold ${behaviorPriorityGradeColor}`}>{behaviorPriorityGrade}</td>
+                                                <td className={`tableCellGB tableCellBB tableBodyCellGB finalBodyCellGB font-subtitle font-bold ${behaviorPriorityGradeColor}`}>{behaviorPriorityGrade}</td>
                                                 :
-                                                <td className={`tableCellGB tableCellBB tableBodyCellGB finalBodyCellGB noGrade font-bold`}>N/A</td>
+                                                <td className={`tableCellGB tableCellBB tableBodyCellGB finalBodyCellGB noGrade font-subtitle font-bold`}>N/A</td>
                                             }
                                         </tr>
                                     )
