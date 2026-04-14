@@ -45,7 +45,7 @@ export default function EditGroupModal({ groupId, name, courseId }: { groupId: n
         </div>
         <div className="submitCon">
           <button
-            className='submitButton'
+            className='btn submitBtn'
             type="submit"
             disabled={pending || !currentName.length}
           >{pending ? 'Submitting...' : 'Submit'}</button>
@@ -55,7 +55,7 @@ export default function EditGroupModal({ groupId, name, courseId }: { groupId: n
               groupId={groupId}
               courseId={courseId}
             />}
-            cssClasses={'submitButton deleteButton'}
+            cssClasses={'btn cancelBtn'}
           />
         </div>
         {errors?.errors && <p className='labelTitle error'>{errors.errors.join(', ')}</p>}

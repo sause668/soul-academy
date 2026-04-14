@@ -17,7 +17,7 @@ export default function Behaviors({ behaviors }: { behaviors: Behavior[] }) {
     return (
         <div id="behaviorConSP" className="whiteBox min-w-[100%] overflow-hidden">
             <div id="behaviorHeaderConSP" className="bg-blue-500 text-white p-2 rounded-t-lg text-center">
-                <h2 id="behaviorTitleSP" className="text-xl font-bold">Behavior</h2>
+                <h2 id="behaviorTitleSP" className="font-subtitle text-xl font-bold">Behavior</h2>
             </div>
             <div id="behaviorInfoConSPBody">
                 {behaviors.map((behavior, index) => {
@@ -31,16 +31,16 @@ export default function Behaviors({ behaviors }: { behaviors: Behavior[] }) {
                                 onClick={() => handleBehavior(index)}
                             >
                                 <div className="behaviorInfoHeaderConLeftSP">
-                                    <h3 className={`behaviorInfoSP text-md font-bold`}> {behavior.courseName}</h3>
+                                    <h3 className={`behaviorInfoSP font-subtitle text-md font-bold`}> {behavior.courseName}</h3>
                                 </div>
                                 <div className="behaviorInfoHeaderConRightSP ">
-                                    <h3 className="behaviorInfoSP text-md">Priority: <b>{behaviorPriorityGrade}</b></h3>
+                                    <h3 className="behaviorInfoSP font-subtitle text-md">Priority: <b>{behaviorPriorityGrade}</b></h3>
                                 </div>
                             </div>
                             <div className={`behaviorInfoConBodySP flex flex-col justify-start items-start gap-1 p-2 pb-4 pt-1 ${behaviorPriorityGradeColor} ${bToggle[index] ? 'block' : 'hidden'} transition-all duration-300`}>
-                                <h3 className="behaviorInfoSP pl-10">Attention: <b>{convertBehaviorGrade(behavior.attention)}</b></h3>
-                                <h3 className="behaviorInfoSP pl-10">Learnability: <b>{convertBehaviorGrade(behavior.learnability)}</b></h3>
-                                <h3 className="behaviorInfoSP pl-10">Cooperation: <b>{convertBehaviorGrade(behavior.cooperation)}</b></h3>
+                                <h3 className="behaviorInfoSP font-subtitle pl-10">Attention: <b>{convertBehaviorGrade(behavior.attention)}</b></h3>
+                                <h3 className="behaviorInfoSP font-subtitle pl-10">Learnability: <b>{convertBehaviorGrade(behavior.learnability)}</b></h3>
+                                <h3 className="behaviorInfoSP font-subtitle pl-10">Cooperation: <b>{convertBehaviorGrade(behavior.cooperation)}</b></h3>
                             </div>
                         </div>
                     )

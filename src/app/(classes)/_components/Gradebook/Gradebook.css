@@ -63,10 +63,10 @@
 
 */
 
-#tableConGB {
+/* #tableConGB {
     max-width: 100%;
     display: flex;
-}
+} */
 
 th,td {
     height: 2.5rem;
@@ -74,28 +74,28 @@ th,td {
     max-width: 7rem;
 }
 
-#tableFormatConGB {
+/* #tableFormatConGB {
     display: grid;
     grid-template-columns: auto auto;
     grid-row: auto;
     background-color: white;
     margin: 1rem;
     max-width: 100%;
-}
+} */
 
-#tableStudentsConGB {
+/* #tableStudentsConGB {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     white-space: nowrap;
     width: max-content;
     width: 150px;
-}
+} */
 
-#tableGradesConGB {
+/* #tableGradesConGB {
     overflow-y: scroll;
 
-}
+} */
 
 
 #tableGB {
@@ -190,10 +190,10 @@ th,td {
 
 }
 
-.studentBodyCellGB {
+/* .studentBodyCellGB {
     background-color: #78909c10;
     cursor: pointer;
-}
+} */
 
 .gradeBodyCellBG {
     cursor: pointer;
@@ -238,14 +238,14 @@ th,td {
     
 }
 
-#assignInfoCon {
+/* #assignInfoCon {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     gap: .5rem;
     padding: 1rem;
-}
+} */
 
 #assignButtonsCon {
     display: flex;

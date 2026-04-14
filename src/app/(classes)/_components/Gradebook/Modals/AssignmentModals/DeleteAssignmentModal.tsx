@@ -21,10 +21,10 @@ export default function DeleteAssignmentModal({ assignment, quarter, courseId }:
     
     return (
         <div className="formCon">
-            <h3 className="confirmText">{`Are you sure you want to delete ${assignment.name}?`}</h3>
+            <h3 className="confirmText font-subtitle text-lg">{`Are you sure you want to delete ${assignment.name}?`}</h3>
             <div className="confirmButtonCon">
-                <button onClick={handleDelete} className="submitButton yes">Yes</button>
-                <button onClick={closeModal} className="submitButton no">No</button>
+                <button onClick={handleDelete} className="btn">Yes</button>
+                <button onClick={closeModal} className="btn cancelBtn">No</button>
             </div>
             {errors && <p className='labelTitle error'>{errors}</p>}
         </div>

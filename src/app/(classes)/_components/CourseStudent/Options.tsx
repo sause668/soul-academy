@@ -6,12 +6,12 @@ export default function Options({ quarter, setQuarter }: { quarter: number, setQ
         <div id="optionsConC" className="whiteBox p-2 flex justify-between items-center gap-2">
             <div className='quarterSelectConC flex justify-between items-center gap-1'>
                 <label htmlFor='quarter'>
-                    <p className='text-md'>Quarter</p>
+                    <p className='quarterSelectLabel'>Quarter</p>
                 </label>
                 <select
                     name="quarter"
                     id="quarter"
-                    className="quarterSelectC "
+                    className="quarterSelect "
                     value={quarter}
                     onChange={(e) => setQuarter(parseInt(e.target.value))}
                 >

@@ -21,7 +21,7 @@ export default async function RootLayout({ children, }: Readonly<{ children: Rea
 
   return (
     <html lang="en">
-      <body className={`${sourGummy.variable} ${balsamiqSans.variable} ${robotoFlex.variable} ${geistSans.variable} ${geistMono.variable} ${delius.variable} antialiased min-h-screen bg-screenWhite`}>
+      <body className={`${sourGummy.variable} ${balsamiqSans.variable} ${robotoFlex.variable} ${geistSans.variable} ${geistMono.variable} ${delius.variable} antialiased min-h-screen bg-screenWhite font-body`}>
         <ModalProvider>
           <Suspense fallback={<div>Loading...</div>}>
             <NavBarShell />

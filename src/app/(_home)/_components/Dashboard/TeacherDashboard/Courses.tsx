@@ -6,6 +6,7 @@ import "@/app/(_home)/_components/Dashboard/Dashboard.css";
 
 export default function Courses({ courses }: { courses: Course[] }) {
     const router = useRouter();
+
     const classHeaders = [
         {
           header: 'Grade',
@@ -35,6 +36,7 @@ export default function Courses({ courses }: { courses: Course[] }) {
       'room',
       'studentCount',
     ]
+
     return (
         <div id="classesConDB" className="whiteBox flex flex-col justify-flex-start items-flex-start ">
               <div id="classTitleConDB" className="flex justify-between items-center p-2 bg-blue-500 text-white rounded-t-lg">
@@ -50,7 +52,7 @@ export default function Courses({ courses }: { courses: Course[] }) {
                   <thead>
                     <tr className="bg-gray-200 text-black border-b border-gray-300">
                       {classHeaders.map((header, index) => (
-                        <th className={`classTableHeaderDB${index} py-1`} key={`classTableHeaderT${index}`}>{header.header}</th>
+                        <th className={`classTableHeaderDB font-subtitle py-1`} key={`classTableHeaderT${index}`}>{header.header}</th>
                       ))}
                     </tr>
                   </thead>
@@ -62,19 +64,8 @@ export default function Courses({ courses }: { courses: Course[] }) {
                       onClick={()=>router.push(`/courses/${course.id}`)}
                       >
                         {classBodyKeys.map((key, index) => (
-                          <td className={`classTableCellDB text-center py-2`} key={`classTableCellT${index}`}>{course[key as keyof Course] as string}{key === 'grade' && 'th'}</td>
+                          <td className={`classTableCellDB font-subtitle text-center py-2`} key={`classTableCellT${index}`}>{course[key as keyof Course] as string}{key === 'grade' && 'th'}</td>
                         ))}
-                        {/* <td id="classTableCellDB">{course.name}</td>
-                        <td id="classTableCellDB">{course.period}</td>
-                        <td id="classTableCellDB">{course.room}</td>
-                        <td id="classTableCellDB">{course.studentCount}</td> */}
-                        {/* <td id="classTableCellDB">
-                          <OpenModalButton
-                            buttonText={<FiEdit />}
-                            modalComponent={<EditClassModal classEdit={class_} />}
-                            cssClasses={'classButtonDB editDB text-2xl m-0 p-1 bg-blue-500 text-white rounded-full'}
-                          />
-                        </td> */}
                       </tr>
                     ))}
                   </tbody>

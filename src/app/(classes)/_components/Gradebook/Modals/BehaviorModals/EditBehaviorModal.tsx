@@ -40,7 +40,7 @@ export default function EditBehaviorModal({behavior, courseId}: {behavior: Behav
           <select 
             name="attention" 
             id="attention" 
-            className="selectGB"
+            className="formSelectInput"
             value={attention} 
             onChange={(e) => setAttention(parseInt(e.target.value))}
           >
@@ -62,7 +62,7 @@ export default function EditBehaviorModal({behavior, courseId}: {behavior: Behav
           <select 
             name="learnability" 
             id="learnability" 
-            className="selectGB"
+            className="formSelectInput"
             value={learnability} 
             onChange={(e) => setLearnability(parseInt(e.target.value))}
           >
@@ -84,7 +84,7 @@ export default function EditBehaviorModal({behavior, courseId}: {behavior: Behav
           <select 
             name="cooperation" 
             id="cooperation" 
-            className="selectGB"
+            className="formSelectInput"
             value={cooperation} 
             onChange={(e) => setCooperation(parseInt(e.target.value))}
           >
@@ -98,14 +98,14 @@ export default function EditBehaviorModal({behavior, courseId}: {behavior: Behav
         </div>
         <div className="submitCon">
           <button 
-              className='submitButton'
+              className='btn submitBtn'
               type="submit"
               disabled={pending}
             >{pending ? 'Submitting...' : 'Submit'}</button>
           <OpenModalButton
               buttonText={'Delete'}
               modalComponent={<DeleteBehaviorModal behavior={behavior} courseId={courseId} />}
-              cssClasses={'submitButton deleteButton'}
+              cssClasses={'btn cancelBtn'}
             />
         </div>
         {errors?.errors && <p className='labelTitle error'>{errors.errors.join(', ')}</p>}

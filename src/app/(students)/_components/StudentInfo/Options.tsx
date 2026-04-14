@@ -4,12 +4,12 @@ export default function Options({ quarter, setQuarter }: { quarter: number, setQ
     return (
         <div id="quarterSelectConSP" className='whiteBox p-2 flex justify-between items-center gap-1'>
             <label htmlFor='quarter'>
-                <p className='text-lg font-bold'>Quarter</p>
+                <p className='font-subtitle text-lg font-bold'>Quarter</p>
             </label>
             <select
                 name="quarter"
                 id="quarter"
-                className="quarterSelectSP "
+                className="quarterSelect"
                 value={quarter}
                 onChange={(e) => setQuarter(parseInt(e.target.value))}
             >

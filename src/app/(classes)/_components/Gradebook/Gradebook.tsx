@@ -17,7 +17,7 @@ export default function Gradebook({ courseData, session }: { courseData: Gradebo
     return (
         <div className="flex justify-center items-center bg-zinc-100 pt-5 pb-5">
             <div id="gradeBookCon" className="flex flex-col justify-start items-center gap-2 w-[95%]">
-                <div id="headerConGB" className="flex justify-between items-center w-[75%]">
+                <div id="headerConGB" className="flex max-md:flex-col justify-between items-center gap-2 w-full md:w-[95%] lg:w-[90%] xl:w-[85%] 2xl:w-[75%]">
                     <Header course={course} />
                     <Options quarter={quarter} setQuarter={setQuarter} courseId={course.id ?? 0} />
                 </div>
