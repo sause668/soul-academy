@@ -3,7 +3,7 @@ import './CourseStudent.css';
 
 export default function Group({ group }: { group: Group }) {
     return (
-        <div id="groupConC" className="whiteBox flex flex-col justify-flex-start items-start w-[80%] overflow-hidden">
+        <div id="groupConC" className="whiteBox flex flex-col justify-flex-start items-start w-fit overflow-hidden">
             <h2 id="groupTitleC" className="text-xl font-bold text-center bg-blue-500 font-subtitle text-white rounded-t-lg p-2 w-full">Class Group: {group.name}</h2>
             <div id="groupStudentsConC" className="flex flex-col justify-flex-start items-start w-full min-h-10">
                 {group.students?.map((student, index) => (

@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function Header({ student }: { student: Student }) {
     const router = useRouter();
     return (
-        <div id="profileConSP" className="whiteBox p-2 max-md:text-center">
+        <div id="profileConSP" className="whiteBox max-md:flex max-md:justify-center max-md:items-center p-2">
             <div id="profilePicConSP">
                 <FiUser id='profilePicSP' className="text-[10rem] bg-white rounded-full" />
             </div>
