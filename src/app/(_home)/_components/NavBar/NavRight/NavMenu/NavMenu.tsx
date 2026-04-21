@@ -1,14 +1,37 @@
 import { User } from "@/app/lib/definitions";
 import { navLinks } from "@/app/lib/site-data";
 import { useRouter } from "next/navigation";
-import { useModal } from "@/app/(_home)/_context/Modal";
+import { useNavMenu } from "@/app/(_home)/_context/NavBarContext";
+import { useEffect, useRef } from "react";
 
 export default function NavMenu({ user, handleLogout }: { user: User, handleLogout: () => void }) {
-    const { closeModal } = useModal();
+    const { closeNavMenu } = useNavMenu();
     const router = useRouter();
+    const navMenuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handlePointerDownOutside = (e: MouseEvent | PointerEvent) => {
+            const target = e.target as Node | null;
+            if (
+                target &&
+                navMenuRef.current &&
+                !navMenuRef.current.contains(target)
+            ) {
+                closeNavMenu();
+            }
+        };
+
+        document.addEventListener("pointerdown", handlePointerDownOutside);
+        return () => {
+            document.removeEventListener("pointerdown", handlePointerDownOutside);
+        };
+    }, [closeNavMenu]);
+
+
     return (
         <div
-            className={"whiteBox fixed top-10 right-1 flex flex-col justify-center items-center mt-0.5 text-black text-lg overflow-hidden"}
+            ref={navMenuRef}
+            className={"whiteBox absolute top-full right-1 flex flex-col justify-center items-center mt-0.5 text-black text-lg overflow-hidden min-w-48"}
         >
             {navLinks.map((link) => (
                 <div
@@ -16,7 +39,7 @@ export default function NavMenu({ user, handleLogout }: { user: User, handleLogo
                     key={link.href}
                     onClick={() => {
                         router.push(link.href);
-                        closeModal();
+                        closeNavMenu();
                     }}
                 >
                     <h3 className="navMenuLink" >{link.text}</h3>
@@ -26,7 +49,7 @@ export default function NavMenu({ user, handleLogout }: { user: User, handleLogo
                 className="p-2 w-full text-center cursor-pointer hover:bg-blue-500 hover:text-white transition-all duration-300"
                 onClick={() => {
                     handleLogout();
-                    closeModal();
+                    closeNavMenu();
                 }}
             >
                 <h3 className="navMenuLink" >Logout</h3>

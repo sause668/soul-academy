@@ -54,26 +54,26 @@ export default function NavSearch({ user }: { user: User }) {
     }
   };
 
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        searchRef.current &&
-        !searchRef.current.contains(e.target as Node) &&
-        resultsRef.current &&
-        !resultsRef.current.contains(e.target as Node)
-      ) {
-        setShowResults(false);
-      }
-    };
+  // useEffect(() => {
+  //   const handleClickOutside = (e: MouseEvent) => {
+  //     if (
+  //       searchRef.current &&
+  //       !searchRef.current.contains(e.target as Node) &&
+  //       resultsRef.current &&
+  //       !resultsRef.current.contains(e.target as Node)
+  //     ) {
+  //       setShowResults(false);
+  //     }
+  //   };
 
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-      if (searchDelayRef.current) {
-        clearTimeout(searchDelayRef.current);
-      }
-    };
-  }, []);
+  //   document.addEventListener("click", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("click", handleClickOutside);
+  //     if (searchDelayRef.current) {
+  //       clearTimeout(searchDelayRef.current);
+  //     }
+  //   };
+  // }, []);
 
   return (
     // <div className="max-2xs:hidden">
