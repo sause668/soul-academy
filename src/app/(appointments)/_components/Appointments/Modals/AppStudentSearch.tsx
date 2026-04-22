@@ -5,7 +5,7 @@ import { User, Student } from "@/app/lib/definitions";
 import { getStudentsSearchData } from "@/app/(students)/_actions/student-actions";
 import { useModal } from "@/app/(_home)/_context/Modal";
 
-export default function NavSearch({ user }: { user: User }) {
+export default function AppStudentSearch({ user, setStudentId }: { user: User, setStudentId: (studentId: number) => void }) {
   const { closeModal } = useModal();
   const router = useRouter();
   const [students, setStudents] = useState<Student[]>([]);
@@ -40,12 +40,12 @@ export default function NavSearch({ user }: { user: User }) {
     }
   };
 
-  const handleStudentClick = (studentId: number | undefined) => {
-    if (!studentId) return;
-    router.push(`/students/${studentId}`);
-    setSearch('');
+  const handleStudentClick = (studentId: number | undefined, studentName: string | undefined) => {
+    if (!studentId || !studentName) return;
+    setSearch(studentName);
+    setStudentId(studentId);
     setShowResults(false);
-    closeModal();
+    // closeModal();
   };
 
   const handleFocus = () => {
@@ -98,7 +98,7 @@ export default function NavSearch({ user }: { user: User }) {
               <div
                 key={student.id}
                 className="group py-3 px-4 cursor-pointer transition-colors duration-200 border-b border-gray-200 last:border-b-0 hover:bg-[#007AFF] hover:text-white"
-                onClick={() => handleStudentClick(student.id)}
+                onClick={() => handleStudentClick(student.id, `${student.firstName} ${student.lastName}`)}
               >
                 <div className="text-black font-medium text-[0.95rem] group-hover:text-white/90">
                   {student.firstName} {student.lastName}

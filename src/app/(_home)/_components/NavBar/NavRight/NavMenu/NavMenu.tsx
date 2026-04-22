@@ -2,31 +2,10 @@ import { User } from "@/app/lib/definitions";
 import { navLinks } from "@/app/lib/site-data";
 import { useRouter } from "next/navigation";
 import { useNavMenu } from "@/app/(_home)/_context/NavBarContext";
-import { useEffect, useRef } from "react";
 
 export default function NavMenu({ user, handleLogout }: { user: User, handleLogout: () => void }) {
-    const { closeNavMenu } = useNavMenu();
+    const { closeNavMenu, navMenuRef } = useNavMenu();
     const router = useRouter();
-    const navMenuRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const handlePointerDownOutside = (e: MouseEvent | PointerEvent) => {
-            const target = e.target as Node | null;
-            if (
-                target &&
-                navMenuRef.current &&
-                !navMenuRef.current.contains(target)
-            ) {
-                closeNavMenu();
-            }
-        };
-
-        document.addEventListener("pointerdown", handlePointerDownOutside);
-        return () => {
-            document.removeEventListener("pointerdown", handlePointerDownOutside);
-        };
-    }, [closeNavMenu]);
-
 
     return (
         <div

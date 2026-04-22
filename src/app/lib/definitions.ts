@@ -233,6 +233,29 @@ export interface Assignment {
     grade?: number;
 }
 
+export const AssignmentFormSchema = z.object({
+    name: z
+        .string()
+        .min(1, { error: 'Assignment Name is required' })
+        .trim(),
+    type: z
+        .string()
+        .refine((type) => ['CW', 'HW', 'Q', 'T', 'P'].includes(type), { message: 'Invalid Assignment Type' })
+        .trim(),
+    dueDate: z
+        .date()
+        // .min(new Date(), { error: 'Due Date must be in the future' })
+})
+
+export type AssignmentFormState = {
+    errors: string[],
+    properties?: {
+        name?: { errors: string[] } | undefined;
+        type?: { errors: string[] } | undefined;
+        dueDate?: { errors: string[] } | undefined;
+    } | undefined
+} | undefined
+
 //Grade Definitions
 export interface Grade {
     assignmentId?: number;
@@ -353,26 +376,31 @@ export interface Appointment {
     course?: Course;
 }
 
-export const AssignmentFormSchema = z.object({
-    name: z
-        .string()
-        .min(1, { error: 'Assignment Name is required' })
-        .trim(),
-    type: z
-        .string()
-        .refine((type) => ['CW', 'HW', 'Q', 'T', 'P'].includes(type), { message: 'Invalid Assignment Type' })
-        .trim(),
-    dueDate: z
-        .date()
-        // .min(new Date(), { error: 'Due Date must be in the future' })
+    export const AppointmentFormSchema = z.object({
+    teacherId: z
+        .number()
+        .min(1, { error: 'Teacher is required' }),
+    studentId: z
+        .number()
+        .min(1, { error: 'Student is required' }),
+    // startTime: z
+    //     .date()
+    //     .min(new Date(), { error: 'Start Time must be in the future' }),
+    // endTime: z
+    //     .date()
+    //     .min(new Date(), { error: 'End Time must be in the future' }),
 })
 
-export type AssignmentFormState = {
+export type AppointmentFormState = {
     errors: string[],
     properties?: {
+        teacherId?: { errors: string[] } | undefined;
+        studentId?: { errors: string[] } | undefined;
+        courseId?: { errors: string[] } | undefined;
+        startTime?: { errors: string[] } | undefined;
+        endTime?: { errors: string[] } | undefined;
         name?: { errors: string[] } | undefined;
-        type?: { errors: string[] } | undefined;
-        dueDate?: { errors: string[] } | undefined;
+        description?: { errors: string[] } | undefined;
     } | undefined
 } | undefined
 
@@ -391,6 +419,11 @@ export interface Announcement {
     updatedAt?: Date;
     user?: User;
     courses?: Course[];
+}
+
+export interface AppointmentsData {
+    user: User;
+    appointments: Appointment[];
 }
 
 //Deck Definitions
