@@ -7,7 +7,7 @@ import AppStudentSearch from "./AppStudentSearch";
 import { createAppointment } from "@/app/(appointments)/_actions/appointment-actions";
 import { getAppCourses } from "@/app/(appointments)/_actions/appointment-actions";
 
-function CreateAppointmentModal({ user }: { user: User }) {
+export default function CreateAppointmentModal({ user }: { user: User }) {
   const [pending, startTransition] = useTransition();
   const [courses, setCourses] = useState<Course[]>([]);
   
@@ -31,7 +31,7 @@ function CreateAppointmentModal({ user }: { user: User }) {
     });
   };
 
-  const handleCreateAppointment = async () => {
+  const handleGetCourses = async () => {
     const courses = await getAppCourses(user.teacher?.id ?? 0);
     if (courses instanceof Error) return { errors: ['Failed to get courses. Please try again.'] } as AppointmentFormState;
     else if (courses && "errors" in courses) return setErrors(courses);
@@ -39,7 +39,7 @@ function CreateAppointmentModal({ user }: { user: User }) {
   }
 
   useEffect(() => {
-    handleCreateAppointment();
+    handleGetCourses();
   }, []);
 
   return (
@@ -60,7 +60,7 @@ function CreateAppointmentModal({ user }: { user: User }) {
             onChange={(e) => setCourseId(e.target.value)}
             required
           >
-            {/* <option value="">Course</option> */}
+            <option value="">Select a course</option>
             {courses.map((course) => (
               <option key={course.id} value={course.id}>
                 {course.name} - Period: {course.period}
@@ -71,12 +71,12 @@ function CreateAppointmentModal({ user }: { user: User }) {
         </div>
         {/* Start Date and Time */}
         <div className='inputCon'>
-          <label htmlFor='appointmentDate'>
-            <p className='labelTitle'>Date</p>
+          <label htmlFor='startTime'>
+            <p className='labelTitle'>Start Time</p>
           </label>
           <input
             className='formInput'
-            id="appointmentDate"
+            id="startTime"
             type="datetime-local"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
@@ -87,12 +87,12 @@ function CreateAppointmentModal({ user }: { user: User }) {
         </div>
         {/* End Date and Time */}
         <div className='inputCon'>
-          <label htmlFor='appointmentTime'>
-            <p className='labelTitle'>Time</p>
+          <label htmlFor='endTime'>
+            <p className='labelTitle'>End Time</p>
           </label>
           <input
             className='formInput'
-            id="appointmentTime"
+            id="endTime"
             type="datetime-local"
             value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
@@ -143,51 +143,3 @@ function CreateAppointmentModal({ user }: { user: User }) {
     </div>
   );
 }
-
-export default CreateAppointmentModal;
-
-
-// {/* {user.role === 'teacher' ? (
-//           <div className='inputCon'>
-//             <label htmlFor='studentId'>
-//               <p className='labelTitle'>Student</p>
-//             </label>
-//             <select
-//               className='formInput'
-//               id="studentId"
-//               value={studentId}
-//               onChange={(e) => setStudentId(e.target.value)}
-//               required
-//             >
-//               <option value="">Select a student</option>
-//               {students.map((student) => (
-//                 <option key={student.id} value={student.id}>
-//                   {student.last_name}, {student.first_name} - Grade {student.grade}
-//                 </option>
-//               ))}
-//             </select>
-//             {errors.student_id && <p className='labelTitle error'>{errors.student_id}</p>}
-//           </div>
-//         ) : (
-//           // Student Search
-//           <div className='inputCon'>
-//             <label htmlFor='teacherId'>
-//               <p className='labelTitle'>Teacher</p>
-//             </label>
-//             <select
-//               className='formInput'
-//               id="teacherId"
-//               value={teacherId}
-//               onChange={(e) => setTeacherId(e.target.value)}
-//               required
-//             >
-//               <option value="">Select a teacher</option>
-//               {teachers.map((teacher) => (
-//                 <option key={teacher.id} value={teacher.id}>
-//                   {teacher.last_name}, {teacher.first_name} - {teacher.primary_grade}th Grade {teacher.primary_subject}
-//                 </option>
-//               ))}
-//             </select>
-//             {errors.teacher_id && <p className='labelTitle error'>{errors.teacher_id}</p>}
-//           </div>
-//         )} */}

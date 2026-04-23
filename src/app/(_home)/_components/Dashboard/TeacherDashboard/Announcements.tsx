@@ -1,19 +1,22 @@
 import OpenModalButton from "../../OpenModalComponents/OpenModalButton";
-import { Announcement } from "@/app/lib/definitions";
+import { Announcement, Teacher } from "@/app/lib/definitions";
 import { FiPlus, FiUser } from "react-icons/fi";
 import { MdEdit, MdDelete } from "react-icons/md";
 import { formatDate } from "@/app/lib/typeConvertion";
 import { nameToString } from "@/app/lib/typeConvertion";
+import CreateAnnouncementModal from "./Modals/CreateAnnouncement";
 import "@/app/(_home)/_components/Dashboard/Dashboard.css";
+import UpdateAnnouncementModal from "./Modals/UpdateAnnouncement";
+import DeleteAnnouncementModal from "./Modals/DeleteAnnouncement";
 
-export default function Announcements({ announcements, userId }: { announcements: Announcement[], userId: number }) {
+export default function Announcements({ announcements, teacher }: { announcements: Announcement[], teacher: Teacher }) {
     return (
         <div id="announcementsConDB" className="whiteBox">
               <div id="announcementsTitleConDB" className="flex justify-between items-center p-2 bg-blue-500 text-white rounded-t-lg">
                 <h3 id="announcementsTitleDB" className="text-xl font-subtitle font-bold">Announcements</h3>
                 <OpenModalButton
                   buttonText={<FiPlus className="text-2xl" />}
-                  modalComponent={`<CreateAnnouncementModal />`}
+                  modalComponent={<CreateAnnouncementModal teacher={teacher} />}
                   cssClasses={'newClassButtonDB text-2xl m-0 p-1 bg-blue-500 text-white rounded-full border-2 border-blue-500 hover:bg-white hover:text-blue-500 transition-colors duration-300'}
                 />
               </div>
@@ -22,7 +25,7 @@ export default function Announcements({ announcements, userId }: { announcements
                   <div className="text-center text-gray-500 py-4">No announcements yet</div>
                 ) : (
                   announcements.map((announcement, index) => {
-                    const isOwner = announcement.userId === userId;
+                    const isOwner = announcement.userId === teacher.userId;
                     return (
                       <div className={`announcementItemDB flex flex-col justify-flex-start items-flex-start gap-1 ${index > 0 ? 'border-t border-gray-300 pb-2 pt-2' : ''}`} key={`announcementItemT${announcement.id}`}>
                         <div className="announcementProfileConDB flex justify-between items-center w-full">
@@ -37,12 +40,12 @@ export default function Announcements({ announcements, userId }: { announcements
                                   <div className="flex items-center gap-1 pl-2">
                                     <OpenModalButton
                                       buttonText={<MdEdit className="text-sm" />}
-                                      modalComponent={'<EditAnnouncementModal announcement={announcement} />'}
+                                      modalComponent={<UpdateAnnouncementModal announcement={announcement} />}
                                       cssClasses={'text-sm m-0 p-1 bg-blue-500 text-white rounded border-2 border-blue-500 hover:bg-blue-600 hover:border-blue-600 transition-colors duration-300'}
                                     />
                                     <OpenModalButton
                                       buttonText={<MdDelete className="text-sm" />}
-                                      modalComponent={'<DeleteAnnouncementModal announcement={announcement} />'}
+                                      modalComponent={<DeleteAnnouncementModal announcement={announcement} />}
                                       cssClasses={'text-sm m-0 p-1 bg-red-500 text-white rounded border-2 border-red-500 hover:bg-red-600 hover:border-red-600 transition-colors duration-300 '}
                                     />
                                   </div>

@@ -9,6 +9,7 @@ for (const announcement of announcements) {
         title: announcement.title,
         content: announcement.content,
         scope: announcement.scope,
+        // course: { connect: { id: announcement.courseId } },
         createdAt: new Date(announcement.createdAt),
     });
 }

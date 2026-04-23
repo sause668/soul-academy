@@ -143,8 +143,13 @@ export interface PriorityStudent {
     id: number;
     firstName: string;
     lastName: string;
-    priorityNumber: number;
+    priorityNumber: number | 'N/A';
     priority: string;
+}
+
+export interface PriorityStudentGroups {
+    highlightStudents: { title: string, students: PriorityStudent[] };
+    focusStudents: { title: string, students: PriorityStudent[] };
 }
 
 export interface StudentData {
@@ -404,6 +409,11 @@ export type AppointmentFormState = {
     } | undefined
 } | undefined
 
+export interface AppointmentsData {
+    user: User;
+    appointments: Appointment[];
+}
+
 //Announcement Definitions
 export interface Announcement {
     id?: number;
@@ -421,10 +431,35 @@ export interface Announcement {
     courses?: Course[];
 }
 
-export interface AppointmentsData {
-    user: User;
-    appointments: Appointment[];
-}
+export const AnnouncementFormSchema = z.object({
+    title: z
+        .string()
+        .min(1, { error: 'Title is required' })
+        .trim(),
+    content: z
+        .string()
+        .min(1, { error: 'Content is required' })
+        .trim(),
+    // imageUrl: z
+    //     .string()
+    //     .optional(),
+    //     .url({ message: 'Invalid Image URL' })
+    //     .trim(),
+    // scope: z
+    //     .string()
+    //     .min(1, { error: 'Scope is required' })
+    //     .trim(),
+})
+
+export type AnnouncementFormState = {
+    errors: string[],
+    properties?: {
+        title?: { errors: string[] } | undefined;
+        content?: { errors: string[] } | undefined;
+        imageUrl?: { errors: string[] } | undefined;
+        scope?: { errors: string[] } | undefined;
+    } | undefined
+} | undefined
 
 //Deck Definitions
 export interface Deck {

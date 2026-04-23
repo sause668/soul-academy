@@ -95,7 +95,7 @@ export async function getAppointments(session: SessionPayload) {
                 description: appointment.description || undefined,
                 startTime: appointment.startTime,
                 endTime: appointment.endTime,
-            });    
+            });
         }
 
         const safeAppointmentsData: AppointmentsData = {
@@ -111,7 +111,7 @@ export async function getAppointments(session: SessionPayload) {
 export async function createAppointment(teacherId: number, studentId: number, courseId: number, name: string, description: string, startTime: Date, endTime: Date) {
     try {
         if (teacherId <= 0 || studentId <= 0 || courseId <= 0) return { errors: ['Key Information not found.  Refreshing the page may fix this issue.'] } as AppointmentFormState;
-        
+
         const session = await verifySession();
 
         if (session instanceof Error) throw session;
@@ -145,6 +145,74 @@ export async function createAppointment(teacherId: number, studentId: number, co
         revalidatePath(`/appointments`);
 
         return { message: "Appointment created successfully" } as ActionResponse;
+    } catch (error) {
+        return error as Error;
+    }
+}
+
+export async function updateAppointment(appointmentId: number, teacherId: number, studentId: number, courseId: number, name: string, description: string, startTime: Date, endTime: Date) {
+    try {
+        if (appointmentId <= 0 || teacherId <= 0 || studentId <= 0 || courseId <= 0) return { errors: ['Key Information not found.  Refreshing the page may fix this issue.'] } as AppointmentFormState;
+
+        const session = await verifySession();
+
+        if (session instanceof Error) throw session;
+
+        if (session.userRole === 'student') throw new Error('Unauthorized');
+
+        const validatedFields = AppointmentFormSchema.safeParse({
+            teacherId,
+            studentId,
+            courseId,
+            name,
+            description,
+            startTime,
+            endTime,
+        });
+
+        if (!validatedFields.success) return z.treeifyError(validatedFields.error) as AppointmentFormState;
+
+
+        await prisma.appointment.update({
+            where: { id: appointmentId },
+            data: {
+                teacherId: validatedFields.data.teacherId,
+                studentId: validatedFields.data.studentId,
+                courseId: courseId,
+                name: name,
+                description: description,
+                startTime: startTime,
+                endTime: endTime,
+            },
+        });
+
+        revalidatePath(`/appointments`);
+
+        return { message: "Appointment updated successfully" } as ActionResponse;
+
+    } catch (error) {
+        return error as Error;
+    }
+}
+
+export async function deleteAppointment(appointmentId: number) {
+    try {
+        if (appointmentId <= 0) return { errors: ['Key Information not found.  Refreshing the page may fix this issue.'] } as AppointmentFormState;
+
+        const session = await verifySession();
+
+        if (session instanceof Error) throw session;
+        
+        if (session.userRole === 'student') throw new Error('Unauthorized');
+
+        await prisma.appointment.delete({
+            where: { id: appointmentId },
+        });
+
+        revalidatePath(`/appointments`);
+
+        return { message: "Appointment deleted successfully" } as ActionResponse;
+
     } catch (error) {
         return error as Error;
     }

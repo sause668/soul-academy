@@ -1,140 +1,33 @@
-
+import { useTransition } from "react";
+import { useModal } from "@/app/(_home)/_context/Modal";
+import { deleteAssignment } from "@/app/(classes)/_actions/assignment-actions";
+import { Announcement, Assignment } from "@/app/lib/definitions";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
-import "./Dashboard.css";
-import { createAnnouncement, fetchAnnouncements } from "../../redux/announcement";
-
-function CreateAnnouncementModal() {
-  const dispatch = useDispatch();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-  const [errors, setErrors] = useState({});
-  const { closeModal } = useModal();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const serverResponse = await dispatch(
-      createAnnouncement({
-        title,
-        content,
-        image_url: imageUrl || null
-      })
-    );
-
-    if (serverResponse && serverResponse.errors) {
-      setErrors(serverResponse.errors);
-    } else {
-      // Refresh announcements list
-      dispatch(fetchAnnouncements());
-      closeModal();
-    }
-  };
-
-  return (
-    <div className='formCon'>
-      <h1 className='inputTitle'>New Announcement</h1>
-      <form onSubmit={handleSubmit}>
-        {/* Title */}
-        <div className='inputCon'>
-          <label htmlFor='title'>
-            <p className='labelTitle'>Title</p>
-          </label>
-          <input
-            className='formInput'
-            id="title"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-            maxLength={200}
-          />
-          {errors.title && <p className='labelTitle error'>{errors.title}</p>}
-        </div>
-        {/* Content */}
-        <div className='inputCon'>
-          <label htmlFor='content'>
-            <p className='labelTitle'>Content</p>
-          </label>
-          <textarea
-            className='formInput'
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            required
-            rows={6}
-          />
-          {errors.content && <p className='labelTitle error'>{errors.content}</p>}
-        </div>
-        {/* Image URL */}
-        <div className='inputCon'>
-          <label htmlFor='imageUrl'>
-            <p className='labelTitle'>Image URL (Optional)</p>
-          </label>
-          <input
-            className='formInput'
-            id="imageUrl"
-            type="url"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            placeholder="https://example.com/image.jpg"
-          />
-          {errors.image_url && <p className='labelTitle error'>{errors.image_url}</p>}
-        </div>
-        
-        <div className="submitCon">
-          <button 
-            className='submitButton'
-            type="submit"
-            disabled={!title.length || !content.length}
-          >Submit</button>
-        </div>
-        {errors.message && <p className='labelTitle error'>{errors.message}</p>}
-      </form>
-    </div>
-  );
-}
-
-export default CreateAnnouncementModal;
+import "../../Dashboard.css";
+import { deleteAnnouncement } from "@/app/(_home)/_actions/announcement-actions";
 
 
-
-
-import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
-import "./Dashboard.css";
-import { removeAnnouncement, fetchAnnouncements } from "../../redux/announcement";
-import { useState } from "react";
-
-const DeleteAnnouncementModal = ({ announcement }) => {
-    const dispatch = useDispatch();
-    const { closeModal } = useModal();
-    const [errors, setErrors] = useState({});
+export default function DeleteAnnouncementModal({ announcement }: { announcement: Announcement }) {
+    const [pending, startTransition] = useTransition();
+    const {closeModal} = useModal();
+    const [errors, setErrors] = useState('');
 
     const handleDelete = async () => {
-        const serverResponse = await dispatch(removeAnnouncement({ announcementId: announcement.id }));
-
-        if (serverResponse && serverResponse.errors) {
-            setErrors(serverResponse.errors);
-        } else {
-            // Refresh announcements list
-            dispatch(fetchAnnouncements());
-            closeModal();
-        }
-    };
+        startTransition(async () => {
+            const result = await deleteAnnouncement(announcement.id ?? 0, announcement.userId ?? 0);
+            if (result instanceof Error) setErrors('Failed to delete announcement. Please try again.');
+            else closeModal();
+        });
+    }
     
     return (
         <div className="formCon">
-            <h3 className="confirmTextCon">{`Are you sure you want to delete "${announcement.title}"?`}</h3>
+            <h3 className="confirmText font-subtitle text-lg">{`Are you sure you want to delete this announcement?`}</h3>
             <div className="confirmButtonCon">
-                <button onClick={handleDelete} className="submitButton yes">Yes</button>
-                <button onClick={closeModal} className="submitButton no">No</button>
+                <button onClick={handleDelete} className="btn" disabled={pending}>{pending ? 'Deleting...' : 'Yes'}</button>
+                <button onClick={closeModal} className="btn cancelBtn">No</button>
             </div>
-            {errors.message && <p className='labelTitle error'>{errors.message}</p>}
+            {errors && <p className='labelTitle error'>{errors}</p>}
         </div>
-    );
-};
-
-export default DeleteAnnouncementModal;
+    )
+}
