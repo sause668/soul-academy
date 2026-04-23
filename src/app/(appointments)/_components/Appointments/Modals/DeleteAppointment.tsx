@@ -1,53 +1,33 @@
-
-import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
-import "./Appointments.css";
-import { removeAppointment, fetchAppointments } from "../../redux/appointment";
+import { useTransition } from "react";
+import { useModal } from "@/app/(_home)/_context/Modal";
+import { deleteAssignment } from "@/app/(classes)/_actions/assignment-actions";
+import { Assignment } from "@/app/lib/definitions";
 import { useState } from "react";
+import "../Appointments.css";
+import { deleteAppointment } from "@/app/(appointments)/_actions/appointment-actions";
 
-const DeleteAppointmentModal = ({ appointment }) => {
-    const dispatch = useDispatch();
-    const { closeModal } = useModal();
-    const [errors, setErrors] = useState({});
 
-    const formatDate = (dateString) => {
-        if (!dateString) return '';
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
-    };
-
-    const formatTime = (timeString) => {
-        if (!timeString) return '';
-        const [hours, minutes] = timeString.split(':');
-        const hour = parseInt(hours);
-        const ampm = hour >= 12 ? 'PM' : 'AM';
-        const displayHour = hour % 12 || 12;
-        return `${displayHour}:${minutes} ${ampm}`;
-    };
+export default function DeleteAppointmentModal({ appointmentId }: { appointmentId: number }) {
+    const [pending, startTransition] = useTransition();
+    const {closeModal} = useModal();
+    const [errors, setErrors] = useState('');
 
     const handleDelete = async () => {
-        const serverResponse = await dispatch(removeAppointment({ appointmentId: appointment.id }));
-
-        if (serverResponse && serverResponse.errors) {
-            setErrors(serverResponse.errors);
-        } else {
-            dispatch(fetchAppointments());
-            closeModal();
-        }
-    };
+        startTransition(async () => {
+            const result = await deleteAppointment(appointmentId);
+            if (result instanceof Error) setErrors('Failed to delete appointment. Please try again.');
+            else closeModal();
+        });
+    }
     
     return (
         <div className="formCon">
-            <h3 className="confirmTextCon">
-                {`Are you sure you want to delete the appointment on ${formatDate(appointment.appointment_date)} at ${formatTime(appointment.appointment_time)}?`}
-            </h3>
+            <h3 className="confirmText font-subtitle text-lg">{`Are you sure you want to delete this appointment?`}</h3>
             <div className="confirmButtonCon">
-                <button onClick={handleDelete} className="submitButton yes">Yes</button>
-                <button onClick={closeModal} className="submitButton no">No</button>
+                <button onClick={handleDelete} className="btn" disabled={pending}>{pending ? 'Deleting...' : 'Yes'}</button>
+                <button onClick={closeModal} className="btn cancelBtn">No</button>
             </div>
-            {errors.message && <p className='labelTitle error'>{errors.message}</p>}
+            {errors && <p className='labelTitle error'>{errors}</p>}
         </div>
-    );
-};
-
-export default DeleteAppointmentModal;
+    )
+}

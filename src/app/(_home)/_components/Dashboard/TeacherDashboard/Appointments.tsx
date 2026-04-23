@@ -21,14 +21,14 @@ export default function Appointments({ appointments }: { appointments: Appointme
                     <div 
                       className="appsItemDB flex justify-between items-center gap-2 px-2 py-1.5 font-body hover:bg-blue-100 transition-colors duration-300 cursor-pointer w-full" 
                       key={`appsItemT${appointment.id}`}
-                      onClick={() => router.push(`/appointments/${appointment.id}`)}
+                      onClick={() => router.push(`/appointments`)}
                     >
                       <div className="appsPicConDB shrink-0 grow-0">
                         <FiUser className="appsPicDB text-2xl bg-white rounded-full"/>
                       </div>
                       <h3 className="appsDateDB font-subtitle text-sm font-bold shrink grow">{formatAppointmentDate(appointment.startTime)}</h3>
                       <h3 className="appsTimeDB font-subtitle text-sm shrink grow">{formatAppointmentTime(appointment.startTime)}</h3>
-                      <h4 className="appsNameDB font-subtitle font-subtitle text-sm shrink grow">{nameToString(appointment.student?.firstName ?? '', appointment.student?.lastName ?? '')}</h4>
+                      <h4 className="appsNameDB font-subtitle text-sm shrink grow">{nameToString(appointment.student?.firstName ?? '', appointment.student?.lastName ?? '')}</h4>
                     </div>
                   ))
                 )}

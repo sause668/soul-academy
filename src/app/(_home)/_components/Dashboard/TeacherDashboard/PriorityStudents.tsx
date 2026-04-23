@@ -11,9 +11,9 @@ export default function PriorityStudents({ priorityStudents }: { priorityStudent
 
     return (
         <div id="highlightStudentsConDB" className="whiteBox w-full overflow-hidden">
-              <h2 id="highlightStudentsTitleDB" className="text-xl text-center font-bold bg-blue-500 text-white font-subtitle p-2 rounded-t-lg">{priorityStudents.title}</h2>
+              <h2 id="highlightStudentsTitleDB" className="text-xl text-center font-bold bg-blue-500 text-white font-subtitle p-2 rounded-t-lg">{priorityStudents?.title}</h2>
               <div id="highlightStudentsListDB" className="flex flex-col justify-flex-start items-flex-start">
-                {priorityStudents.students.map((student, index) => (
+                {priorityStudents?.students.map((student, index) => (
                   <div 
                     className={`highlightStudentsItemDB flex justify-between items-center gap-2 px-2 py-1.5 font-body ${convertBehaviorPriorityGradeColor(student.priority)} hover:opacity-80 transition-opacity duration-300 cursor-pointer`} 
                     key={`highlightStudentsItemT${index}`}

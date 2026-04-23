@@ -10,6 +10,8 @@ import { Appointment, AppointmentFormState, Course, User } from "@/app/lib/defin
 import "./Appointments.css";
 import { getAppCourses } from "../../_actions/appointment-actions";
 import { useState } from "react";
+import UpdateAppointmentModal from "./Modals/UpdateAppointment";
+import DeleteAppointmentModal from "./Modals/DeleteAppointment";
 
 export default function Appointments({ appointments, user }: { appointments: Appointment[], user: User }) {
   const [courses, setCourses] = useState<Course[]>([]);
@@ -27,7 +29,7 @@ export default function Appointments({ appointments, user }: { appointments: App
       <div id="appointmentsHeaderCon" className="whiteBox w-[70%] p-4">
         <div className="flex justify-between items-center">
           <h1 className="text-3xl font-bold">Appointments</h1>
-          <OpenModalButton
+          {user.role === 'teacher' && <OpenModalButton
             buttonText={
               <div className="flex items-center gap-2">
                 <FiPlus className="text-xl" />
@@ -36,8 +38,8 @@ export default function Appointments({ appointments, user }: { appointments: App
             }
             modalComponent={<CreateAppointmentModal user={user} />}
             cssClasses={'bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300 flex items-center gap-2'}
-            // onButtonClick={handleCreateAppointment}
           />
+          }
         </div>
       </div>
 
@@ -93,18 +95,18 @@ export default function Appointments({ appointments, user }: { appointments: App
                     )}
                   </div>
 
-                  <div className="appointmentActionsCon flex items-center gap-2">
+                  {user.role === 'teacher' && <div className="appointmentActionsCon flex items-center gap-2">
                     <OpenModalButton
                       buttonText={<MdEdit className="text-xl" />}
-                      modalComponent={'<EditAppointmentModal appointment={appointment} />'}
+                      modalComponent={<UpdateAppointmentModal user={user} appointment={appointment} />}
                       cssClasses={'text-white hover:text-blue-700 p-2 rounded hover:bg-blue-100 transition-colors duration-300'}
                     />
                     <OpenModalButton
                       buttonText={<MdDelete className="text-xl" />}
-                      modalComponent={'<DeleteAppointmentModal appointment={appointment} />'}
+                      modalComponent={<DeleteAppointmentModal appointmentId={appointment.id ?? 0} />}
                       cssClasses={'text-red-500 hover:text-red-700 p-2 rounded hover:bg-red-100 transition-colors duration-300'}
                     />
-                  </div>
+                  </div>}
                 </div>
               </div>
             ))}

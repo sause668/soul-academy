@@ -5,11 +5,12 @@ import { User, Student } from "@/app/lib/definitions";
 import { getStudentsSearchData } from "@/app/(students)/_actions/student-actions";
 import { useModal } from "@/app/(_home)/_context/Modal";
 
-export default function AppStudentSearch({ user, setStudentId }: { user: User, setStudentId: (studentId: number) => void }) {
+export default function AppStudentSearch({ user, setStudentId, studentName }: { user: User, setStudentId: (studentId: number) => void, studentName?: string }) {
   const { closeModal } = useModal();
   const router = useRouter();
   const [students, setStudents] = useState<Student[]>([]);
-  const [search, setSearch] = useState('');
+  console.log('studentName', studentName);
+  const [search, setSearch] = useState(studentName ?? '');
   const [showResults, setShowResults] = useState(false);
   const searchDelayRef = useRef<NodeJS.Timeout | null>(null);
   const searchRef = useRef<HTMLDivElement | null>(null);

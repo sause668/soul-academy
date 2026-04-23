@@ -1,35 +1,30 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
-import "./Dashboard.css";
-import { createAnnouncement, fetchAnnouncements } from "../../redux/announcement";
+import { useState, useTransition } from "react";
+import { useModal } from "@/app/(_home)/_context/Modal";
+import "../../Dashboard.css";
+import { createAnnouncement } from "@/app/(_home)/_actions/announcement-actions";
+import { AnnouncementFormState, Teacher, User } from "@/app/lib/definitions";
 
-function CreateAnnouncementModal() {
-  const dispatch = useDispatch();
+export default function CreateAnnouncementModal({ teacher }: { teacher: Teacher }) {
+  const [pending, startTransition] = useTransition();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [imageUrl, setImageUrl] = useState('');
-  const [errors, setErrors] = useState({});
+  const [scope, setScope] = useState('school');
+  const [errors, setErrors] = useState<AnnouncementFormState>(undefined);
   const { closeModal } = useModal();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const serverResponse = await dispatch(
-      createAnnouncement({
-        title,
-        content,
-        image_url: imageUrl || null
-      })
-    );
-
-    if (serverResponse && serverResponse.errors) {
-      setErrors(serverResponse.errors);
-    } else {
-      // Refresh announcements list
-      dispatch(fetchAnnouncements());
-      closeModal();
-    }
+    startTransition(async () => {
+      const result = await createAnnouncement(teacher.userId ?? 0, title, content, imageUrl, scope);
+      if (result instanceof Error) setErrors({ errors: ['Failed to create announcement. Please try again.'] } as AnnouncementFormState);
+      else if (result && "errors" in result) {
+        console.log('errors', result);
+        setErrors(result);
+      }
+      else closeModal();
+    });
   };
 
   return (
@@ -50,7 +45,7 @@ function CreateAnnouncementModal() {
             required
             maxLength={200}
           />
-          {errors.title && <p className='labelTitle error'>{errors.title}</p>}
+          {errors?.properties?.title && <p className='labelTitle error'>{errors.properties.title.errors.join(', ')}</p>}
         </div>
         {/* Content */}
         <div className='inputCon'>
@@ -65,7 +60,7 @@ function CreateAnnouncementModal() {
             required
             rows={6}
           />
-          {errors.content && <p className='labelTitle error'>{errors.content}</p>}
+          {errors?.properties?.content && <p className='labelTitle error'>{errors.properties.content.errors.join(', ')}</p>}
         </div>
         {/* Image URL */}
         <div className='inputCon'>
@@ -80,21 +75,29 @@ function CreateAnnouncementModal() {
             onChange={(e) => setImageUrl(e.target.value)}
             placeholder="https://example.com/image.jpg"
           />
-          {errors.image_url && <p className='labelTitle error'>{errors.image_url}</p>}
+          {errors?.properties?.imageUrl && <p className='labelTitle error'>{errors.properties.imageUrl.errors.join(', ')}</p>}
         </div>
+        {/* Scope */}
+        {/* <div className='inputCon'>
+          <label htmlFor='scope'>
+            <p className='labelTitle'>Scope</p>
+          </label>
+          <select className='formInput' id="scope" value={scope} onChange={(e) => setScope(e.target.value)} required>
+            <option value="school">School</option>
+            <option value="class">Class</option>
+          </select>
+          {errors.scope && <p className='labelTitle error'>{errors.scope}</p>}
+        </div> */}
         
         <div className="submitCon">
           <button 
             className='submitButton'
             type="submit"
-            disabled={!title.length || !content.length}
-          >Submit</button>
+            disabled={pending || !title.length || !content.length}
+          >{pending ? 'Creating announcement...' : 'Submit'}</button>
         </div>
-        {errors.message && <p className='labelTitle error'>{errors.message}</p>}
+        {errors?.errors && <p className='labelTitle error'>{errors.errors.join(', ')}</p>}
       </form>
     </div>
   );
 }
-
-export default CreateAnnouncementModal;
-

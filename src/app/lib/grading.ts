@@ -1,96 +1,96 @@
-import { Assignment, Grade, GradeData, Rubric, PriorityStudent, Course, Student, Behavior } from "./definitions";
+import { Assignment, GradeData, Rubric, PriorityStudent, Student, Behavior, PriorityStudentGroups } from "./definitions";
 
 const rubric: Rubric = {
-    HW: 1,
-    CW: 1,
-    Q: 2,
-    T: 3,
-    P: 3
-  }
+  HW: 1,
+  CW: 1,
+  Q: 2,
+  T: 3,
+  P: 3
+}
 
-  const calcType = (grades: GradeData[], type: string) => {
-    const typeGrades = grades.filter(g => g.type == type).map(g => g.grade)
-    
-    if (typeGrades.length <= 0) return null;
-    
-    const totalGrade = typeGrades.reduce((sum, grade) => sum + grade, 0) / typeGrades.length
-    const weight = rubric[type as keyof Rubric]
+const calcType = (grades: GradeData[], type: string) => {
+  const typeGrades = grades.filter(g => g.type == type).map(g => g.grade)
+
+  if (typeGrades.length <= 0) return null;
+
+  const totalGrade = typeGrades.reduce((sum, grade) => sum + grade, 0) / typeGrades.length
+  const weight = rubric[type as keyof Rubric]
+  return {
+    weight,
+    grade: totalGrade * weight
+  }
+}
+
+const calcFinalGrade = (grades: GradeData[]) => {
+  const classwork = calcType(grades, 'CW')
+  const homework = calcType(grades, 'HW')
+  const quiz = calcType(grades, 'Q')
+  const test = calcType(grades, 'T')
+  const project = calcType(grades, 'P')
+
+  const gradeArr = [classwork, homework, quiz, test, project]
+
+  const totalGrade = gradeArr.reduce((sum, grade) => {
+    return (grade) ? sum + grade.grade : sum + 0
+  }, 0)
+  const totalWeight = gradeArr.reduce((sum, grade) => {
+    return (grade) ? sum + grade.weight : sum + 0
+  }, 0)
+
+  if (totalWeight == 0) return 'N/A'
+
+  return Math.round(totalGrade / totalWeight)
+}
+
+export const calcFinalGradeStudent = (assignments: Assignment[]) => {
+  const grades = assignments.map(assignment => {
     return {
-        weight,
-        grade: totalGrade * weight
-    }
-  }
+      grade: assignment.grade,
+      type: assignment.type
+    } as GradeData
+  })
 
-  const calcFinalGrade = (grades: GradeData[]) => {
-    const classwork = calcType(grades, 'CW')
-    const homework = calcType(grades, 'HW')
-    const quiz = calcType(grades, 'Q')
-    const test = calcType(grades, 'T')
-    const project = calcType(grades, 'P')
+  return calcFinalGrade(grades)
+}
 
-    const gradeArr = [classwork, homework, quiz, test, project]
-
-    const totalGrade = gradeArr.reduce((sum, grade) => {
-        return (grade) ? sum + grade.grade: sum + 0
-    }, 0)
-    const totalWeight = gradeArr.reduce((sum, grade) => {
-        return (grade) ? sum + grade.weight: sum + 0
-    }, 0)
-
-    if (totalWeight == 0) return 'N/A'
-
-    return Math.round(totalGrade / totalWeight)  
-  }
-
-  export const calcFinalGradeStudent = (assignments: Assignment[]) => {
-    const grades = assignments.map(assignment => {
-      return {
-        grade: assignment.grade, 
-        type: assignment.type
-      } as GradeData
+export const calcFinalGradeTeacher = (assignments: Assignment[], studentId: number) => {
+  const grades: GradeData[] = [];
+  assignments.forEach(assignment => {
+    const grade = assignment.grades?.find((grade) => {
+      return grade.studentId == studentId
     })
-    
-    return calcFinalGrade(grades)
-  }
 
-  export const calcFinalGradeTeacher = (assignments: Assignment[], studentId: number) => {
-    const grades: GradeData[] = [];
-    assignments.forEach(assignment => {
-        const grade = assignment.grades?.find((grade) => {
-            return grade.studentId == studentId
-          })
-        
-        if (grade && grade.grade && assignment.type) grades.push({
-            grade: grade.grade, 
-            type: assignment.type
-        })
+    if (grade && grade.grade && assignment.type) grades.push({
+      grade: grade.grade,
+      type: assignment.type
     })
-    
-    return calcFinalGrade(grades)
-  }
+  })
+
+  return calcFinalGrade(grades)
+}
 
 export const calcLetterGrade = (grade: number | 'N/A') => {
-    if (grade == 'N/A') return 'N/A';
-    if (grade >= 92) return 'A';
-    if (grade >= 83) return 'B';
-    if (grade >= 72) return 'C';
-    if (grade >= 65) return 'D';
-    return 'F';
+  if (grade == 'N/A') return 'N/A';
+  if (grade >= 92) return 'A';
+  if (grade >= 83) return 'B';
+  if (grade >= 72) return 'C';
+  if (grade >= 65) return 'D';
+  return 'F';
 }
 
 
 export const sortStudents = (student1: Student, student2: Student) => {
-    if (student1.lastName && student2.lastName && student1.lastName > student2.lastName) return 1;
-    if (student1.lastName && student2.lastName && student1.lastName < student2.lastName) return -1;
-    if (student1.firstName && student2.firstName && student1.firstName > student2.firstName) return 1;
-    if (student1.firstName && student2.firstName && student1.firstName < student2.firstName) return -1;
-    return 0;
+  if (student1.lastName && student2.lastName && student1.lastName > student2.lastName) return 1;
+  if (student1.lastName && student2.lastName && student1.lastName < student2.lastName) return -1;
+  if (student1.firstName && student2.firstName && student1.firstName > student2.firstName) return 1;
+  if (student1.firstName && student2.firstName && student1.firstName < student2.firstName) return -1;
+  return 0;
 }
 
 export const sortAssignments = (assign1: Assignment, assign2: Assignment) => {
-    const date1 = new Date(assign1.dueDate ?? '').toISOString().slice(0, 10);
-    const date2 = new Date(assign2.dueDate ?? '').toISOString().slice(0, 10);
-    return date1 > date2 ? 1:-1;
+  const date1 = new Date(assign1.dueDate ?? '').toISOString().slice(0, 10);
+  const date2 = new Date(assign2.dueDate ?? '').toISOString().slice(0, 10);
+  return date1 > date2 ? 1 : -1;
 }
 
 export const calcBehaviorGrade = (att: number | undefined, learn: number | undefined, coop: number | undefined) => {
@@ -170,14 +170,13 @@ export const convertBehaviorPriorityGradeColor = (grade: string) => {
 }
 
 export const getPriorityStudents = (behaviors: Behavior[]) => {
-  if (behaviors == undefined || behaviors.length == 0) return { highlightStudents: [], focusStudents: [] };
+  if (behaviors == undefined || behaviors.length == 0) return { highlightStudents: { title: 'Highlight Students', students: [] }, focusStudents: { title: 'Focus Students', students: [] } } as PriorityStudentGroups;
 
   const highlightStudents: PriorityStudent[] = [];
   const focusStudents: PriorityStudent[] = [];
 
   for (const behavior of behaviors) {
     const studentPriorityNumber = calcBehaviorGrade(behavior.attention ?? 0, behavior.learnability ?? 0, behavior.cooperation ?? 0);
-    if (studentPriorityNumber === 'N/A') return;
     const studentPriority = convertBehaviorPriorityGrade(studentPriorityNumber);
     let studentIndex = 0;
 
@@ -207,7 +206,7 @@ export const getPriorityStudents = (behaviors: Behavior[]) => {
     }
   };
 
-  const priorityStudents = {
+  const priorityStudents: PriorityStudentGroups = {
     highlightStudents: {
       title: 'Highlight Students',
       students: highlightStudents,
