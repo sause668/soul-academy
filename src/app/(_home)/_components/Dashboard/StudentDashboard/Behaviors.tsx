@@ -1,5 +1,5 @@
-import { Behavior } from "@/app/lib/definitions";
 import { convertBehaviorPriorityGrade, calcBehaviorGrade, convertBehaviorPriorityGradeColor } from "@/app/lib/grading";
+import { Behavior } from "@/app/lib/definitions";
 
 export default function Behaviors({ behaviors }: { behaviors: Behavior[] }) {
     return (

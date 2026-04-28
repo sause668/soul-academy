@@ -1,7 +1,6 @@
-import { Student, Behavior } from '@/app/lib/definitions';
-import { sortStudents, convertBehaviorPriorityGrade, calcBehaviorGrade, convertBehaviorPriorityGradeColor } from '@/app/lib/grading';
 import { useRouter } from 'next/navigation';
-import './Course.css';
+import { sortStudents, convertBehaviorPriorityGrade, calcBehaviorGrade, convertBehaviorPriorityGradeColor } from '@/app/lib/grading';
+import { Student, Behavior } from '@/app/lib/definitions';
 
 export default function Behaviors({ students, behaviors }: { students: Student[], behaviors: Behavior[] }) {
     const router = useRouter();

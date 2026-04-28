@@ -7,8 +7,6 @@ import Courses from "./Courses";
 import Announcements from "./Announcements";
 import { getPriorityStudents } from "@/app/lib/grading";
 import { PriorityStudentGroups, TeacherDashboardData } from "@/app/lib/definitions";
-import "@/app/(_home)/_components/Dashboard/Dashboard.css";
-
 
 export default function TeacherDashboard({ teacherDashboardData }: { teacherDashboardData: TeacherDashboardData }) {
     const { teacher, appointments, behaviors, courses, announcements } = teacherDashboardData;

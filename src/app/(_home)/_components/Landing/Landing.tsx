@@ -4,7 +4,6 @@ import { useState, useTransition } from "react";
 import { loginUser } from "@/app/(_home)/_actions/user-actions";
 import { useRouter } from "next/navigation";
 import { LoginFormState } from "@/app/lib/definitions";
-import "./Landing.css";
 
 function Landing() {
   const router = useRouter();
@@ -51,15 +50,15 @@ function Landing() {
 
   return (
     <>
-      <div id="landingCon">
-        <div id="titleSide">
-          <div id="titleCon">
-            <h1 id="titleMain" className="font-title">Soul Academy</h1>
-            <h2 id="titleSub">Learning with Soul</h2>
+      <div id="landingCon" className="fixed flex h-full w-full max-md:flex-col">
+        <div id="titleSide" className="flex w-[60%] items-center justify-center bg-primary pb-24 max-md:w-auto max-md:p-6">
+          <div id="titleCon" className="flex flex-col items-center justify-center text-white">
+            <h1 id="titleMain" className="font-title text-6xl font-bold max-2xs:text-5xl">Soul Academy</h1>
+            <h2 id="titleSub" className="font-subtitle text-3xl font-bold max-2xs:text-2xl">Learning with Soul</h2>
           </div>
         </div>
-        <div id="loginSide">
-          <div id="loginCon" className="whiteBox">
+        <div id="loginSide" className="flex w-[40%] flex-col items-center justify-center max-md:w-auto max-md:pt-12">
+          <div id="loginCon" className="whiteBox p-8">
             <form id="loginForm" onSubmit={handleSubmit}>
               {/* Email */}
               <div className='inputCon'>
@@ -98,7 +97,7 @@ function Landing() {
               </div>
               <div className='submitCon'>
                 <button
-                  className='btn submitBtn btnLanding'
+                  className='btn submitBtn w-full'
                   type="submit"
                   disabled={(
                     email.length < 4 ||
@@ -109,7 +108,7 @@ function Landing() {
               {errors?.errors && <p className='labelTitle error'>{errors.errors.join(', ')}</p>}
             </form>
           </div>
-          <div id="demoCon" className="whiteBox">
+          <div id="demoCon" className="whiteBox mt-4 flex flex-col items-center justify-center gap-2 p-4">
             <button
               className="btn demoButton"
               onClick={demoTeacher}

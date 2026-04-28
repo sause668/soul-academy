@@ -1,10 +1,9 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { signupUser } from "@/app/(_home)/_actions/user-actions";
 import { SignupFormState } from "@/app/lib/definitions";
-import { useRouter } from "next/navigation";
-import "./SignupForm.css";
 
 export default function SignupForm() {
   const router = useRouter();
@@ -12,6 +11,7 @@ export default function SignupForm() {
   const [lastName, setLastName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<SignupFormState>(undefined);
@@ -20,7 +20,7 @@ export default function SignupForm() {
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     startTransition(async () => {
-      const result = await signupUser(firstName, lastName, username, email, password, confirmPassword);
+      const result = await signupUser(firstName, lastName, username, email, password, confirmPassword, role);
 
       if (result instanceof Error) console.error(result);
 
@@ -98,6 +98,24 @@ export default function SignupForm() {
                 required
               />
               {errors?.properties?.lastName && <p className='labelTitle error'>{errors.properties.lastName.errors.join(', ')}</p>}
+            </div>
+            {/* Role */}
+            <div className='inputCon'>
+              <label className='labelCon' htmlFor='role'>
+                <p className='labelTitle'>Role</p>
+              </label>
+              <select
+                className='formSelectInput'
+                id="role"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                required
+              >
+                <option value="teacher">Teacher</option>
+                <option value="student">Student</option>
+                <option value="admin">Admin</option>
+              </select>
+              {errors?.properties?.role && <p className='labelTitle error'>{errors.properties.role.errors.join(', ')}</p>}
             </div>
             {/* Password */}
             <div className='inputCon'>

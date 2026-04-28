@@ -1,7 +1,6 @@
+import { useNavMenu } from "@/app/(_home)/_context/NavBarContext";
 import { IoMenu } from "react-icons/io5";
 import { User } from "@/app/lib/definitions";
-import { useNavMenu } from "@/app/(_home)/_context/NavBarContext";
-import '../../NavBar.css';
 
 export default function NavMenuBtn({ user, mediaQuery }: { user: User, mediaQuery: boolean }) {
     const { toggleNavMenu, handleLogout, navMenuBtnRef } = useNavMenu();

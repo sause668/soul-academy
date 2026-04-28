@@ -2,9 +2,9 @@
 
 import prisma from '@/lib/prisma';
 import * as z from 'zod';
-import { BehaviorFormState, BehaviorFormSchema, ActionResponse } from '@/app/lib/definitions';
-import { verifySession } from '@/app/lib/session';
 import { revalidatePath } from 'next/cache';
+import { verifySession } from '@/app/lib/session';
+import { BehaviorFormState, BehaviorFormSchema, ActionResponse } from '@/app/lib/definitions';
 
 export async function createBehavior(studentId: number, courseId: number, attention: number | undefined, learnability: number | undefined, cooperation: number | undefined) {
     console.log('bah');

@@ -1,11 +1,11 @@
-import OpenModalTableCell from "@/app/(_home)/_components/OpenModalComponents/OpenModalTableCell";
+import { useRouter } from "next/navigation";
 import AssignmentInfo from "./Modals/AssignmentModals/AssignmentInfoModal";
 import CreateGradeModal from "./Modals/GradeModals/CreateGradeModal";
 import EditGradeModal from "./Modals/GradeModals/EditGradeModal";
-import { Assignment, Student } from "@/app/lib/definitions";
+import OpenModalTableCell from "@/app/(_home)/_components/OpenModalComponents/OpenModalTableCell";
 import { calcFinalGradeTeacher, calcLetterGrade, sortAssignments, sortStudents } from "@/app/lib/grading";
+import { Assignment, Student } from "@/app/lib/definitions";
 import './Gradebook.css';
-import { useRouter } from "next/navigation";
 
 export default function Grades({ assignments, students, quarter, courseId }: { assignments: Assignment[], students: Student[], quarter: number, courseId: number }) {
     const router = useRouter();

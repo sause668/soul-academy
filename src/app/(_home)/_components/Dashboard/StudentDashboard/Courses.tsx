@@ -1,8 +1,7 @@
-import { Course } from "@/app/lib/definitions";
-import { calcFinalGradeStudent, calcLetterGrade } from "@/app/lib/grading";
-import { nameToString } from "@/app/lib/typeConvertion";
 import { useRouter } from "next/navigation";
-
+import { calcLetterGrade } from "@/app/lib/grading";
+import { nameToString } from "@/app/lib/typeConversion";
+import { Course } from "@/app/lib/definitions";
 
 export default function Courses({ courses }: { courses: Course[] }) {
     const router = useRouter();
@@ -51,11 +50,11 @@ export default function Courses({ courses }: { courses: Course[] }) {
                                     className={`${course.finalGrade != 'N/A' ? finalLetterGrade : 'noGrade'} ${index < courses.length - 1 ? 'border-b border-gray-300' : ''} font-subtitle hover:opacity-80 transition-opacity duration-300 cursor-pointer`}
                                     onClick={() => router.push(`/courses/${course.id}`)}
                                 >
-                                    <td id="classTableCellDB"><h3 className="font-subtitle py-2">{course.period}</h3></td>
-                                    <td id="classTableCellDB"><h3 className="font-subtitle py-2">{course.room}</h3></td>
-                                    <td id="classTableCellDB"><h3 className="font-subtitle py-2">{course.name}</h3></td>
-                                    <td id="classTableCellDB"><h3 className="font-subtitle py-2">{nameToString(course.teacher?.lastName ?? '', course.teacher?.firstName ?? '')}</h3></td>
-                                    <td id="classTableCellDB"><h3 className="font-subtitle py-2">{course.finalGrade} ({finalLetterGrade})</h3></td>
+                                    <td className="classTableCellDB"><h3 className="font-subtitle py-2 text-center">{course.period}</h3></td>
+                                    <td className="classTableCellDB"><h3 className="font-subtitle py-2 text-center">{course.room}</h3></td>
+                                    <td className="classTableCellDB"><h3 className="font-subtitle py-2 text-center">{course.name}</h3></td>
+                                    <td className="classTableCellDB"><h3 className="font-subtitle py-2 text-center">{nameToString(course.teacher?.lastName ?? '', course.teacher?.firstName ?? '')}</h3></td>
+                                    <td className="classTableCellDB"><h3 className="font-subtitle py-2 text-center">{course.finalGrade} ({finalLetterGrade})</h3></td>
                                 </tr>
                             )
                         })}

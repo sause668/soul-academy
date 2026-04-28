@@ -1,15 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { User } from "@/app/lib/definitions";
-import { logoutUser } from "../../_actions/user-actions";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { NavMenuProvider } from "@/app/(_home)/_context/NavBarContext";
 import NavLeft from "./NavLeft/NavLeft";
 import NavRight from "./NavRight/NavRight";
-import "./NavBar.css";
-import { navLinks } from "@/app/lib/site-data";
-import { NavMenuProvider } from "@/app/(_home)/_context/NavBarContext";
+import { User } from "@/app/lib/definitions";
 
 export default function NavBar({ user }: { user: User }) {
   return (
@@ -23,7 +17,6 @@ export default function NavBar({ user }: { user: User }) {
         <NavRight user={user} />
       </div>
       </NavMenuProvider>
-      {/* <NavMenu /> */}
     </div>
   );
 }

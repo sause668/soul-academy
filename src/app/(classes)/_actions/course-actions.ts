@@ -2,7 +2,8 @@ import prisma from "@/lib/prisma";
 import { Announcement, Assignment, Behavior, Course, CourseData, CourseStudentData, Grade, Group, GradebookData, SessionPayload, Student, Teacher } from "@/app/lib/definitions";
 
 export async function getCourseData(courseId: string, session: SessionPayload) {
-    const { userId, userRoleId } = session;
+    'use cache';
+    const { userRoleId } = session;
 
     try {
         const courseData = await prisma.course.findUnique({
@@ -44,23 +45,6 @@ export async function getCourseData(courseId: string, session: SessionPayload) {
                                 lastName: true,
                             },
                         },
-                        // grades: {
-                        //     omit: {
-                        //         assignmentId: true,
-                        //         createdAt: true,
-                        //         updatedAt: true,
-                        //     },
-                        //     include: {
-                        //         assignment: {
-                        //             where: {
-                        //                 quarter: 1,
-                        //             },
-                        //             select: {
-                        //                 quarter: true,
-                        //             },
-                        //         },
-                        //     },
-                        // },
                     },
                 },
                 assignments: {
@@ -113,6 +97,8 @@ export async function getCourseData(courseId: string, session: SessionPayload) {
                 },
             },
         });
+
+        if (!courseData) return null;
 
         const announcementsData = await prisma.announcement.findMany({
             where: {
@@ -267,7 +253,8 @@ export async function getCourseData(courseId: string, session: SessionPayload) {
 }
 
 export async function getCourseStudentData(courseId: string, session: SessionPayload) {
-    const { userId, userRoleId } = session;
+    'use cache';
+    const { userRoleId } = session;
     try {
         const courseData = await prisma.course.findUnique({
             where: { id: parseInt(courseId) },
@@ -464,7 +451,8 @@ export async function getCourseStudentData(courseId: string, session: SessionPay
 
 export async function getGradebookData(courseId: string, session: SessionPayload) 
 : Promise<GradebookData | Error> {
-    const { userId, userRoleId } = session;
+    'use cache';
+    const { userRoleId } = session;
     try {
         const courseData = await prisma.course.findUnique({
             where: { id: parseInt(courseId) },
@@ -555,6 +543,8 @@ export async function getGradebookData(courseId: string, session: SessionPayload
                 },
             },
         });
+
+        if (courseData?.teacherId !== parseInt(userRoleId)) throw new Error('You are not authorized to access this course');
 
         const safeCourse: Course = {
             id: courseData?.id,

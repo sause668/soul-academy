@@ -1,7 +1,7 @@
 'use client';
+
 import { useRef, useState, useContext, createContext } from 'react';
 import ReactDOM from 'react-dom';
-import './Modal.css';
 
 interface ModalContextType {
   modalRef: React.RefObject<HTMLDivElement | null>;

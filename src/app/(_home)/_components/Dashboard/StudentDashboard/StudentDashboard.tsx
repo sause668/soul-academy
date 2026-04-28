@@ -1,10 +1,11 @@
 'use client'
-import { StudentDashboardData } from "@/app/lib/definitions";
+
 import Profile from "./Profile";
 import Behaviors from "./Behaviors";
 import Appointments from "./Appointments";
 import Courses from "./Courses";
 import Announcements from "./Announcements";
+import { StudentDashboardData } from "@/app/lib/definitions";
 
 export default function StudentDashboard({ studentDashboardData }: { studentDashboardData: StudentDashboardData }) {
     const { student, appointments, behaviors, courses, announcements } = studentDashboardData;

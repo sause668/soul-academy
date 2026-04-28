@@ -1,13 +1,12 @@
 import OpenModalButton from "../../OpenModalComponents/OpenModalButton";
-import { Announcement, Teacher } from "@/app/lib/definitions";
 import { FiPlus, FiUser } from "react-icons/fi";
 import { MdEdit, MdDelete } from "react-icons/md";
-import { formatDate } from "@/app/lib/typeConvertion";
-import { nameToString } from "@/app/lib/typeConvertion";
+import { formatDate, nameToString } from "@/app/lib/typeConversion";
 import CreateAnnouncementModal from "./Modals/CreateAnnouncement";
-import "@/app/(_home)/_components/Dashboard/Dashboard.css";
 import UpdateAnnouncementModal from "./Modals/UpdateAnnouncement";
 import DeleteAnnouncementModal from "./Modals/DeleteAnnouncement";
+import { Announcement, Teacher } from "@/app/lib/definitions";
+import "@/app/(_home)/_components/Dashboard/Dashboard.css";
 
 export default function Announcements({ announcements, teacher }: { announcements: Announcement[], teacher: Teacher }) {
     return (

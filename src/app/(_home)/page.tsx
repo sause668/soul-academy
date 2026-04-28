@@ -1,10 +1,9 @@
-import { verifySession } from "@/app/lib/session";
+import { getSession } from "./_actions/user-actions";
+import { getTeacherDashboardData } from "./_actions/teacher-actions";
+import { getStudentDashboardData } from "./_actions/student-actions";
 import ErrorPage from "./_components/ErrorPage/ErrorPage";
 import Landing from "./_components/Landing/Landing";
 import TeacherDashboard from "./_components/Dashboard/TeacherDashboard/TeacherDashboard";
-import { getSession, getUserById } from "./_actions/user-actions";
-import { getTeacherDashboardData } from "./_actions/teacher-actions";
-import { getStudentDashboardData } from "./_actions/student-actions";
 import StudentDashboard from "./_components/Dashboard/StudentDashboard/StudentDashboard";
 
 

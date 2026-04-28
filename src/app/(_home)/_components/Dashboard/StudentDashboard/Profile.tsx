@@ -1,5 +1,5 @@
-import { Student } from "@/app/lib/definitions";
 import { FiUser } from "react-icons/fi";
+import { Student } from "@/app/lib/definitions";
 
 export default function Profile({ student }: { student: Student }) {
     return (

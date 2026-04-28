@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { calcBehaviorGrade, convertBehaviorPriorityGrade, convertBehaviorPriorityGradeColor, convertBehaviorGrade } from '@/app/lib/grading';
 import { Behavior } from '@/app/lib/definitions';
 
-import './StudentInfo.css';
-
 export default function Behaviors({ behaviors }: { behaviors: Behavior[] }) {
     const [bToggle, setBToggle] = useState<boolean[]>(behaviors.map(() => false));
 
@@ -15,7 +13,7 @@ export default function Behaviors({ behaviors }: { behaviors: Behavior[] }) {
         });
     }
     return (
-        <div id="behaviorConSP" className="whiteBox min-w-[100%] overflow-hidden">
+        <div id="behaviorConSP" className="whiteBox min-w-full overflow-hidden">
             <div id="behaviorHeaderConSP" className="bg-blue-500 text-white p-2 rounded-t-lg text-center">
                 <h2 id="behaviorTitleSP" className="font-subtitle text-xl font-bold">Behavior</h2>
             </div>

@@ -49,7 +49,8 @@ export const SignupFormSchema = z
             .regex(/[0-9]/, { error: 'Contain at least one number.' })
             .regex(/[^a-zA-Z0-9]/, { error: 'Contain at least one special character.', })
             .trim(),
-        confirmPassword: z.string().trim()
+        confirmPassword: z.string().trim(),
+        role: z.string().min(1, { error: 'Role is required' }).trim().refine((role) => ['teacher', 'student', 'admin'].includes(role), { message: 'Invalid Role' })
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: "Passwords don't match",
@@ -66,6 +67,7 @@ export type SignupFormState = {
         email?: { errors: string[] } | undefined;
         password?: { errors: string[] } | undefined;
         confirmPassword?: { errors: string[] } | undefined;
+        role?: { errors: string[] } | undefined;
     } | undefined
 } | undefined
 
@@ -458,45 +460,6 @@ export type AnnouncementFormState = {
         content?: { errors: string[] } | undefined;
         imageUrl?: { errors: string[] } | undefined;
         scope?: { errors: string[] } | undefined;
-    } | undefined
-} | undefined
-
-//Deck Definitions
-export interface Deck {
-    id?: number;
-    userId?: number;
-    name?: string;
-    description?: string;
-    cards?: Card[];
-    updatedAt?: Date;
-    createdAt?: Date;
-}
-
-export interface Card {
-    id: number;
-    name: string;
-    description: string;
-}
-
-export type DeckData = Promise<Deck | Error> | Error;
-
-//Deck Form Definitions
-export const DeckFormSchema = z.object({
-    deckName: z
-        .string()
-        .min(1, { error: 'Deck Name is required' })
-        .trim(),
-    deckDescription: z
-        .string()
-        .min(1, { error: 'Deck Description is required' })
-        .trim(),
-})
-
-export type DeckFormState = {
-    errors: string[],
-    properties?: {
-        deckName?: { errors: string[] } | undefined;
-        deckDescription?: { errors: string[] } | undefined;
     } | undefined
 } | undefined
 

@@ -1,10 +1,11 @@
 'use server';
 
-import { Assignment, Behavior, Course, CourseData, Grade, Student, StudentData, Teacher } from "@/app/lib/definitions";
-import { verifySession } from "@/app/lib/session";
 import prisma from "@/lib/prisma";
+import { verifySession } from "@/app/lib/session";
+import { Assignment, Behavior, Course, Student, StudentData, Teacher } from "@/app/lib/definitions";
 
 export async function getStudentsData() {
+    'use cache';
     try {
         const studentsData = await prisma.student.findMany({
             include: {
@@ -81,6 +82,7 @@ export async function getStudentsSearchData(search: string) {
 }
 
 export async function getStudentPageData(studentId: string) {
+    'use cache';
     try {
         const studentData = await prisma.student.findUnique({
             where: { id: parseInt(studentId) },
@@ -164,7 +166,7 @@ export async function getStudentPageData(studentId: string) {
         });
 
 
-        if (!studentData) throw new Error('Student not found');
+        if (!studentData) return null;
 
         const safeStudent: Student = {
             id: studentData?.id,

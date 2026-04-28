@@ -1,18 +1,13 @@
 
 import { useState, useEffect, useTransition } from "react";
+import { updateAppointment, getAppCourses } from "@/app/(appointments)/_actions/appointment-actions";
 import { useModal } from "@/app/(_home)/_context/Modal";
-import "../Appointments.css";
-import { Appointment, AppointmentFormState, Course, User } from "@/app/lib/definitions";
 import AppStudentSearch from "./AppStudentSearch";
-import { createAppointment, updateAppointment } from "@/app/(appointments)/_actions/appointment-actions";
-import { getAppCourses } from "@/app/(appointments)/_actions/appointment-actions";
-import { nameToString } from "@/app/lib/typeConvertion";
+import { Appointment, AppointmentFormState, Course, User } from "@/app/lib/definitions";
 
 export default function UpdateAppointmentModal({ user, appointment }: { user: User, appointment: Appointment }) {
   const [pending, startTransition] = useTransition();
   const [courses, setCourses] = useState<Course[]>([]);
-  
-  // const [teacherId, setTeacherId] = useState('');
   const [studentId, setStudentId] = useState(appointment.student?.id ?? 0);
   const [courseId, setCourseId] = useState(appointment.course?.id?.toString() ?? '');
   const timeOffset = (appointment.startTime?.getTimezoneOffset() ?? 0) * 60000;
@@ -49,7 +44,7 @@ export default function UpdateAppointmentModal({ user, appointment }: { user: Us
       <h1 className='inputTitle'>Update Appointment</h1>
       <form onSubmit={handleSubmit}>
         {/* Appointment Search */}
-        <AppStudentSearch user={user} setStudentId={setStudentId} studentName={`${appointment.student?.firstName ?? ''} ${appointment.student?.lastName ?? ''}`} />
+        <AppStudentSearch setStudentId={setStudentId} studentName={`${appointment.student?.firstName ?? ''} ${appointment.student?.lastName ?? ''}`} />
         {/* Course Select */}
         <div className='inputCon'>
           <label htmlFor='courseId'>
@@ -135,7 +130,7 @@ export default function UpdateAppointmentModal({ user, appointment }: { user: Us
         {/* Submit */}
         <div className="submitCon">
           <button
-            className='submitButton'
+            className='btn submitButton'
             type="submit"
             disabled={!studentId || !courseId || !startTime || !endTime || !name || pending}
           >{pending ? 'Updating...' : 'Update'}</button>

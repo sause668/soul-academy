@@ -6,13 +6,11 @@ import Options from "./Options";
 import Grades from "./Grades";
 import Behaviors from "./Behaviors";
 import Groups from "./Groups";
-import { CourseData, GradebookData, SessionPayload } from "@/app/lib/definitions";
-import './Gradebook.css';
+import { GradebookData, SessionPayload } from "@/app/lib/definitions";
 
 export default function Gradebook({ courseData, session }: { courseData: GradebookData, session: SessionPayload }) {
     const { course, assignments, students, behaviors, groups } = courseData;
     const [quarter, setQuarter] = useState(1)
-    const [errors, setErrors] = useState({});
 
     return (
         <div className="flex justify-center items-center bg-zinc-100 pt-5 pb-5">

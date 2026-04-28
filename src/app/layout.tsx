@@ -23,7 +23,7 @@ export default async function RootLayout({ children, }: Readonly<{ children: Rea
     <html lang="en">
       <body className={`${sourGummy.variable} ${balsamiqSans.variable} ${robotoFlex.variable} ${geistSans.variable} ${geistMono.variable} ${delius.variable} antialiased min-h-screen bg-screenWhite font-body`}>
         <ModalProvider>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div className="flex justify-center items-center h-screen"><div className="loadingSpinner navSpinner"/></div>}>
             <NavBarShell />
           </Suspense>
           {children}

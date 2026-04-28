@@ -1,5 +1,5 @@
-import { Teacher } from "@/app/lib/definitions";
 import { FiUser } from "react-icons/fi";
+import { Teacher } from "@/app/lib/definitions";
 
 export default function Profile({ teacher }: { teacher?: Teacher }) {
   return (

@@ -1,9 +1,9 @@
 'use server';
 import * as z from 'zod';
-import { GroupFormState, GroupFormSchema, ActionResponse } from "@/app/lib/definitions";
-import { verifySession } from "@/app/lib/session";
 import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
+import { verifySession } from "@/app/lib/session";
+import { GroupFormState, GroupFormSchema, ActionResponse } from "@/app/lib/definitions";
 
 export const createGroup = async (courseId: number, name: string) => {
     try {

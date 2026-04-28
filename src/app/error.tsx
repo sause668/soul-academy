@@ -16,14 +16,15 @@ export default function Error({
  
   return (
     <div>
-      <h2>Something went wrong!</h2>
+      <h2 className="font-subtitle text-2xl font-bold">Something went wrong!</h2>
       <button
+        className="btn"
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
       >
-        Try again
+        <span className="font-body text-sm">Try again</span>
       </button>
     </div>
   )

@@ -1,10 +1,6 @@
-import { useTransition } from "react";
-import { useModal } from "@/app/(_home)/_context/Modal";
-import { deleteAssignment } from "@/app/(classes)/_actions/assignment-actions";
-import { Assignment } from "@/app/lib/definitions";
-import { useState } from "react";
-import "../Appointments.css";
+import { useTransition, useState } from "react";
 import { deleteAppointment } from "@/app/(appointments)/_actions/appointment-actions";
+import { useModal } from "@/app/(_home)/_context/Modal";
 
 
 export default function DeleteAppointmentModal({ appointmentId }: { appointmentId: number }) {

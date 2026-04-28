@@ -1,8 +1,7 @@
 import { useState, useTransition } from "react";
+import { updateAnnouncement } from "@/app/(_home)/_actions/announcement-actions";
 import { useModal } from "@/app/(_home)/_context/Modal";
-import "../../Dashboard.css";
-import { createAnnouncement, updateAnnouncement } from "@/app/(_home)/_actions/announcement-actions";
-import { Announcement, AnnouncementFormState, Teacher, User } from "@/app/lib/definitions";
+import { Announcement, AnnouncementFormState } from "@/app/lib/definitions";
 
 export default function UpdateAnnouncementModal({ announcement }: { announcement: Announcement }) {
   const [pending, startTransition] = useTransition();
@@ -91,7 +90,7 @@ export default function UpdateAnnouncementModal({ announcement }: { announcement
         
         <div className="submitCon">
           <button 
-            className='submitButton'
+            className='btn submitButton'
             type="submit"
             disabled={pending || !title.length || !content.length}
           >{pending ? 'Updating announcement...' : 'Update'}</button>

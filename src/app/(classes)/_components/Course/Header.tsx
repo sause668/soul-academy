@@ -1,5 +1,4 @@
 import { Course } from "@/app/lib/definitions";
-import './Course.css';
 
 export default function Header({ course }: { course: Course }) {
     return (

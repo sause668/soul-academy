@@ -1,9 +1,8 @@
-import { Assignment, Student } from '@/app/lib/definitions';
 import { sortAssignments } from '@/app/lib/grading';
-import { formatDateShort, typeToString } from '@/app/lib/typeConvertion';
-import './Course.css';
+import { formatDateShort, typeToString } from '@/app/lib/typeConversion';
+import { Assignment } from '@/app/lib/definitions';
 
-export default function Assignments({ assignments, students, quarter }: { assignments: Assignment[], students: Student[], quarter: number }) {
+export default function Assignments({ assignments, quarter }: { assignments: Assignment[], quarter: number }) {
     return (
         <div id="assignmentsConC" className="whiteBox w-[95%] xs:w-[90%] sm:w-[85%] md:w-[95%] 2xl:w-[90%] overflow-hidden">
             <div className="subTitleConC p-2 bg-blue-500 text-white rounded-t-lg text-center">

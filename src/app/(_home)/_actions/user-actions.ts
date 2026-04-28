@@ -77,11 +77,6 @@ export async function getUserByEmail(email: string) {
             where: {
                 email: email,
             },
-            // include: {
-            //     teacher: true,
-            //     student: true,
-            //     admin: true,
-            // },
             select: {
                 id: true,
                 firstName: true,
@@ -102,60 +97,63 @@ export async function getUserByEmail(email: string) {
     }
 }
 
-// export async function signupUser(firstName: string, lastName: string, username: string, email: string, password: string, confirmPassword: string) {
+export async function signupUser(firstName: string, lastName: string, username: string, email: string, password: string, confirmPassword: string, role: string) {
 
-//     try {
-//         const validatedFields = SignupFormSchema.safeParse({
-//             firstName: firstName,
-//             lastName: lastName,
-//             username: username,
-//             email: email,
-//             password: password,
-//             confirmPassword: confirmPassword,
-//         })
+    try {
+        const validatedFields = SignupFormSchema.safeParse({
+            firstName: firstName,
+            lastName: lastName,
+            username: username,
+            email: email,
+            password: password,
+            confirmPassword: confirmPassword,
+            role: role,
+        })
 
-//         if (!validatedFields.success) {
-//             return z.treeifyError(validatedFields.error) as SignupFormState;
-//         }
+        if (!validatedFields.success) {
+            return z.treeifyError(validatedFields.error) as SignupFormState;
+        }
 
-//         const userData = await prisma.user.findUnique({
-//             where: { email: validatedFields.data.email },
-//             select: { id: true },
-//         });
+        const userData = await prisma.user.findUnique({
+            where: { email: validatedFields.data.email },
+            select: { id: true },
+        });
 
-//         if (userData) {
-//             throw new Error("User already exists");
-//         }
+        if (userData) {
+            throw new Error("User already exists");
+        }
 
-//         const passwordHash = await bcrypt.hash(validatedFields.data.password, 10);
+        const passwordHash = await bcrypt.hash(validatedFields.data.password, 10);
 
-//         await prisma.user.create({
-//             data: { 
-//                 firstName: validatedFields.data.firstName, 
-//                 lastName: validatedFields.data.lastName, 
-//                 username: validatedFields.data.username, 
-//                 email: validatedFields.data.email, 
-//                 password: passwordHash },
-//         });
+        await prisma.user.create({
+            data: { 
+                firstName: validatedFields.data.firstName, 
+                lastName: validatedFields.data.lastName, 
+                username: validatedFields.data.username, 
+                email: validatedFields.data.email, 
+                hashedPassword: passwordHash ,
+                role: validatedFields.data.role,
+            }
+        });
 
-//         const newUser = await getUserByEmail(validatedFields.data.email);
+        const newUser = await getUserByEmail(validatedFields.data.email);
 
-//         if (newUser instanceof Error) {
-//             throw newUser;
-//         }
+        if (newUser instanceof Error) {
+            throw newUser;
+        }
 
-//         if (!newUser.id) {
-//             throw new Error("User ID not found");
-//         }
+        if (!newUser.id) {
+            throw new Error("User ID not found");
+        }
 
-//         await createSession(newUser.id.toString());
+        await createSession(newUser.id.toString(), newUser.role as string, newUser.id.toString());
 
-//         return {message: "Signup successful"} as ActionResponse;
+        return {message: "Signup successful"} as ActionResponse;
 
-//     } catch (error) {
-//         return {errors: [(error as Error).message]} as SignupFormState;
-//     }
-// }
+    } catch (error) {
+        return {errors: [(error as Error).message]} as SignupFormState;
+    }
+}
 
 export async function loginUser(email: string, password: string) {
 
@@ -224,30 +222,6 @@ export async function logoutUser() {
         return error as Error;
     }
 }
-
-
-// export async function updateUser(id: string, firstName: string, lastName: string, username: string, email: string, password: string) {
-
-//     try {
-//         const user = await prisma.user.update({
-//             where: { id: parseInt(id) },
-//             data: { firstName, lastName, username, email, password },
-//         });
-//     } catch (error) {
-//         return error as Error;
-//     }
-// }
-
-// export async function deleteUser(id: string) {
-
-//     try {
-//         const user = await prisma.user.delete({
-//             where: { id: parseInt(id) },
-//         });
-//     } catch (error) {
-//         return error as Error;
-//     }
-// }
 
 
 

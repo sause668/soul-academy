@@ -1,7 +1,7 @@
 import { useState, useTransition } from "react";
 import { useModal } from "@/app/(_home)/_context/Modal";
 import { createAssignment } from "@/app/(classes)/_actions/assignment-actions";
-import { stringToType } from "@/app/lib/typeConvertion";
+import { stringToType } from "@/app/lib/typeConversion";
 import { AssignmentFormState } from "@/app/lib/definitions";
 import "../../Gradebook.css";
 

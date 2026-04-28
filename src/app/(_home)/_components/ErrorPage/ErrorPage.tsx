@@ -1,11 +1,9 @@
 'use client';
 
-import './ErrorPage.css';
-
 export default function Error() {
     return (
-        <div>
-            <h1>Something went wrong!</h1>
+        <div className="flex justify-center align-center min-h-screen pt-10">
+            <h1 className="font-subtitle text-2xl font-bold">Something went wrong!</h1>
         </div>
     )
 }

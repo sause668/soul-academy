@@ -1,7 +1,5 @@
-import { Behavior } from "@/app/lib/definitions";
 import { convertBehaviorGrade, convertBehaviorPriorityGrade, convertBehaviorGradeColor, convertBehaviorPriorityGradeColor, calcBehaviorGrade } from "@/app/lib/grading";
-
-import './CourseStudent.css';
+import { Behavior } from "@/app/lib/definitions";
 
 export default function Behavior({ behavior }: { behavior: Behavior }) {
     const attentionGrade = behavior?.attention ? convertBehaviorGrade(behavior.attention) : 'N/A';
