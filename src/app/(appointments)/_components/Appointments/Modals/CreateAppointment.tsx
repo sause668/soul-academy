@@ -1,17 +1,14 @@
 
 import { useState, useEffect, useTransition } from "react";
-import { useModal } from "@/app/(_home)/_context/Modal";
-import "../Appointments.css";
-import { AppointmentFormState, Course, User } from "@/app/lib/definitions";
-import AppStudentSearch from "./AppStudentSearch";
 import { createAppointment } from "@/app/(appointments)/_actions/appointment-actions";
 import { getAppCourses } from "@/app/(appointments)/_actions/appointment-actions";
+import { useModal } from "@/app/(_home)/_context/Modal";
+import AppStudentSearch from "./AppStudentSearch";
+import { AppointmentFormState, Course, User } from "@/app/lib/definitions";
 
 export default function CreateAppointmentModal({ user }: { user: User }) {
   const [pending, startTransition] = useTransition();
   const [courses, setCourses] = useState<Course[]>([]);
-  
-  // const [teacherId, setTeacherId] = useState('');
   const [studentId, setStudentId] = useState(0);
   const [courseId, setCourseId] = useState('');
   const [startTime, setStartTime] = useState('');
@@ -47,7 +44,7 @@ export default function CreateAppointmentModal({ user }: { user: User }) {
       <h1 className='inputTitle'>Schedule Appointment</h1>
       <form onSubmit={handleSubmit}>
         {/* Appointment Search */}
-        <AppStudentSearch user={user} setStudentId={setStudentId} />
+        <AppStudentSearch setStudentId={setStudentId} />
         {/* Course Select */}
         <div className='inputCon'>
           <label htmlFor='courseId'>
@@ -133,7 +130,7 @@ export default function CreateAppointmentModal({ user }: { user: User }) {
         {/* Submit */}
         <div className="submitCon">
           <button
-            className='submitButton'
+            className='btn submitButton'
             type="submit"
             disabled={!studentId || !courseId || !startTime || !endTime || !name || pending}
           >{pending ? 'Scheduling...' : 'Schedule'}</button>

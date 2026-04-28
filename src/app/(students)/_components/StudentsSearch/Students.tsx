@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Student } from "@/app/lib/definitions";
-import { sortStudents } from "@/app/lib/grading";
 import { useRouter } from "next/navigation";
+import { sortStudents } from "@/app/lib/grading";
+import { Student } from "@/app/lib/definitions";
 import "./StudentSearch.css";
 
 export default function Students({ students }: { students: Student[] }) {

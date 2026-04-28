@@ -1,6 +1,5 @@
 import { useRouter } from 'next/navigation';
 import { Course } from '@/app/lib/definitions';
-import './Course.css';
 
 export default function Options({ quarter, setQuarter, course }: { quarter: number, setQuarter: (quarter: number) => void, course: Course }) {
   const router = useRouter();

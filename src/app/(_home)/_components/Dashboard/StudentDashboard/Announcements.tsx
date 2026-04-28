@@ -1,7 +1,6 @@
-import { Announcement } from "@/app/lib/definitions";
 import { FiUser } from "react-icons/fi";
-import { nameToString } from "@/app/lib/typeConvertion";
-import { formatDate } from "@/app/lib/typeConvertion";
+import { nameToString, formatDate } from "@/app/lib/typeConversion";
+import { Announcement } from "@/app/lib/definitions";
 
 export default function Announcements({ announcements }: { announcements: Announcement[] }) {
     return (

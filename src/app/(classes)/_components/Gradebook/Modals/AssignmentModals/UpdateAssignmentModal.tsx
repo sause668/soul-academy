@@ -2,7 +2,7 @@ import { startTransition, useState, useTransition } from "react";
 import { useModal } from "@/app/(_home)/_context/Modal";
 import { updateAssignment } from "@/app/(classes)/_actions/assignment-actions";
 import { Assignment, AssignmentFormState } from "@/app/lib/definitions";
-import { stringToType, typeToString } from "@/app/lib/typeConvertion";
+import { stringToType, typeToString } from "@/app/lib/typeConversion";
 import "../../Gradebook.css";
 
 export default function UpdateAssignmentModal({ assignment, quarter, courseId }: { assignment: Assignment, quarter: number, courseId: number }) {

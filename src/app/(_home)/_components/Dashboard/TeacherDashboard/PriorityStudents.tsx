@@ -2,7 +2,7 @@
 import { PriorityStudent } from "@/app/lib/definitions";
 import { FiUser } from "react-icons/fi";
 import { convertBehaviorPriorityGradeColor } from "@/app/lib/grading";
-import { nameToString } from "@/app/lib/typeConvertion";
+import { nameToString } from "@/app/lib/typeConversion";
 import { useRouter } from "next/navigation";
 import "@/app/(_home)/_components/Dashboard/Dashboard.css";
 

@@ -1,5 +1,4 @@
 import { Group } from "@/app/lib/definitions";
-import './CourseStudent.css';
 
 export default function Group({ group }: { group: Group }) {
     return (

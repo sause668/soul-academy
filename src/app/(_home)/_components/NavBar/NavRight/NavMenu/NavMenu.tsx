@@ -1,7 +1,7 @@
-import { User } from "@/app/lib/definitions";
-import { navLinks } from "@/app/lib/site-data";
 import { useRouter } from "next/navigation";
 import { useNavMenu } from "@/app/(_home)/_context/NavBarContext";
+import { navLinks } from "@/app/lib/site-data";
+import { User } from "@/app/lib/definitions";
 
 export default function NavMenu({ user, handleLogout }: { user: User, handleLogout: () => void }) {
     const { closeNavMenu, navMenuRef } = useNavMenu();

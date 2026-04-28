@@ -1,10 +1,9 @@
 'use client';
 import { useState, useContext, createContext, useEffect, useRef } from 'react';
-import './Modal.css';
-import { User } from '@/app/lib/definitions';
-import { logoutUser } from '../_actions/user-actions';
 import { useRouter } from 'next/navigation';
+import { logoutUser } from '../_actions/user-actions';
 import NavMenu from '../_components/NavBar/NavRight/NavMenu/NavMenu';
+import { User } from '@/app/lib/definitions';
 
 interface NavMenuContextType {
     navMenuOpen: boolean;

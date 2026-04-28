@@ -1,7 +1,6 @@
-import { Assignment } from "@/app/lib/definitions";
 import { sortAssignments, calcLetterGrade } from "@/app/lib/grading";
-import { formatDateShort, typeToString } from "@/app/lib/typeConvertion";
-import './CourseStudent.css';
+import { typeToString } from "@/app/lib/typeConversion";
+import { Assignment } from "@/app/lib/definitions";
 
 export default function Assignments({ assignments, quarter }: { assignments: Assignment[], quarter: number }) {
     return (

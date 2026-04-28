@@ -1,7 +1,6 @@
 import { useRouter } from 'next/navigation';
-import { Student, Assignment } from '@/app/lib/definitions';
 import { sortStudents, calcFinalGradeTeacher, calcLetterGrade } from '@/app/lib/grading';
-import './Course.css';
+import { Student, Assignment } from '@/app/lib/definitions';
 
 export default function Grades({ students, assignments, quarter }: { students: Student[], assignments: Assignment[], quarter: number }) {
     const router = useRouter();

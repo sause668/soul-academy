@@ -5,7 +5,6 @@ import Header from "./Header";
 import Search from "./Search";
 import Students from "./Students";
 import { Student } from "@/app/lib/definitions";
-import "./StudentSearch.css";
 
 export default function StudentSearch({ studentsData }: { studentsData: Student[] }) {
     const [students, setStudents] = useState<Student[]>(studentsData);

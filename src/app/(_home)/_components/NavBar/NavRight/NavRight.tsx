@@ -1,9 +1,8 @@
 import { useMediaQuery } from "react-responsive";
 import NavSearchBtn from "./NavSearch/NavSearchBtn";
 import NavMenuBtn from "./NavMenu/NavMenuBtn";
-import { User } from "@/app/lib/definitions";
 import { useIsClient } from "@/app/lib/utils";
-import '../NavBar.css';
+import { User } from "@/app/lib/definitions";
 
 export default function NavRight({ user }: { user: User }) {
     const isClient = useIsClient();

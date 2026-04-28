@@ -1,10 +1,8 @@
 import { getSession } from "@/app/(_home)/_actions/user-actions";
+import { getAppointments } from "../_actions/appointment-actions";
 import ErrorPage from "@/app/(_home)/_components/ErrorPage/ErrorPage";
 import Landing from "@/app/(_home)/_components/Landing/Landing";
 import Appointments from "../_components/Appointments/Appointments";
-import { getAppointments } from "../_actions/appointment-actions";
-
-
 
 export default async function AppointmentsPage() {
     const session = await getSession();

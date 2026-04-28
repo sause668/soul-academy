@@ -1,7 +1,6 @@
-import { Group, Student } from '@/app/lib/definitions';
 import { useRouter } from 'next/navigation';
 import { MdEdit } from 'react-icons/md';
-import './Course.css';
+import { Group, Student } from '@/app/lib/definitions';
 
 export default function Groups({ groups, students, courseId, isTeacher }: { groups: Group[], students: Student[], courseId: number, isTeacher: boolean }) {
     const router = useRouter();

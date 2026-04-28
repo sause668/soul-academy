@@ -1,21 +1,16 @@
 'use client'
 
 import { useState } from "react";
-import { CourseStudentData } from "@/app/lib/definitions";
 import Header from "./Header";
 import Options from "./Options";
 import Behavior from "./Behavior";
 import Group from "./Group";
 import Assignments from "./Assignments";
-import './CourseStudent.css';
+import { CourseStudentData } from "@/app/lib/definitions";
 
 export default function CourseStudent({ courseStudentData }: { courseStudentData: CourseStudentData }) {
-    const { course, assignments, behavior, group, announcements } = courseStudentData;
-
+    const { course, assignments, behavior, group } = courseStudentData;
     const [quarter, setQuarter] = useState(1)
-    const [errors, setErrors] = useState({});
-
-
 
     return (
         <div className="flex justify-center items-center pt-5 pb-5">

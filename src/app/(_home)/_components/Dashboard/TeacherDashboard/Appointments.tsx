@@ -1,7 +1,7 @@
 import { Appointment } from "@/app/lib/definitions";
 import { FiUser } from "react-icons/fi";
-import { formatAppointmentDate, formatAppointmentTime } from "@/app/lib/typeConvertion";
-import { nameToString } from "@/app/lib/typeConvertion";
+import { formatAppointmentDate, formatAppointmentTime } from "@/app/lib/typeConversion";
+import { nameToString } from "@/app/lib/typeConversion";
 import { useRouter } from "next/navigation";
 import "@/app/(_home)/_components/Dashboard/Dashboard.css";
 

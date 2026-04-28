@@ -2,12 +2,12 @@
 
 import * as z from 'zod';
 import prisma from "@/lib/prisma";
-import { Appointment, Course, SessionPayload, Teacher, Student, AppointmentsData, User, AppointmentFormState, AppointmentFormSchema, ActionResponse } from "@/app/lib/definitions";
-import { verifySession } from "@/app/lib/session";
 import { revalidatePath } from 'next/cache';
-import { cache } from 'react';
+import { verifySession } from "@/app/lib/session";
+import { Appointment, Course, SessionPayload, Teacher, Student, AppointmentsData, User, AppointmentFormState, AppointmentFormSchema, ActionResponse } from "@/app/lib/definitions";
 
 export async function getAppointments(session: SessionPayload) {
+    'use cache';
     const { userId, userRoleId, userRole } = session;
 
     try {
@@ -219,6 +219,7 @@ export async function deleteAppointment(appointmentId: number) {
 }
 
 export async function getAppCourses(teacherId: number) {
+    'use cache';
     try {
         if (teacherId <= 0) return { errors: ['Key Information not found.  Refreshing the page may fix this issue.'] } as AppointmentFormState;
 

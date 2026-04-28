@@ -1,8 +1,7 @@
 import { useState, useTransition } from "react";
-import { useModal } from "@/app/(_home)/_context/Modal";
-import "../../Dashboard.css";
 import { createAnnouncement } from "@/app/(_home)/_actions/announcement-actions";
-import { AnnouncementFormState, Teacher, User } from "@/app/lib/definitions";
+import { useModal } from "@/app/(_home)/_context/Modal";
+import { AnnouncementFormState, Teacher } from "@/app/lib/definitions";
 
 export default function CreateAnnouncementModal({ teacher }: { teacher: Teacher }) {
   const [pending, startTransition] = useTransition();
@@ -91,7 +90,7 @@ export default function CreateAnnouncementModal({ teacher }: { teacher: Teacher 
         
         <div className="submitCon">
           <button 
-            className='submitButton'
+            className='btn submitButton'
             type="submit"
             disabled={pending || !title.length || !content.length}
           >{pending ? 'Creating announcement...' : 'Submit'}</button>

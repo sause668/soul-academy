@@ -52,7 +52,7 @@ export default function Courses({ courses }: { courses: Course[] }) {
                   <thead>
                     <tr className="bg-gray-200 text-black border-b border-gray-300">
                       {classHeaders.map((header, index) => (
-                        <th className={`classTableHeaderDB font-subtitle py-1`} key={`classTableHeaderT${index}`}>{header.header}</th>
+                        <th className={`classTableHeaderDB font-subtitle py-1 text-center`} key={`classTableHeaderT${index}`}>{header.header}</th>
                       ))}
                     </tr>
                   </thead>

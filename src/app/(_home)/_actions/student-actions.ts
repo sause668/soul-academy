@@ -1,12 +1,11 @@
 'use server'
 
-import { cacheTag } from "next/cache";
 import prisma from "@/lib/prisma";
-import { Announcement, Appointment, Assignment, Behavior, Course, Grade, Student, StudentDashboardData, Teacher } from "@/app/lib/definitions";
-import { SessionPayload } from "@/app/lib/definitions";
+import { Announcement, Appointment, Assignment, Behavior, Course, Student, StudentDashboardData, Teacher, SessionPayload } from "@/app/lib/definitions";
 import { calcFinalGradeStudent } from "@/app/lib/grading";
 
 export async function getStudentDashboardData(session: SessionPayload) {
+    'use cache';
     const { userId, userRoleId } = session;
     try {
         const userData = await prisma.user.findUnique({
@@ -161,22 +160,14 @@ export async function getStudentDashboardData(session: SessionPayload) {
                     firstName: appointment.teacher?.user?.firstName,
                     lastName: appointment.teacher?.user?.lastName
                 };
-                // const safeCourse: Course = {
-                //     id: appointment.course?.id,
-                //     name: appointment.course?.name,
-                //     subject: appointment.course?.subject,
-                //     grade: appointment.course?.grade,
-                // };
                 safeAppointments.push({
                     id: appointment.id,
                     teacherId: appointment.teacherId,
-                    // courseId: appointment.course?.id,
                     name: appointment.name,
                     description: appointment.description || undefined,
                     startTime: appointment.startTime,
                     endTime: appointment.endTime,
                     teacher: safeTeacher,
-                    // course: safeCourse,
                 });
             }
         }
@@ -213,9 +204,9 @@ export async function getStudentDashboardData(session: SessionPayload) {
 
                 safeBehaviors.push({
                     courseName: course.name,
-                    attention: course.behaviors[0].attention,
-                    learnability: course.behaviors[0].learnability,
-                    cooperation: course.behaviors[0].cooperation,
+                    attention: course.behaviors[0].attention ?? undefined,
+                    learnability: course.behaviors[0].learnability ?? undefined,
+                    cooperation: course.behaviors[0].cooperation ?? undefined,
                 });
             }
         }

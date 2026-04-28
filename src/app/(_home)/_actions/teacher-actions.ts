@@ -1,10 +1,10 @@
 'use server'
 
-import { cacheTag } from "next/cache";
 import prisma from "@/lib/prisma";
 import { Appointment, Behavior, Course, Teacher, TeacherDashboardData, Student, Announcement } from "@/app/lib/definitions";
 
 export async function getTeacherDashboardData(userId: string) {
+    'use cache';
     try {
         const userData = await prisma.user.findUnique({
             where: { id: parseInt(userId) },

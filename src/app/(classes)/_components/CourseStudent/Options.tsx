@@ -1,6 +1,3 @@
-import { Course } from "@/app/lib/definitions";
-import './CourseStudent.css';
-
 export default function Options({ quarter, setQuarter }: { quarter: number, setQuarter: (quarter: number) => void }) {
     return (
         <div id="optionsConC" className="whiteBox p-2 flex justify-between items-center gap-2">

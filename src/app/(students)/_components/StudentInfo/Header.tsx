@@ -1,7 +1,6 @@
-import { Student } from "@/app/lib/definitions";
-import { FiUser } from "react-icons/fi";
-import './StudentInfo.css';
 import { useRouter } from "next/navigation";
+import { FiUser } from "react-icons/fi";
+import { Student } from "@/app/lib/definitions";
 
 export default function Header({ student }: { student: Student }) {
     const router = useRouter();

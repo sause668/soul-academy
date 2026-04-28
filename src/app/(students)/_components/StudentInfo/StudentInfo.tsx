@@ -1,11 +1,11 @@
 'use client';
+
 import { useState } from "react";
 import Header from "./Header";
 import Options from "./Options";
 import Behaviors from "./Behaviors";
 import Courses from "./Courses";
 import { StudentData } from "@/app/lib/definitions";
-import "./StudentInfo.css";
 
 export default function StudentInfo({ studentData }: { studentData: StudentData }) {
     const { student, behaviors, courses } = studentData;

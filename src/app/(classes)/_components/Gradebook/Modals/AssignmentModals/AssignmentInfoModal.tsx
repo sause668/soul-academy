@@ -1,7 +1,7 @@
 import OpenModalButton from "@/app/(_home)/_components/OpenModalComponents/OpenModalButton";
 import UpdateAssignmentModal from "./UpdateAssignmentModal";
 import DeleteAssignmentModal from "./DeleteAssignmentModal";
-import { formatDateShort, typeToString } from "@/app/lib/typeConvertion";
+import { formatDateShort, typeToString } from "@/app/lib/typeConversion";
 import { Assignment } from "@/app/lib/definitions";
 import "../../Gradebook.css";
 

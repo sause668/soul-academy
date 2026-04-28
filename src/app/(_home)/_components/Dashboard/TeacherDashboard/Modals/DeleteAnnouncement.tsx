@@ -1,10 +1,7 @@
-import { useTransition } from "react";
-import { useModal } from "@/app/(_home)/_context/Modal";
-import { deleteAssignment } from "@/app/(classes)/_actions/assignment-actions";
-import { Announcement, Assignment } from "@/app/lib/definitions";
-import { useState } from "react";
-import "../../Dashboard.css";
+import { useTransition, useState } from "react";
 import { deleteAnnouncement } from "@/app/(_home)/_actions/announcement-actions";
+import { useModal } from "@/app/(_home)/_context/Modal";
+import { Announcement } from "@/app/lib/definitions";
 
 
 export default function DeleteAnnouncementModal({ announcement }: { announcement: Announcement }) {

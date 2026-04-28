@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { Student } from "@/app/lib/definitions";
 import { getStudentsSearchData } from "../../_actions/student-actions";
-import './StudentSearch.css';
+import { Student } from "@/app/lib/definitions";
 
 export default function Search({ setStudents }: { setStudents: (students: Student[]) => void }) {
     const [search, setSearch] = useState('');

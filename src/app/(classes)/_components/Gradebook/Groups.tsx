@@ -1,11 +1,11 @@
 import { useState } from "react";
-import OpenModalButton from "@/app/(_home)/_components/OpenModalComponents/OpenModalButton";
-import OpenModalTableCell from "@/app/(_home)/_components/OpenModalComponents/OpenModalTableCell";
+import { addGroupStudent, removeGroupStudent, editGroupStudent } from "@/app/(classes)/_actions/group-actions";
 import CreateGroupModal from "./Modals/GroupModals/CreateGroupModal";
 import EditGroupModal from "./Modals/GroupModals/EditGroupModal";
-import { addGroupStudent, removeGroupStudent, editGroupStudent } from "@/app/(classes)/_actions/group-actions";
-import { Group, GroupFormState, Student } from "@/app/lib/definitions";
+import OpenModalButton from "@/app/(_home)/_components/OpenModalComponents/OpenModalButton";
+import OpenModalTableCell from "@/app/(_home)/_components/OpenModalComponents/OpenModalTableCell";
 import { FaPlus } from "react-icons/fa";
+import { Group, GroupFormState, Student } from "@/app/lib/definitions";
 import './Gradebook.css';
 
 export default function Groups({ groups, students, courseId }: { groups: Group[], students: Student[], courseId: number }) {

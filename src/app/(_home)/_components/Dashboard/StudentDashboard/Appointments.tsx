@@ -1,8 +1,7 @@
-import { Appointment } from "@/app/lib/definitions";
-import { FiUser } from "react-icons/fi";
-import { formatAppointmentDate, formatAppointmentTime } from "@/app/lib/typeConvertion";
-import { nameToString } from "@/app/lib/typeConvertion";
 import { useRouter } from "next/navigation";
+import { FiUser } from "react-icons/fi";
+import { formatAppointmentDate, formatAppointmentTime, nameToString } from "@/app/lib/typeConversion";
+import { Appointment } from "@/app/lib/definitions";
 
 export default function Appointments({ appointments }: { appointments: Appointment[] }) {
     const router = useRouter();

@@ -1,6 +1,5 @@
 import NewAssignmentModal from './Modals/AssignmentModals/NewAssignmentModal';
 import OpenModalButton from '@/app/(_home)/_components/OpenModalComponents/OpenModalButton';
-import './Gradebook.css';
 
 export default function Options({ quarter, setQuarter, courseId }: { quarter: number, setQuarter: (quarter: number) => void, courseId: number }) {
     return (

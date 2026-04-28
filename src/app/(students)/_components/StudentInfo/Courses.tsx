@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { calcFinalGradeStudent, calcLetterGrade, sortAssignments } from '@/app/lib/grading';
 import { Course } from '@/app/lib/definitions';
-import './StudentInfo.css';
 
 export default function Courses({ courses, quarter }: { courses: Course[], quarter: number }) {
 
@@ -26,10 +25,10 @@ export default function Courses({ courses, quarter }: { courses: Course[], quart
                     return (
                         <div className={`classConSP ${index < courses.length - 1 ? 'border-b border-gray-300' : ''}`} key={`classConS${index}`}>
                             <div className={`classInfoConSP flex justify-between items-center p-2 cursor-pointer hover:opacity-80 transition-opacity duration-300 ${finalGrade != 'N/A' ? finalLetterGrade : 'noGrade'} `} onClick={() => handleClass(index)}>
-                                <div className={`classInfoConLeftSP flex flex-col justify-start items-start g-0 `}>
-                                    <h3 className="classInfoSP font-subtitle text-xl font-bold p-0 m-0">{course.grade}th Grade {course.name}</h3>
-                                    <h4 className="classInfoSP font-subtitle text-md p-0 m-0">{course.teacher?.lastName}, {course.teacher?.firstName}</h4>
-                                    <h4 className="classInfoSP font-subtitle font-body text-md text-zinc-500 p-0 m-0">Period {course.period}: Room - {course.room}</h4>
+                                <div className={`classInfoConLeftSP flex flex-col justify-start items-start g-0 font-subtitle`}>
+                                    <h3 className="classInfoSP text-xl font-bold p-0 m-0">{course.grade}th Grade {course.name}</h3>
+                                    <h4 className="classInfoSP text-md p-0 m-0">{course.teacher?.lastName}, {course.teacher?.firstName}</h4>
+                                    <h4 className="classInfoSP text-md text-zinc-500 p-0 m-0">Period {course.period}: Room - {course.room}</h4>
                                 </div>
                                 <div className="classInfoConRightSP">
                                     <h4 className="currentGradeSP font-subtitle text-xl font-bold">Current Grade: {finalGrade} ({finalLetterGrade})</h4>
