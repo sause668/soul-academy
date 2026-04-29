@@ -4,7 +4,7 @@ import { useState } from "react";
 import Header from "./Header";
 import Options from "./Options";
 import StudentBehavior from "./Behavior";
-import Group from "./Group";
+import StudentGroup from "./Group";
 import Assignments from "./Assignments";
 import { CourseStudentData } from "@/app/lib/definitions";
 
@@ -19,7 +19,7 @@ export default function CourseStudent({ courseStudentData }: { courseStudentData
                     <Header course={course} />
                     <Options quarter={quarter} setQuarter={setQuarter} />
                     <StudentBehavior behavior={behavior} />
-                    <Group group={group} />
+                    <StudentGroup group={group} />
                 </div>
                 <div id="classInfoConC" className="flex flex-col justify-flex-start items-center w-[95%] md:w-[60%] gap-2">
                     <Assignments assignments={assignments} quarter={quarter} />
