@@ -1,7 +1,7 @@
 import { convertBehaviorGrade, convertBehaviorPriorityGrade, convertBehaviorGradeColor, convertBehaviorPriorityGradeColor, calcBehaviorGrade } from "@/app/lib/grading";
 import { Behavior } from "@/app/lib/definitions";
 
-export default function Behavior({ behavior }: { behavior: Behavior }) {
+export default function StudentBehavior({ behavior }: { behavior: Behavior }) {
     const attentionGrade = behavior?.attention ? convertBehaviorGrade(behavior.attention) : 'N/A';
     const learnabilityGrade = behavior?.learnability ? convertBehaviorGrade(behavior.learnability) : 'N/A';
     const cooperationGrade = behavior?.cooperation ? convertBehaviorGrade(behavior.cooperation) : 'N/A';
