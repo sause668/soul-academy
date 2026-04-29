@@ -7,7 +7,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Soul Academy",
-  description: "Soul never dies.",
+  description: "School Management System",
 };
 
 export const viewport: Viewport = {
