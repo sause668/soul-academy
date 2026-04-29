@@ -22,7 +22,7 @@ export default function Behaviors({ students, behaviors }: { students: Student[]
                             onClick={() => router.push(`/students/${student.id}`)}
                         >
                             <h3 className="studentNameC font-subtitle text-md font-bold">{student.lastName}, {student.firstName}</h3>
-                            <h4 className="studentGradeC font-body">{finalBehavior}</h4>
+                            <h4 className="studentGradeC font-subtitle">{finalBehavior}</h4>
                         </div>
                     );
                 })

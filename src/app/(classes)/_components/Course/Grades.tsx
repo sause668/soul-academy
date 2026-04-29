@@ -21,7 +21,7 @@ export default function Grades({ students, assignments, quarter }: { students: S
                             onClick={() => router.push(`/students/${student.id}`)}
                         >
                             <h3 className="studentNameC font-subtitle text-md font-bold">{student.lastName}, {student.firstName}</h3>
-                            <h4 className="studentGradeC font-body">{finalGrade != 'N/A' ? `${finalGrade} (${finalLetterGrade})` : 'N/A'}</h4>
+                            <h4 className="studentGradeC font-subtitle">{finalGrade != 'N/A' ? `${finalGrade} (${finalLetterGrade})` : 'N/A'}</h4>
                         </div>
                     );
                 })

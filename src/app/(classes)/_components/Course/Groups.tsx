@@ -26,7 +26,7 @@ export default function Groups({ groups, students, courseId, isTeacher }: { grou
                                 groupedStudents.push(student.id ?? 0);
                                 return (
                                 <div id="studentConC" className="flex justify-between items-center gap-2 p-2" key={`studentConC${index}`}>
-                                    <h3 className="studentNameC font-body text-md ">{student.lastName}, {student.firstName}</h3>
+                                    <h3 className="studentNameC font-subtitle text-md ">{student.lastName}, {student.firstName}</h3>
                                 </div>
                             )})}
                         </div>
@@ -37,7 +37,7 @@ export default function Groups({ groups, students, courseId, isTeacher }: { grou
                     <div className="noGroupStudentsConC">
                         {students.filter(student => !groupedStudents.includes(student.id ?? -1)).map((student, index) => (
                             <div id="studentConC" className="flex justify-between items-center gap-2 p-2" key={`studentConC${index}`}>
-                                <h3 className="studentNameC font-body text-md ">{student.lastName}, {student.firstName}</h3>
+                                <h3 className="studentNameC font-subtitle text-md ">{student.lastName}, {student.firstName}</h3>
                             </div>
                         ))}
                     </div>
