@@ -55,7 +55,12 @@ git checkout prisma-developement
   - `npm install @prisma/client @prisma/adapter-pg dotenv pg`
 
 - Initialize Prisma Postgres Database, Config, and `.env` File
-  - `npx prisma init --db --output ../app/generated/prisma`
+  - `npx prisma init --db --output @/app/generated/prisma`
+- Add `seed: 'tsx prisma/seed.ts'` to `migrations` in `prisma.config.ts` file
+
+-Add Secret Key for Session Management
+  - run `openssl rand -base64 32` terminal
+  - add key to .env as SESSION_SECRET
 
 
 ### Modify Prisma ORM Database
@@ -67,7 +72,10 @@ git checkout prisma-developement
 - Resets migrations
   - `npx prisma migrate reset` 
 
-- Generate Prisma Client (Do After Every Migration)
+- Update Database Table without using migrations (Development Only)
+- `npx prisma db push`
+
+- Generate Prisma Client (Do After Every Migration or Push)
   - `npx prisma generate`
 
 - Add Seed data in `prisma/seed.ts`.  Add path to `prisma.config.ts`.
@@ -82,7 +90,7 @@ git checkout prisma-developement
   - `npx prisma db seed`
 
 - Clear Seed Data
-  - `npx prisma db push --force-reset`
+  - `npx prisma db push --force-reset --accept-data-loss`
 
 - View Database
   - `npx prisma studio`
@@ -153,6 +161,13 @@ const users = await prisma.user.findMany({
 });
 ```
 
+## Tailwind CSS Tips
+### Measurements
+- `4` in className is the same as `1rem`. Ex: `gap-4` = `gap-[1rem]`
 
+
+
+Birds of Paradise
+Mox Diamond
 
 

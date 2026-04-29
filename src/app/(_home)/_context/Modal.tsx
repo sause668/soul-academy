@@ -1,7 +1,7 @@
 'use client';
+
 import { useRef, useState, useContext, createContext } from 'react';
 import ReactDOM from 'react-dom';
-import './Modal.css';
 
 interface ModalContextType {
   modalRef: React.RefObject<HTMLDivElement | null>;
@@ -67,7 +67,7 @@ export function Modal() {
         className='fixed inset-0 bg-modalBackground' 
         onClick={closeModal} 
       />
-      <div id="modal-content" className='absolute bg-screenWhite dark:bg-screenBlack border border-primary text-screenBlack dark:text-screenWhite rounded-2xl max-w-[90%]'>
+      <div id="modal-content" className='absolute bg-screenWhite border border-primary text-screenBlack rounded-2xl max-w-[90%]'>
         {modalContent}
       </div>
     </div>,

@@ -53,6 +53,7 @@ export async function getUserById(userId: string) {
                 lastName: true,
                 username: true,
                 email: true,
+                role: true,
             },
         });
 
@@ -96,7 +97,7 @@ export async function getUserByEmail(email: string) {
     }
 }
 
-export async function signupUser(firstName: string, lastName: string, username: string, email: string, password: string, confirmPassword: string) {
+export async function signupUser(firstName: string, lastName: string, username: string, email: string, password: string, confirmPassword: string, role: string) {
 
     try {
         const validatedFields = SignupFormSchema.safeParse({
@@ -106,6 +107,7 @@ export async function signupUser(firstName: string, lastName: string, username: 
             email: email,
             password: password,
             confirmPassword: confirmPassword,
+            role: role,
         })
 
         if (!validatedFields.success) {
@@ -129,7 +131,9 @@ export async function signupUser(firstName: string, lastName: string, username: 
                 lastName: validatedFields.data.lastName, 
                 username: validatedFields.data.username, 
                 email: validatedFields.data.email, 
-                password: passwordHash },
+                hashedPassword: passwordHash ,
+                role: validatedFields.data.role,
+            }
         });
 
         const newUser = await getUserByEmail(validatedFields.data.email);
@@ -142,7 +146,7 @@ export async function signupUser(firstName: string, lastName: string, username: 
             throw new Error("User ID not found");
         }
 
-        await createSession(newUser.id.toString());
+        await createSession(newUser.id.toString(), newUser.role as string, newUser.id.toString());
 
         return {message: "Signup successful"} as ActionResponse;
 
@@ -159,35 +163,50 @@ export async function loginUser(email: string, password: string) {
             password: password,
         })
 
+        
+
         if (!validatedFields.success) {
             return z.treeifyError(validatedFields.error) as LoginFormState;
         }
 
+        
         const userData = await prisma.user.findUnique({
             where: { email: validatedFields.data.email },
+            omit: {
+                firstName: true,
+                lastName: true,
+                email: true,
+                username: true,
+                createdAt: true,
+                updatedAt: true,
+            },
+            include: {
+                teacher: { select: { id: true } },
+                student: { select: { id: true } },
+                admin: { select: { id: true } },
+            },
         });
-
+        
         if (!userData) {
             throw new Error("User not found");
         }
-
-        if (!bcrypt.compareSync(validatedFields.data.password, userData.password)) {
+        
+        if (!bcrypt.compareSync(validatedFields.data.password, userData.hashedPassword)) {
             throw new Error("Invalid password");
         }
 
-        await createSession(userData.id.toString());
+        let userRoleId = 0;
+        if (userData.role === 'teacher') {
+            userRoleId = userData.teacher?.id as number;
+        } else if (userData.role === 'student') {
+            userRoleId = userData.student?.id as number;
+        } else if (userData.role === 'admin') {
+            userRoleId = userData.admin?.id as number;
+        }
 
+        await createSession(userData.id.toString(), userData.role, userRoleId.toString());
+        
         return { message: "Login successful"} as ActionResponse;
-    }
-    catch (error) {
-        return error as Error;
-    }
-}
-
-export async function sessionUser(userId: string) {
-
-    try {
-        await createSession(userId);
     }
     catch (error) {
         return error as Error;
@@ -200,30 +219,6 @@ export async function logoutUser() {
         await deleteSession();
     }
     catch (error) {
-        return error as Error;
-    }
-}
-
-
-export async function updateUser(id: string, firstName: string, lastName: string, username: string, email: string, password: string) {
-
-    try {
-        const user = await prisma.user.update({
-            where: { id: parseInt(id) },
-            data: { firstName, lastName, username, email, password },
-        });
-    } catch (error) {
-        return error as Error;
-    }
-}
-
-export async function deleteUser(id: string) {
-
-    try {
-        const user = await prisma.user.delete({
-            where: { id: parseInt(id) },
-        });
-    } catch (error) {
         return error as Error;
     }
 }

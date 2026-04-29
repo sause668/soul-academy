@@ -23,9 +23,9 @@ export async function decrypt(session: string | undefined = '') {
   }
 }
 
-export async function createSession(userId: string) {
+export async function createSession(userId: string, userRole: string, userRoleId: string) {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-  const session = await encrypt({ userId, expiresAt } as SessionPayload)
+  const session = await encrypt({ userId, userRole, userRoleId, expiresAt } as SessionPayload)
   const cookieStore = await cookies()
 
   cookieStore.set('session', session, {
@@ -52,7 +52,7 @@ export async function verifySession() {
       throw new Error('Unauthorized')
     }
 
-    return session
+    return session as SessionPayload;
 
   } catch (error) {
     return error as Error;
@@ -84,7 +84,7 @@ export async function updateSession() {
       path: '/',
     })
 
-    return {session: session, cookie: cookie}
+    return { session: session, cookie: cookie }
 
   } catch (error) {
     console.error(error);
@@ -98,7 +98,7 @@ export async function deleteSession() {
     cookieStore.delete('session')
 
     return true
-  
+
   } catch (error) {
     return error as Error;
   }

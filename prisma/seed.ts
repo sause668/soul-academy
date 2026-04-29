@@ -1,77 +1,41 @@
-import { PrismaClient, Prisma } from "../src/app/generated/prisma/client";
+import { PrismaClient, Prisma } from "@/app/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { seedUsers } from "./seeds/users";
+import { seedFamilies } from "./seeds/family";
+import { seedCourses } from "./seeds/course";
+import { seedGrades } from "./seeds/grades";
+import { seedBehaviors } from "./seeds/behavior";
+import { seedAppointments } from "./seeds/appointment";
+import { seedGroups } from "./seeds/group";
+import { seedAnnouncements } from "./seeds/announcement";
 import "dotenv/config";
-import bcrypt from 'bcryptjs';
+
 const adapter = new PrismaPg({
-  connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
 });
 const prisma = new PrismaClient({
-  adapter,
+    adapter,
 });
-const userData: Prisma.UserCreateInput[] = [
-  {
-    firstName: "Jane",
-    lastName: "Foster",
-    username: "jfoster",
-    email: "jane.foster@magicdecks.com",
-    password: bcrypt.hashSync("password", 10),
-    decks: {
-      create: [
-        {
-            name: "Ral",
-            description: "Spellslinger",
-            cards: {
-                create: [
-                    {
-                        name: "Strick it Rich",
-                        description: "Make a treasure token",
-                    },
-                    {
-                        name: "Reckless Impulse",
-                        description: "Draw 2 cards, then discard a card",
-                    },
-                ],
-            },
-        },
-        {
-            name: "Firelord Azula",
-            description: "Copy on Attack",
-            cards: {
-                create: [
-                    {
-                        name: "Frantic Search",
-                        description: "Draw 2 cards, then discard a card.  Untap two lands",
-                    },
-                    {
-                        name: "Valley Floodcrawler",
-                        description: "Noncreature spell have flash",
-                    },
-                ],
-            },
-        },
-        {
-            name: "Katara",
-            description: "Card Draw",
-            cards: {
-                create: [
-                    {
-                        name: "Drematic Reversal",
-                        description: "Untap all nonland permanents",
-                    },
-                    {
-                        name: "Hulbreaker Horror",
-                        description: "Spell can't be countered",
-                    },
-                ],
-            },
-        },
-      ],
-    },
-  },
-];
-export async function main() {
-  for (const u of userData) {
-    await prisma.user.create({ data: u });
-  }
+
+
+
+
+async function main() {
+    await seedUsers(prisma);
+    await seedFamilies(prisma);
+    await seedCourses(prisma);
+    await seedGrades(prisma);
+    await seedBehaviors(prisma);
+    await seedGroups(prisma);
+    await seedAppointments(prisma);
+    await seedAnnouncements(prisma);
 }
-main();
+
+main()
+    .catch((e) => {
+        console.error(e);
+        process.exit(1);
+    })
+    .finally(async () => {
+        await prisma.$disconnect();
+    });
