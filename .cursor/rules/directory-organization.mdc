@@ -1,0 +1,26 @@
+---
+description: Enforce project directory organization for app, domain, and shared layers
+globs: "{src/app/**,src/lib/**,prisma/**}"
+alwaysApply: false
+---
+
+# Directory Organization
+
+## Required layout
+- Keep all routes under `src/app` with route groups for domains (`(_home)`, `(classes)`, `(students)`, `(appointments)`).
+- Use `_actions` for server actions, `_components` for UI, `_context` for providers local to a route group.
+- Keep shared infrastructure in `src/lib` (Prisma client, cross-cutting runtime modules).
+- Keep database contract in `prisma/schema.prisma` and deterministic seed data in `prisma/seeds/**`.
+
+## Domain-first boundaries
+- Prefer domain folders over generic folders.
+- Do not import deep route internals across unrelated route groups unless extracted to `src/app/lib` or `src/lib`.
+
+## Naming conventions
+- Use `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx` only for App Router semantics.
+- Name components by feature purpose (`StudentDashboard.tsx`, `CreateAppointment.tsx`).
+- Keep conversion/utility modules in `src/app/lib` with descriptive names.
+
+## Change policy
+- New feature = new domain folder structure first, then code.
+- Avoid mixing server and client concerns in the same file unless required by Next.js conventions.

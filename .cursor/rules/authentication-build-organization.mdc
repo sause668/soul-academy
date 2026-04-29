@@ -1,0 +1,26 @@
+---
+description: Enforce authentication/session architecture for login, logout, and role-aware access
+globs: "{src/app/lib/session.ts,src/app/**/_actions/user-actions.ts,src/app/**/layout.tsx,src/app/**/page.tsx}"
+alwaysApply: false
+---
+
+# Authentication Build and Organization
+
+## Session design
+- Use JWT session cookies managed in `src/app/lib/session.ts`.
+- Cookie must be `httpOnly`, `secure`, `sameSite=lax`, and path-rooted.
+- Session payload must include `userId`, role, role-specific id, and expiration metadata.
+
+## Auth action boundaries
+- Keep login/signup/logout and identity reads in user-centric server actions.
+- Validate form payloads with Zod before DB access.
+- Never expose password hashes or sensitive auth internals to client components.
+
+## Access checks
+- Verify session before protected data reads/writes.
+- Enforce role checks in actions, not only in UI.
+- Return typed errors or action state payloads that components can render safely.
+
+## Routing behavior
+- Public entry points (landing/login/signup) must redirect authenticated users away from auth screens.
+- Protected pages must fail closed when session verification fails.

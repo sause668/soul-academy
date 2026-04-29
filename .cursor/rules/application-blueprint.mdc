@@ -1,0 +1,23 @@
+---
+description: Core blueprint for building Soul Academy style apps from scratch
+alwaysApply: true
+---
+
+# Application Blueprint
+
+When generating or refactoring, preserve this architecture:
+- Next.js App Router in `src/app`
+- Domain route groups: home, classes, students, appointments
+- Domain-local `_actions` and `_components`
+- Prisma/Postgres with schema in `prisma/schema.prisma`
+- JWT cookie sessions via `src/app/lib/session.ts`
+- Shared domain types and Zod form contracts in `src/app/lib/definitions.ts`; pure grading/behavior logic in `src/app/lib/grading.ts`
+- Global modal shell: `ModalProvider` + `<Modal />` in root `layout.tsx`, context in `src/app/(_home)/_context/Modal.tsx`, triggers under `OpenModalComponents`
+
+Implementation order:
+1. Structure folders
+2. Define DB models and relations
+3. Build auth/session pipeline
+4. Add server actions per domain
+5. Build components
+6. Assemble pages/layouts
