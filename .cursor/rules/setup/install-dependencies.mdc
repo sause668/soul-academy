@@ -1,0 +1,61 @@
+---
+description: Initial dependency installation and bootstrap commands for Application
+alwaysApply: true
+---
+
+# Initial Dependency Installation
+
+Use these commands when setting up application. Prefer `npm` so the lockfile and installs stay consistent across contributors.
+
+## 1) Create app shell (new project only)
+
+```bash
+npx create-next-app@latest project-name
+```
+- Use previously used setting which are 'TypeScript, ESLint, No React Compiler, Tailwind CSS, src/ directory, App Router'
+
+## 2) Install runtime dependencies
+
+```bash
+npm install @prisma/client @prisma/adapter-pg bcryptjs dotenv jose pg react-icons react-responsive zod
+```
+
+## 3) Install development dependencies
+
+```bash
+npm install --save-dev prisma tsx @types/pg
+```
+
+## 4) Initialize and wire Prisma
+
+```bash
+npx prisma init --db --output @/app/generated/prisma
+```
+- Install latest version (v7^)
+- Say yes to authentication redirecting user to prisma site for login and db setup
+- Project name should be the same as root directory folder name
+
+After env values are set (`DATABASE_URL`, `SESSION_SECRET`), run:
+
+
+## 5) Final setup additions
+
+- Add `SESSION_SECRET` to `.env` file. To get a value for the key run `openssl rand -base64 32` or use another recommended method.
+- Add `seed: 'tsx prisma/seed.ts'` to `migrations` object in `prisma.config.ts` file
+
+## 6) Daily scripts
+
+```bash
+npm run dev      # local development
+npm run lint     # code quality checks
+npm run build    # production build
+npm run start    # run built app
+```
+
+<!-- ## 7) Optional Prisma maintenance scripts
+
+```bash
+npx prisma db push
+npx prisma migrate reset
+npx prisma studio
+``` -->
