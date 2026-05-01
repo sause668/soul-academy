@@ -6,18 +6,43 @@ alwaysApply: true
 # Application Blueprint
 
 When generating or refactoring, preserve this architecture:
-- Next.js App Router in `src/app`
-- Domain route groups: home, classes, students, appointments
-- Domain-local `_actions` and `_components`
-- Prisma/Postgres with schema in `prisma/schema.prisma`
-- JWT cookie sessions via `src/app/lib/session.ts`
-- Shared domain types and Zod form contracts in `src/app/lib/definitions.ts`; pure grading/behavior logic in `src/app/lib/grading.ts`
-- Global modal shell: `ModalProvider` + `<Modal />` in root `layout.tsx`, context in `src/app/(_home)/_context/Modal.tsx`, triggers under `OpenModalComponents`
 
-Implementation order:
-1. Structure folders
-2. Define DB models and relations
-3. Build auth/session pipeline
-4. Add server actions per domain
-5. Build components
-6. Assemble pages/layouts
+- Next.js App Router in `src/app` with domain route groups (`(_home)`, `(classes)`, `(students)`, `(appointments)`, etc.)
+- Domain-local `_actions`, `_components`, and `_context` where needed
+- Prisma + PostgreSQL: `prisma/schema.prisma`, config in `prisma.config.ts`, seeds under `prisma/seeds/**`, entry `prisma/seed.ts`
+- Prisma client singleton: `src/lib/prisma.ts`
+- JWT cookie sessions and helpers: `src/app/lib/session.ts`
+- Shared domain types and Zod form contracts: `src/app/lib/definitions.ts`; pure grading/behavior helpers: `src/app/lib/grading.ts`; formatting: `src/app/lib/typeConversion.ts` when used
+- Fonts: `src/app/lib/fonts.ts`; global CSS: `src/app/globals.css`; root shell: `src/app/layout.tsx`
+- Global modals: `ModalProvider` + `<Modal />` in root `layout.tsx`, context in `src/app/(_home)/_context/Modal.tsx`, triggers in `src/app/(_home)/_components/OpenModalComponents/**`
+
+## Implementation order (high level)
+
+1. **Bootstrap** — dependencies and tooling (see `.cursor/rules/setup/install-dependencies.mdc`).
+2. **Directories** — route groups, `_actions`, `_components`, shared `src/lib` and `src/app/lib` (see `.cursor/rules/frontend/directory-organization.mdc`).
+3. **Database** — schema, migrations, seeds (see `.cursor/rules/database/database-setup.mdc`).
+4. **Authentication** — session payload, cookie helpers, signup/login/logout actions (see `.cursor/rules/authentication/authentication-setup.mdc`).
+5. **Root layout** — metadata, viewport, fonts on `<body>`, global providers (see `.cursor/rules/frontend/layout-structure.mdc`).
+6. **Server actions** — per-domain `_actions` files, validation, revalidation (see `.cursor/rules/frontend/server-action-structure-organization.mdc`).
+7. **Pages and feature components** — thin `page.tsx`, feature folders with section files (see `.cursor/rules/frontend/page-component-structure.mdc`).
+8. **Modals** — site-wide portal pattern and colocated `Modals/` trees (see `.cursor/rules/frontend/modal-setup-structure.mdc`).
+9. **CSS and Tailwind** — tokens in `globals.css`, theme usage in components (see `.cursor/rules/frontend/css-setup-structure.mdc`).
+10. **Shared types and helpers** — extend definitions and lib modules as domains grow (see `.cursor/rules/frontend/type-and-domain-lib-organization.mdc`).
+
+## Cursor rules index
+
+| Topic | Rule file |
+|-------|-----------|
+| This blueprint | `.cursor/rules/application-blueprint.mdc` |
+| Install / bootstrap | `.cursor/rules/setup/install-dependencies.mdc` |
+| Folders and route layout | `.cursor/rules/frontend/directory-organization.mdc` |
+| Prisma schema, migrate, seed | `.cursor/rules/database/database-setup.mdc` |
+| Sessions and auth actions | `.cursor/rules/authentication/authentication-setup.mdc` |
+| `layout.tsx` structure | `.cursor/rules/frontend/layout-structure.mdc` |
+| Server actions (classes-style) | `.cursor/rules/frontend/server-action-structure-organization.mdc` |
+| `page.tsx` vs `_components` sections | `.cursor/rules/frontend/page-component-structure.mdc` |
+| Global modals + feature `Modals/` | `.cursor/rules/frontend/modal-setup-structure.mdc` |
+| `globals.css`, fonts, Tailwind in UI | `.cursor/rules/frontend/css-setup-structure.mdc` |
+| Types, Zod, domain lib | `.cursor/rules/frontend/type-and-domain-lib-organization.mdc` |
+
+Skills remain under `.cursor/skills/*/SKILL.md`; pair the skill whose name matches the task with the rule row above.
