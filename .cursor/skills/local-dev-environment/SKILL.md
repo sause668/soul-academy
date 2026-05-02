@@ -1,7 +1,7 @@
 ---
 name: local-dev-environment
 description: >-
-  Verifies a working Soul Academy local dev environment—.env variables, npm install, prisma generate/migrate, and starting Next.js. Use when the app fails to start, Prisma client is stale, or onboarding a developer on local setup (without redoing full bootstrap).
+  Verifies a working local dev environment for the Application—.env variables, npm install, prisma generate/migrate, and starting Next.js. Use when the app fails to start, Prisma client is stale, or onboarding a developer on local setup (without redoing full bootstrap).
 ---
 
 # Local Dev Environment

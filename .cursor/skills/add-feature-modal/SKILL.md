@@ -1,7 +1,7 @@
 ---
 name: add-feature-modal
 description: >-
-  Adds or updates a Soul Academy modal body using the global ModalProvider—colocated Modals folder, OpenModalButton/OpenModalTableCell triggers, useModal closeModal after server actions, and nested modal patterns. Use when adding a dialog, form overlay, or table-cell modal in any domain route.
+  Adds or updates an Application modal body using the global ModalProvider—colocated Modals folder, OpenModalButton/OpenModalTableCell triggers, useModal closeModal after server actions, and nested modal patterns. Use when adding a dialog, form overlay, or table-cell modal in any domain route.
 ---
 
 # Add Feature Modal

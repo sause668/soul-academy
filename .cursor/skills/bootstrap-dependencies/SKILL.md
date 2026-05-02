@@ -1,7 +1,7 @@
 ---
 name: bootstrap-dependencies
 description: >-
-  Runs the full Soul Academy dependency and toolchain bootstrap from scratch or a clean clone—npm installs, Prisma init, env keys, prisma.config seed wiring, and daily scripts. Use when onboarding a new machine, recreating the project, or when the user asks how to install or set up dependencies.
+  Runs the full dependency and toolchain bootstrap for Application from scratch or a clean clone—npm installs, Prisma init, env keys, prisma.config seed wiring, and daily scripts. Use when onboarding a new machine, recreating the project, or when the user asks how to install or set up dependencies.
 ---
 
 # Bootstrap Dependencies

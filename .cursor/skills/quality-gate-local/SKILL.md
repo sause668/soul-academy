@@ -1,7 +1,7 @@
 ---
 name: quality-gate-local
 description: >-
-  Runs local quality gates before commit or PR—ESLint and production build for Soul Academy. Use when the user asks to verify the project is clean, fix CI-like failures locally, or prepare a merge-ready branch.
+  Runs local quality gates before commit or PR—ESLint and production build for the Application. Use when the user asks to verify the project is clean, fix CI-like failures locally, or prepare a merge-ready branch.
 ---
 
 # Quality Gate (Local)

@@ -1,10 +1,10 @@
-# Soul Academy Agent Guide
+# Application Agent Guide
 
 This repository uses Cursor **rules** (constraints and patterns while editing) and **skills** (step-by-step workflows) as the primary source of truth for AI-assisted implementation.
 
 ## Goal
 
-Build and maintain a school-management web app with:
+Build and maintain a web application with:
 
 - Next.js App Router (`src/app`)
 - Prisma + PostgreSQL (`prisma`, `prisma.config.ts`, `src/lib/prisma.ts`)
@@ -14,6 +14,8 @@ Build and maintain a school-management web app with:
 - Global styling via Tailwind v4 + `src/app/globals.css`, fonts in `src/app/lib/fonts.ts`, wired in `src/app/layout.tsx`
 - Global modals via `ModalProvider` + portal `Modal` in `src/app/(_home)/_context/Modal.tsx`, wired in root `src/app/layout.tsx`, opened with `OpenModalComponents` where possible
 - Shared types and Zod forms in `src/app/lib/definitions.ts`; pure grading/behavior/sort helpers in `src/app/lib/grading.ts`; formatting in `src/app/lib/typeConversion.ts`
+
+The concrete repo layout (route groups, domains, file names) follows the reference implementation described in `.cursor/rules/application-blueprint.mdc`; adapt paths when applying these guides to another codebase.
 
 ## Rules vs skills
 

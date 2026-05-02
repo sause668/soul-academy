@@ -53,7 +53,7 @@ Inside `<body>`, order matters for UX and context:
 
 **Rules:**
 
-- One `ModalProvider` + one `<Modal />` at the root unless the product intentionally uses a different modal system in a subtree (not the Soul Academy default).
+- One `ModalProvider` + one `<Modal />` at the root unless the product intentionally uses a different modal system in a subtree (not the Application default).
 - Prefer **`Suspense`** around components that suspend or that you want to isolate with a dedicated fallback; avoid wrapping `{children}` in Suspense at the root unless you have a deliberate full-page loading UX.
 
 ## 6) Nested layouts (when you add them)

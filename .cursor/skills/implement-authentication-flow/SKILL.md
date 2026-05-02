@@ -1,7 +1,7 @@
 ---
 name: implement-authentication-flow
 description: >-
-  Implements or extends Soul Academy JWT cookie sessions and auth server actions—env, SessionPayload, session.ts encrypt/decrypt/cookies, Zod login/signup schemas in definitions, and user-actions for signup/login/logout/getSession. Use when building auth from scratch, adding a session field, or debugging login/signup flows.
+  Implements or extends the Application's JWT cookie sessions and auth server actions—env, SessionPayload, session.ts encrypt/decrypt/cookies, Zod login/signup schemas in definitions, and user-actions for signup/login/logout/getSession. Use when building auth from scratch, adding a session field, or debugging login/signup flows.
 ---
 
 # Implement Authentication Flow

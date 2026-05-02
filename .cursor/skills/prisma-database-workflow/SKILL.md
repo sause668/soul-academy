@@ -1,7 +1,7 @@
 ---
 name: prisma-database-workflow
 description: >-
-  Operational Prisma workflow for Soul Academy—edit schema, migrate dev, generate client, seed, reset, db push, and Studio. Use when changing prisma/schema.prisma, fixing migrations, seeding data, or answering how to apply database changes locally or for deployment.
+  Operational Prisma workflow for the Application—edit schema, migrate dev, generate client, seed, reset, db push, and Studio. Use when changing prisma/schema.prisma, fixing migrations, seeding data, or answering how to apply database changes locally or for deployment.
 ---
 
 # Prisma Database Workflow

@@ -1,12 +1,12 @@
 ---
 name: production-deploy-checklist
 description: >-
-  Pre-flight checklist for deploying Soul Academy (e.g. Vercel)—production DATABASE_URL, SESSION_SECRET, prisma migrate deploy, build command, and runtime env validation. Use before first production deploy or when production DB/auth/build fails.
+  Pre-flight checklist for deploying the Application (e.g. Vercel)—production DATABASE_URL, SESSION_SECRET, prisma migrate deploy, build command, and runtime env validation. Use before first production deploy or when production DB/auth/build fails.
 ---
 
 # Production Deploy Checklist
 
-No substitute for your host’s docs—use this as a Soul Academy–specific layer.
+No substitute for your host’s docs—use this as an Application-specific layer.
 
 ## Environment (production)
 

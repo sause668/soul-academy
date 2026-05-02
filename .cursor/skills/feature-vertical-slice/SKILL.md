@@ -1,7 +1,7 @@
 ---
 name: feature-vertical-slice
 description: >-
-  Delivers a Soul Academy feature end-to-end—folder placement under route groups, shared types/Zod, Prisma if needed, domain server actions, thin page.tsx, feature folder with section components, optional modals and CSS, and cache revalidation. Use when adding a new route, domain screen, or cross-cutting feature that touches DB, actions, and UI together.
+  Delivers an Application feature end-to-end—folder placement under route groups, shared types/Zod, Prisma if needed, domain server actions, thin page.tsx, feature folder with section components, optional modals and CSS, and cache revalidation. Use when adding a new route, domain screen, or cross-cutting feature that touches DB, actions, and UI together.
 ---
 
 # Feature Vertical Slice

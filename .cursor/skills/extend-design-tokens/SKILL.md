@@ -1,7 +1,7 @@
 ---
 name: extend-design-tokens
 description: >-
-  Extends Soul Academy global styling—new colors in :root and @theme inline, new next/font faces in fonts.ts, wiring .variable classes on root layout body, Tailwind usage in components, and optional feature-scoped CSS. Use when adding brand colors, typography roles, or migrating inline styles to tokens.
+  Extends global styling for the Application—new colors in :root and @theme inline, new next/font faces in fonts.ts, wiring .variable classes on root layout body, Tailwind usage in components, and optional feature-scoped CSS. Use when adding brand colors, typography roles, or migrating inline styles to tokens.
 ---
 
 # Extend Design Tokens
