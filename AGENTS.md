@@ -47,6 +47,7 @@ Aligned with `.cursor/rules/application-blueprint.mdc`:
 
 - **Rules:** `.cursor/rules/` — see `application-blueprint.mdc` for the full index table.
 - **Skills:** `.cursor/skills/<skill-name>/SKILL.md` — each folder contains at least `SKILL.md` (optional `scripts/`, `references/`, `assets/` only when needed).
+- **Commands:** `.cursor/commands/*.md` — reusable prompts for Composer (type `/`); includes feature, edge-case, auth/session, modal, and security testing workflows.
 
 ## Skill catalog
 
