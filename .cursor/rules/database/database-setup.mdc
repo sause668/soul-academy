@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Database Setup
 
-Use this workflow when creating or evolving the database layer in Soul Academy.
+Use this workflow when creating or evolving the database layer in Soul Academy. **Operational commands** (migrate, seed, reset, Studio, deploy): `.cursor/skills/prisma-database-workflow/SKILL.md`.
 
 ## 1) Create or update the schema
 - Define and modify models only in `prisma/schema.prisma`.

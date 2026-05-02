@@ -18,15 +18,15 @@ When generating or refactoring, preserve this architecture:
 
 ## Implementation order (high level)
 
-1. **Bootstrap** — dependencies and tooling (see `.cursor/rules/setup/install-dependencies.mdc`).
+1. **Bootstrap** — dependencies and tooling (`.cursor/rules/setup/install-dependencies.mdc`; full sequence `.cursor/skills/bootstrap-dependencies/SKILL.md`).
 2. **Directories** — route groups, `_actions`, `_components`, shared `src/lib` and `src/app/lib` (see `.cursor/rules/frontend/directory-organization.mdc`).
-3. **Database** — schema, migrations, seeds (see `.cursor/rules/database/database-setup.mdc`).
-4. **Authentication** — session payload, cookie helpers, signup/login/logout actions (see `.cursor/rules/authentication/authentication-setup.mdc`).
+3. **Database** — schema, migrations, seeds (`.cursor/rules/database/database-setup.mdc`; commands `.cursor/skills/prisma-database-workflow/SKILL.md`).
+4. **Authentication** — session payload, cookie helpers, signup/login/logout actions (`.cursor/rules/authentication/authentication-setup.mdc`; workflow `.cursor/skills/implement-authentication-flow/SKILL.md`).
 5. **Root layout** — metadata, viewport, fonts on `<body>`, global providers (see `.cursor/rules/frontend/layout-structure.mdc`).
 6. **Server actions** — per-domain `_actions` files, validation, revalidation (see `.cursor/rules/frontend/server-action-structure-organization.mdc`).
-7. **Pages and feature components** — thin `page.tsx`, feature folders with section files (see `.cursor/rules/frontend/page-component-structure.mdc`).
-8. **Modals** — site-wide portal pattern and colocated `Modals/` trees (see `.cursor/rules/frontend/modal-setup-structure.mdc`).
-9. **CSS and Tailwind** — tokens in `globals.css`, theme usage in components (see `.cursor/rules/frontend/css-setup-structure.mdc`).
+7. **Pages and feature components** — thin `page.tsx`, feature folders with section files (`.cursor/rules/frontend/page-component-structure.mdc`). End-to-end feature work: `.cursor/skills/feature-vertical-slice/SKILL.md`.
+8. **Modals** — site-wide portal pattern and colocated `Modals/` trees (`.cursor/rules/frontend/modal-setup-structure.mdc`; add modal `.cursor/skills/add-feature-modal/SKILL.md`).
+9. **CSS and Tailwind** — tokens in `globals.css`, theme usage in components (`.cursor/rules/frontend/css-setup-structure.mdc`; extend tokens `.cursor/skills/extend-design-tokens/SKILL.md`).
 10. **Shared types and helpers** — extend definitions and lib modules as domains grow (see `.cursor/rules/frontend/type-and-domain-lib-organization.mdc`).
 
 ## Cursor rules index
@@ -45,4 +45,18 @@ When generating or refactoring, preserve this architecture:
 | `globals.css`, fonts, Tailwind in UI | `.cursor/rules/frontend/css-setup-structure.mdc` |
 | Types, Zod, domain lib | `.cursor/rules/frontend/type-and-domain-lib-organization.mdc` |
 
-Skills remain under `.cursor/skills/*/SKILL.md`; pair the skill whose name matches the task with the rule row above.
+## Skills index (workflows)
+
+| Task | Skill |
+|------|--------|
+| Full npm / Prisma bootstrap | `.cursor/skills/bootstrap-dependencies/SKILL.md` |
+| Migrate, seed, Studio, deploy DB | `.cursor/skills/prisma-database-workflow/SKILL.md` |
+| Implement session + auth actions | `.cursor/skills/implement-authentication-flow/SKILL.md` |
+| End-to-end domain feature | `.cursor/skills/feature-vertical-slice/SKILL.md` |
+| Add modal UI + triggers | `.cursor/skills/add-feature-modal/SKILL.md` |
+| New colors / fonts / tokens | `.cursor/skills/extend-design-tokens/SKILL.md` |
+| Fix local env / dev server | `.cursor/skills/local-dev-environment/SKILL.md` |
+| Production deploy checklist | `.cursor/skills/production-deploy-checklist/SKILL.md` |
+| Lint + build before push | `.cursor/skills/quality-gate-local/SKILL.md` |
+
+Pair the **rule** (constraints while editing files) with the **skill** (ordered procedure) when both apply.

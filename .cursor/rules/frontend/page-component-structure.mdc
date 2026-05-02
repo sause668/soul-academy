@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Page and Component Structure
 
-Use this rule when authoring route `page.tsx` files and feature folders under `_components`. The course detail flow is the reference: server page at `src/app/(classes)/courses/[courseId]/page.tsx` (import as `@/app/(classes)/courses/[courseId]/page.tsx`) and the feature tree at `src/app/(classes)/_components/Course/**` (`@/app/(classes)/_components/Course/...`).
+Use this rule when authoring route `page.tsx` files and feature folders under `_components`. For **ordering work across DB, actions, pages, and UI**, see `.cursor/skills/feature-vertical-slice/SKILL.md`. The course detail flow is the reference: server page at `src/app/(classes)/courses/[courseId]/page.tsx` (import as `@/app/(classes)/courses/[courseId]/page.tsx`) and the feature tree at `src/app/(classes)/_components/Course/**` (`@/app/(classes)/_components/Course/...`).
 
 ## `page.tsx` (route entry)
 

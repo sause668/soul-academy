@@ -8,6 +8,8 @@ alwaysApply: false
 
 Use this rule for backend authentication setup only. Do not include frontend pages or UI components.
 
+**Implementation order:** `.cursor/skills/implement-authentication-flow/SKILL.md`.
+
 ## 1) Required files and boundaries
 - Keep auth definitions and form schemas in `@/app/lib/definitions`.
 - Keep JWT/cookie session helpers in `@/app/lib/session`.

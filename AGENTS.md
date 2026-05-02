@@ -1,6 +1,6 @@
 # Soul Academy Agent Guide
 
-This repository uses Cursor project rules and skills as the primary source of truth for AI-assisted implementation.
+This repository uses Cursor **rules** (constraints and patterns while editing) and **skills** (step-by-step workflows) as the primary source of truth for AI-assisted implementation.
 
 ## Goal
 
@@ -15,45 +15,66 @@ Build and maintain a school-management web app with:
 - Global modals via `ModalProvider` + portal `Modal` in `src/app/(_home)/_context/Modal.tsx`, wired in root `src/app/layout.tsx`, opened with `OpenModalComponents` where possible
 - Shared types and Zod forms in `src/app/lib/definitions.ts`; pure grading/behavior/sort helpers in `src/app/lib/grading.ts`; formatting in `src/app/lib/typeConversion.ts`
 
-## Use order
+## Rules vs skills
 
-When implementing features, follow this sequence (aligned with `.cursor/rules/application-blueprint.mdc`):
+- **Rules** (`.cursor/rules/**/*.mdc`) — Short, enforceable conventions; many use `globs` or `alwaysApply` so they attach to the right files.
+- **Skills** (`.cursor/skills/<name>/SKILL.md`) — Procedures, command sequences, and checklists. Load when the user’s task matches the skill description (bootstrap, migrate, deploy, etc.).
 
-1. **Bootstrap** — `.cursor/rules/setup/install-dependencies.mdc` (from-scratch or new toolchain steps)
-2. **Directories** — `.cursor/rules/frontend/directory-organization.mdc`
-3. **Database** — `.cursor/rules/database/database-setup.mdc`
-4. **Authentication** — `.cursor/rules/authentication/authentication-setup.mdc`
-5. **Layouts** — `.cursor/rules/frontend/layout-structure.mdc` (root or segment `layout.tsx`)
-6. **Server actions** — `.cursor/rules/frontend/server-action-structure-organization.mdc`
-7. **Pages and components** — `.cursor/rules/frontend/page-component-structure.mdc`
-8. **Modals** — `.cursor/rules/frontend/modal-setup-structure.mdc`
-9. **CSS / Tailwind / fonts** — `.cursor/rules/frontend/css-setup-structure.mdc` when adding tokens, globals layers, or feature-level CSS
-10. **Shared types and domain lib** — `.cursor/rules/frontend/type-and-domain-lib-organization.mdc`
+Use **both** when applicable: rule keeps outputs consistent; skill walks the steps in order.
 
-## Rule and skill locations
+## Use order (implementation)
 
-- **Rules:** `.cursor/rules/` — nested by concern:
-  - `application-blueprint.mdc` (always-on architecture summary + rule index)
-  - `setup/install-dependencies.mdc`
-  - `database/database-setup.mdc`
-  - `authentication/authentication-setup.mdc`
-  - `frontend/*.mdc` — directory layout, pages/components, layouts, server actions, modals, CSS, types/lib
-- **Skills:** `.cursor/skills/*/SKILL.md`
+Aligned with `.cursor/rules/application-blueprint.mdc`:
 
-Load the rule that matches the task, then apply the corresponding skill workflow when one exists (for example `scaffold-database-build`, `scaffold-authentication-build`, `scaffold-server-actions`, `scaffold-components`, `scaffold-pages`, `scaffold-modals`, `scaffold-css-organization`, `scaffold-types-and-domain-libs`).
+| Step | Rule | Skill (when useful) |
+|------|------|------------------------|
+| 1 Bootstrap | `setup/install-dependencies.mdc` | `bootstrap-dependencies` |
+| 2 Directories | `frontend/directory-organization.mdc` | `feature-vertical-slice` |
+| 3 Database | `database/database-setup.mdc` | `prisma-database-workflow` |
+| 4 Authentication | `authentication/authentication-setup.mdc` | `implement-authentication-flow` |
+| 5 Layouts | `frontend/layout-structure.mdc` | — |
+| 6 Server actions | `frontend/server-action-structure-organization.mdc` | `feature-vertical-slice` |
+| 7 Pages & components | `frontend/page-component-structure.mdc` | `feature-vertical-slice` |
+| 8 Modals | `frontend/modal-setup-structure.mdc` | `add-feature-modal` |
+| 9 CSS / Tailwind | `frontend/css-setup-structure.mdc` | `extend-design-tokens` |
+| 10 Types / lib | `frontend/type-and-domain-lib-organization.mdc` | — |
 
-## Quick map (topic → rule)
+**Cross-cutting skills:** `local-dev-environment` (fix local setup), `quality-gate-local` (lint + build), `production-deploy-checklist` (deploy).
 
-| Task | Rule |
-|------|------|
-| Overall architecture | `.cursor/rules/application-blueprint.mdc` |
-| `npm` / Prisma / install flow | `.cursor/rules/setup/install-dependencies.mdc` |
-| Folders, `page.tsx`, `_components` | `.cursor/rules/frontend/directory-organization.mdc` |
-| Schema, migrate, seed layout | `.cursor/rules/database/database-setup.mdc` |
-| Sessions, login, signup, logout (lib + actions) | `.cursor/rules/authentication/authentication-setup.mdc` |
-| `layout.tsx`, metadata, providers | `.cursor/rules/frontend/layout-structure.mdc` |
-| `_actions` file split and patterns | `.cursor/rules/frontend/server-action-structure-organization.mdc` |
-| Thin pages vs feature section files | `.cursor/rules/frontend/page-component-structure.mdc` |
-| ModalProvider, `Modal`, `Modals/` folders | `.cursor/rules/frontend/modal-setup-structure.mdc` |
-| `globals.css`, `@theme`, fonts | `.cursor/rules/frontend/css-setup-structure.mdc` |
-| `definitions.ts`, `grading.ts`, Zod | `.cursor/rules/frontend/type-and-domain-lib-organization.mdc` |
+## Locations
+
+- **Rules:** `.cursor/rules/` — see `application-blueprint.mdc` for the full index table.
+- **Skills:** `.cursor/skills/<skill-name>/SKILL.md` — each folder contains at least `SKILL.md` (optional `scripts/`, `references/`, `assets/` only when needed).
+
+## Skill catalog
+
+| Skill folder | Use when |
+|--------------|----------|
+| `bootstrap-dependencies` | From-scratch install, Prisma init, env setup |
+| `prisma-database-workflow` | Migrate, seed, reset, Studio, `migrate deploy` |
+| `implement-authentication-flow` | Sessions, login, signup, logout pipeline |
+| `feature-vertical-slice` | New route/feature touching DB + actions + UI |
+| `add-feature-modal` | New modal under `Modals/` + triggers |
+| `extend-design-tokens` | Colors, fonts, `@theme`, body classes |
+| `local-dev-environment` | `.env`, `prisma generate`, dev server issues |
+| `production-deploy-checklist` | Production env + migrate deploy + build |
+| `quality-gate-local` | Run lint and build before commit/PR |
+
+## Quick map (task → rule / skill)
+
+| Task | Rule | Skill |
+|------|------|-------|
+| Overall architecture | `application-blueprint.mdc` | `feature-vertical-slice` |
+| npm / install policy | `setup/install-dependencies.mdc` | `bootstrap-dependencies` |
+| Folders & components layout | `frontend/directory-organization.mdc` | `feature-vertical-slice` |
+| Schema & seeds | `database/database-setup.mdc` | `prisma-database-workflow` |
+| Auth backend | `authentication/authentication-setup.mdc` | `implement-authentication-flow` |
+| `layout.tsx` | `frontend/layout-structure.mdc` | — |
+| `_actions` patterns | `frontend/server-action-structure-organization.mdc` | `feature-vertical-slice` |
+| Thin pages / sections | `frontend/page-component-structure.mdc` | `feature-vertical-slice` |
+| Global modals | `frontend/modal-setup-structure.mdc` | `add-feature-modal` |
+| globals.css / fonts | `frontend/css-setup-structure.mdc` | `extend-design-tokens` |
+| definitions / Zod | `frontend/type-and-domain-lib-organization.mdc` | — |
+| Local dev broken | — | `local-dev-environment` |
+| Pre-push quality | — | `quality-gate-local` |
+| Deploy | — | `production-deploy-checklist` |

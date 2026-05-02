@@ -6,8 +6,7 @@ alwaysApply: false
 
 # CSS Setup and Structure
 
-This rule describes **how global styling is set up**, how **fonts** connect to Tailwind, and how **components** should use Tailwind vs shared CSS. 
-<!-- It complements `.cursor/rules/css/css-organization.mdc` with concrete references to `src/app/globals.css`, `@/app/lib/fonts.ts`, `@/app/layout.tsx`, and `@/app/(classes)/_components/Course/**`. -->
+This rule describes **how global styling is set up**, how **fonts** connect to Tailwind, and how **components** should use Tailwind vs shared CSS. Step-by-step token and font changes: `.cursor/skills/extend-design-tokens/SKILL.md`. References include `src/app/globals.css`, `@/app/lib/fonts.ts`, `@/app/layout.tsx`, and `@/app/(classes)/_components/Course/**`.
 
 ## 1) Global setup (`src/app/globals.css`)
 

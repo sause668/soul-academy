@@ -6,6 +6,8 @@ alwaysApply: false
 
 # Modal Setup and Structure
 
+For **adding a new modal body and wiring triggers**, use `.cursor/skills/add-feature-modal/SKILL.md`.
+
 This App uses **one** global modal system: context and portal live in `@/app/(_home)/_context/Modal`, and domain UIs colocate modal bodies under a feature `Modals/` tree (see `@/app/(classes)/_components/Gradebook/**`).
 
 ## 1) Root setup (required once)
